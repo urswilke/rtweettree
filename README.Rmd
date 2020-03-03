@@ -32,7 +32,7 @@ The goal of threadnet is to scrape all the tweets in a twitter thread and visual
 This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
-library(threadnet)
+# library(threadnet)
 ## basic example code
 ```
 
