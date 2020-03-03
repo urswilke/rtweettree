@@ -18,5 +18,8 @@ Suggests:
 VignetteBuilder: knitr
 Imports: 
     rtweet,
-    magrittr
+    magrittr,
+    dplyr,
+    stringr,
+    purrr
 RoxygenNote: 6.1.1
