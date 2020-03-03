@@ -1,0 +1,46 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# threadnet
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of threadnet is to scrape all the tweets in a twitter thread and visualize them in a network graph.
+
+## Installation
+
+<!-- You can install the released version of threadnet from [CRAN](https://CRAN.R-project.org) with: -->
+
+<!-- ``` r -->
+<!-- install.packages("threadnet") -->
+<!-- ``` -->
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(threadnet)
+## basic example code
+```
+
+What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+
+```{r cars}
+summary(cars)
+```
+
+You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
+
