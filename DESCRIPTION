@@ -16,3 +16,7 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+Imports: 
+    rtweet,
+    magrittr
+RoxygenNote: 6.1.1
