@@ -92,7 +92,7 @@ add_thread_level <- function(df0, df1, n) {
 #' df_tls <- scrape_timelines(thread_ids)
 
 scrape_timelines <- function(thread_ids, save_res = TRUE) {
-  safe_tl <- purrr::possibly(rtweet::get_timelines, otherwise = NULL)
+  safe_tl <- purrr::possibly(rtweet::get_timelines, otherwise = tibble())
   l <- vector("list", length(thread_ids))
   for (i in 1:length(l)) {
     rl <- rtweet::rate_limit("get_timeline")
@@ -100,7 +100,7 @@ scrape_timelines <- function(thread_ids, save_res = TRUE) {
       print(paste0("Rate limit reached. Resuming at ", rl[["reset_at"]]))
       Sys.sleep(as.numeric(rl[["reset"]], "secs") + 1)
     }
-    l[[i]] <- safe_tl(ids[[i]], n = 3200, since_id = main_status_id)
+    l[[i]] <- safe_tl(thread_ids[[i]], n = 3200, since_id = main_status_id)
     print(paste0("Index: ", i,
                  "; Scraped ", nrow(l[[i]]),
                  " tweets. Remaining: ", rl[["remaining"]]))
