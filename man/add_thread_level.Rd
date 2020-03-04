@@ -2,14 +2,14 @@
 % Please edit documentation in R/scraping.R
 \name{add_thread_level}
 \alias{add_thread_level}
-\title{Title}
+\title{Scrape tweet and all tweets returned by rtweet::search_tweets}
 \usage{
 add_thread_level(df0, df1, n)
 }
 \arguments{
-\item{df0}{data frmae}
+\item{df0}{data frame}
 
-\item{df1}{data frmae}
+\item{df1}{data frame}
 
 \item{n}{maximum number of tweets to scrape}
 }
@@ -18,5 +18,5 @@ data frame like rtweet::search_tweets2, but laso all direct answers
   to the tweet (one level lower; if available).
 }
 \description{
-Title
+Scrape tweet and all tweets returned by rtweet::search_tweets
 }
