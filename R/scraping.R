@@ -92,31 +92,58 @@ add_thread_level <- function(df0, df1, n) {
 #' df_tls <- scrape_timelines(thread_ids)
 
 scrape_timelines <- function(thread_ids, save_res = TRUE) {
-  safe_tl <- purrr::possibly(rtweet::get_timelines, otherwise = NULL)
-
-  load_slowly <- function(thread_ids, index) {
-    print(paste0("wait at ", Sys.time(), "; index: ", index))
-    if (index != 1) {
-      Sys.sleep(15*60)
+  safe_tl <- possibly(rtweet::get_timelines, otherwise = NULL)
+  l <- vector("list", length(thread_ids))
+  for (i in 1:length(l)) {
+    rl <- rtweet::rate_limit("get_timeline")
+    if (rl[["remaining"]] <= 2) {
+      print(paste0("Rate limit reached. Resuming at ", rl[["reset_at"]]))
+      Sys.sleep(as.numeric(rl[["reset"]], "secs") + 1)
     }
-    df <- safe_tl(thread_ids,
-                  since_id = main_status_id,
-                  n = 3200)
-    print(df)
-    df
+    l[[i]] <- safe_tl(ids[[i]], n = 3200, since_id = main_status_id)
+    print(paste0("Index: ", i,
+                 "; Scraped ", nrow(l[[i]]),
+                 " tweets. Remaining: ", rl[["remaining"]]))
   }
-  spliced_list <- seq(0, length(thread_ids), 180) %>% purrr::map(~.x + 1:180)
-
-  l_tls <- spliced_list %>% purrr::map(~thread_ids[.x]) %>% purrr::imap(~load_slowly(.x, .y))
-
+  df_favs <- l %>% bind_rows()
   # if (save_res == TRUE) {
   #   save_name <- paste0(df_main_status$screen_name,
   #                       "_",
   #                       str_sub(df_main_status$text, end = 15),
-  #                       "_tls.rds")
-  #   saveRDS(l_tls, save_name)
+  #                       "_favs.rds")
+  #   saveRDS(df_favs, save_name)
   # }
-  l_tls %>% dplyr::bind_rows()
+  df_favs
+
+  # load_slowly <- function(thread_ids, index) {
+  #   rl <- rtweet::rate_limit("get_timeline")
+  #   if (rl[["remaining"]] <= 2) {
+  #     print(paste0("Rate limit reached. Resuming at ", rl[["reset_at"]]))
+  #     Sys.sleep(as.numeric(rl[["reset"]], "secs") + 1)
+  #   }
+  #
+  #   df <- safe_tl(thread_ids,
+  #                 since_id = main_status_id,
+  #                 n = 3200)
+  #   print(paste0("Index: ", index,
+  #                "Scraped ", nrow(df),
+  #                " tweets. Remaining: ", rl[["remaining"]]))
+  #
+  #   print(df)
+  #   df
+  # }
+  # spliced_list <- seq(0, length(thread_ids), 179) %>% map(~.x + 1:179)
+  #
+  # l_tls <- spliced_list %>% map(~thread_ids[.x] %>% na.omit(c(1,NA)) %>% as.character()) %>% imap(~load_slowly(.x, .y))
+  #
+  # # if (save_res == TRUE) {
+  # #   save_name <- paste0(df_main_status$screen_name,
+  # #                       "_",
+  # #                       str_sub(df_main_status$text, end = 15),
+  # #                       "_tls.rds")
+  # #   saveRDS(l_tls, save_name)
+  # # }
+  # l_tls %>% bind_rows()
 }
 
 

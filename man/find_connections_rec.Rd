@@ -4,7 +4,7 @@
 \alias{find_connections_rec}
 \title{Recursively return all \code{status_id}s of a tweet and its replies}
 \usage{
-find_connections_rec(df_thread, df_main_status)
+find_connections_rec(df_thread, df0 = df_main_status)
 }
 \arguments{
 \item{df_thread}{data frame returned by rtweet::search_tweets2(main_status_id)}
