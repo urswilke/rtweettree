@@ -7,7 +7,7 @@
 scrape_favs2(ids, save_res = TRUE)
 }
 \arguments{
-\item{ids}{Vector of all code{user_id}s}
+\item{ids}{Vector of all \code{user_id}s}
 
 \item{save_res}{logical if file should be saved}
 }

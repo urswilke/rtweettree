@@ -92,7 +92,7 @@ add_thread_level <- function(df0, df1, n) {
 #' df_tls <- scrape_timelines(thread_ids)
 
 scrape_timelines <- function(thread_ids, save_res = TRUE) {
-  safe_tl <- possibly(rtweet::get_timelines, otherwise = NULL)
+  safe_tl <- purrr::possibly(rtweet::get_timelines, otherwise = NULL)
   l <- vector("list", length(thread_ids))
   for (i in 1:length(l)) {
     rl <- rtweet::rate_limit("get_timeline")
@@ -105,7 +105,7 @@ scrape_timelines <- function(thread_ids, save_res = TRUE) {
                  "; Scraped ", nrow(l[[i]]),
                  " tweets. Remaining: ", rl[["remaining"]]))
   }
-  df_favs <- l %>% bind_rows()
+  df_favs <- l %>% dplyr::bind_rows()
   # if (save_res == TRUE) {
   #   save_name <- paste0(df_main_status$screen_name,
   #                       "_",
@@ -151,7 +151,7 @@ scrape_timelines <- function(thread_ids, save_res = TRUE) {
 #' Recursively return all \code{status_id}s of a tweet and its replies
 #'
 #' @param df_thread data frame returned by rtweet::search_tweets2(main_status_id)
-#' @param df_main_status data frame returned by rtweet::lookup_statuses(main_status_id)
+#' @param df0 data frame returned by rtweet::lookup_statuses(main_status_id)
 #'
 #' @return Edges data frame that can be plotted by tidygraph & ggraph
 #' @export
@@ -168,23 +168,23 @@ scrape_timelines <- function(thread_ids, save_res = TRUE) {
 #'                        dplyr::mutate(from = "root", type = "root")
 #' tweet_edges <-
 #' find_connections_rec(dplyr::bind_rows(df_thread, df_tls), df0)
-find_connections_rec <- function(df_thread, df0 = df_main_status) {
+find_connections_rec <- function(df_thread, df0 = rtweet::lookup_statuses(main_status_id)) {
   df_quote1 <-
     df_thread %>%
-    filter(quoted_status_id %in% df0$to) %>%
-    select(to = status_id, from = quoted_status_id, user_id) %>%
-    mutate(type = "quote")
+    dplyr::filter(quoted_status_id %in% df0$to) %>%
+    dplyr::select(to = status_id, from = quoted_status_id, user_id) %>%
+    dplyr::mutate(type = "quote")
   df_reply1 <-
     df_thread %>%
-    filter(reply_to_status_id %in% df0$to) %>%
-    select(to = status_id, from = reply_to_status_id, user_id) %>%
-    mutate(type = "reply")
+    dplyr::filter(reply_to_status_id %in% df0$to) %>%
+    dplyr::select(to = status_id, from = reply_to_status_id, user_id) %>%
+    dplyr::mutate(type = "reply")
   res <- list(df0, df_reply1, df_quote1) %>%
-    reduce(full_join) %>%
-    distinct()
+    purrr::reduce(dplyr::full_join) %>%
+    dplyr::distinct()
   if (nrow(res) == nrow(df0)) {
     return(res %>%
-             filter(from != "root"))
+             dplyr::filter(from != "root"))
   } else {
     find_connections_rec(df_thread, res)
   }
@@ -194,7 +194,7 @@ find_connections_rec <- function(df_thread, df0 = df_main_status) {
 
 #' Scrape all likes of all users occurring in a thread of a twitter status_id
 #'
-#' @param ids Vector of all code{user_id}s
+#' @param ids Vector of all \code{user_id}s
 #' @param save_res logical if file should be saved
 #'
 #' @return Dataframe of all timelines of all \code{thread_ids}
@@ -216,7 +216,7 @@ find_connections_rec <- function(df_thread, df0 = df_main_status) {
 #' df_favs <- scrape_favs2(ids)
 
 scrape_favs2 <- function(ids, save_res = TRUE) {
-  safe_fav <- possibly(rtweet::get_favorites, otherwise = tibble())
+  safe_fav <- purrr::possibly(rtweet::get_favorites, otherwise = tibble())
   l <- vector("list", length(ids))
   for (i in 1:length(l)) {
     rl <- rtweet::rate_limit("get_favorites")
@@ -229,7 +229,7 @@ scrape_favs2 <- function(ids, save_res = TRUE) {
                  "; Scraped ", nrow(l[[i]]),
                  " tweets. Remaining: ", rl[["remaining"]]))
   }
-  df_favs <- l %>% bind_rows()
+  df_favs <- l %>% dplyr::bind_rows()
   # if (save_res == TRUE) {
   #   save_name <- paste0(df_main_status$screen_name,
   #                       "_",

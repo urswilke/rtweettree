@@ -4,12 +4,13 @@
 \alias{find_connections_rec}
 \title{Recursively return all \code{status_id}s of a tweet and its replies}
 \usage{
-find_connections_rec(df_thread, df0 = df_main_status)
+find_connections_rec(df_thread,
+  df0 = rtweet::lookup_statuses(main_status_id))
 }
 \arguments{
 \item{df_thread}{data frame returned by rtweet::search_tweets2(main_status_id)}
 
-\item{df_main_status}{data frame returned by rtweet::lookup_statuses(main_status_id)}
+\item{df0}{data frame returned by rtweet::lookup_statuses(main_status_id)}
 }
 \value{
 Edges data frame that can be plotted by tidygraph & ggraph
