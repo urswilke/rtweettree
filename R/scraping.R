@@ -114,41 +114,41 @@ scrape_timelines <- function(thread_ids, save_res = TRUE) {
   # #   saveRDS(df_favs, save_name)
   # # }
   # df_favs
-  rl <- rtweet::rate_limit("get_timeline")
-  spliced_list <- list()
-  spliced_list[[1]] <-
-    1:(rl[["remaining"]] - 720 - 5)
+  rl <- rtweet::rate_limit()
+  if (rl[rl$query == "statuses/user_timeline",][["remaining"]] != 900 |
+      rl[rl$query == "favorites/list",][["remaining"]] != 75) {
+    Sys.sleep(as.numeric(rl[1,][["reset"]], "secs") + 1)
+  }
   spliced_list <-
-    append(spliced_list,
-    seq(max(spliced_list[[1]]),
-        length(thread_ids),
-        175) %>%
-      map(~.x + 1:175))
-  spliced_list <-
-    spliced_list %>%
+    seq(0, length(thread_ids), 175) %>%
+    map(~.x + 1:175) %>%
     map(~thread_ids[.x] %>%
           na.omit() %>%
           as.character())
-  if (rl[["remaining"]] <= 2) {
-    print(paste0("Rate limit reached. Resuming at ", rl[["reset_at"]]))
-    Sys.sleep(as.numeric(rl[["reset"]], "secs") + 1)
-  }
+  # if (rl[["remaining"]] <= 2) {
+  #   print(paste0("Rate limit reached. Resuming at ", rl[["reset_at"]]))
+  #   Sys.sleep(as.numeric(rl[["reset"]], "secs") + 1)
+  # }
 
   load_slowly <- function(thread_ids, index) {
 
     df <- safe_tl(thread_ids,
                   since_id = main_status_id,
                   n = 3200)
-    print(paste0("Index: ", index,
-                 "Scraped ", nrow(df),
-                 " tweets. Remaining: ", rl[["remaining"]]))
+    rl <- rtweet::rate_limit("get_timeline")
+    print(paste0("Downloaded bulk ", index,
+                 " of ", length(spliced_list),
+                 "; Scraped ", nrow(df),
+                 " tweets. Resuming at: ", rl[["reset_at"]]))
+    Sys.sleep(as.numeric(rl[["reset"]], "secs") + 1)
 
-    print(df)
+    # print(df)
     df
   }
-  spliced_list <- seq(0, length(thread_ids), 179) %>% map(~.x + 1:179)
 
-  l_tls <- spliced_list %>% map(~thread_ids[.x] %>% na.omit(c(1,NA)) %>% as.character()) %>% imap(~load_slowly(.x, .y))
+  l_tls <-
+    spliced_list %>%
+    imap(~load_slowly(.x, .y))
 
   # if (save_res == TRUE) {
   #   save_name <- paste0(df_main_status$screen_name,
