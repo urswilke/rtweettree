@@ -22,12 +22,12 @@ find_connections_rec <- function(df_thread, df0 = rtweet::lookup_statuses(main_s
   df_quote1 <-
     df_thread %>%
     dplyr::filter(quoted_status_id %in% df0$to) %>%
-    dplyr::select(to = status_id, from = quoted_status_id, user_id) %>%
+    dplyr::select(to = status_id, from = quoted_status_id, user_id, screen_name) %>%
     dplyr::mutate(type = "quote")
   df_reply1 <-
     df_thread %>%
     dplyr::filter(reply_to_status_id %in% df0$to) %>%
-    dplyr::select(to = status_id, from = reply_to_status_id, user_id) %>%
+    dplyr::select(to = status_id, from = reply_to_status_id, user_id, screen_name) %>%
     dplyr::mutate(type = "reply")
   res <- list(df0, df_reply1, df_quote1) %>%
     purrr::reduce(dplyr::full_join) %>%
