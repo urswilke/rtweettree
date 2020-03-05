@@ -93,57 +93,71 @@ add_thread_level <- function(df0, df1, n) {
 
 scrape_timelines <- function(thread_ids, save_res = TRUE) {
   safe_tl <- purrr::possibly(rtweet::get_timelines, otherwise = tibble())
-  l <- vector("list", length(thread_ids))
-  for (i in 1:length(l)) {
-    rl <- rtweet::rate_limit("get_timeline")
-    if (rl[["remaining"]] <= 2) {
-      print(paste0("Rate limit reached. Resuming at ", rl[["reset_at"]]))
-      Sys.sleep(as.numeric(rl[["reset"]], "secs") + 1)
-    }
-    l[[i]] <- safe_tl(thread_ids[[i]], n = 3200, since_id = main_status_id)
-    print(paste0("Index: ", i,
-                 "; Scraped ", nrow(l[[i]]),
-                 " tweets. Remaining: ", rl[["remaining"]]))
-  }
-  df_favs <- l %>% dplyr::bind_rows()
-  # if (save_res == TRUE) {
-  #   save_name <- paste0(df_main_status$screen_name,
-  #                       "_",
-  #                       str_sub(df_main_status$text, end = 15),
-  #                       "_favs.rds")
-  #   saveRDS(df_favs, save_name)
-  # }
-  df_favs
-
-  # load_slowly <- function(thread_ids, index) {
+  # l <- vector("list", length(thread_ids))
+  # for (i in 1:length(l)) {
   #   rl <- rtweet::rate_limit("get_timeline")
   #   if (rl[["remaining"]] <= 2) {
   #     print(paste0("Rate limit reached. Resuming at ", rl[["reset_at"]]))
   #     Sys.sleep(as.numeric(rl[["reset"]], "secs") + 1)
   #   }
-  #
-  #   df <- safe_tl(thread_ids,
-  #                 since_id = main_status_id,
-  #                 n = 3200)
-  #   print(paste0("Index: ", index,
-  #                "Scraped ", nrow(df),
+  #   l[[i]] <- safe_tl(thread_ids[[i]], n = 3200, since_id = main_status_id)
+  #   print(paste0("Index: ", i,
+  #                "; Scraped ", nrow(l[[i]]),
   #                " tweets. Remaining: ", rl[["remaining"]]))
-  #
-  #   print(df)
-  #   df
   # }
-  # spliced_list <- seq(0, length(thread_ids), 179) %>% map(~.x + 1:179)
-  #
-  # l_tls <- spliced_list %>% map(~thread_ids[.x] %>% na.omit(c(1,NA)) %>% as.character()) %>% imap(~load_slowly(.x, .y))
-  #
+  # df_favs <- l %>% dplyr::bind_rows()
   # # if (save_res == TRUE) {
   # #   save_name <- paste0(df_main_status$screen_name,
   # #                       "_",
   # #                       str_sub(df_main_status$text, end = 15),
-  # #                       "_tls.rds")
-  # #   saveRDS(l_tls, save_name)
+  # #                       "_favs.rds")
+  # #   saveRDS(df_favs, save_name)
   # # }
-  # l_tls %>% bind_rows()
+  # df_favs
+  rl <- rtweet::rate_limit("get_timeline")
+  spliced_list <- list()
+  spliced_list[[1]] <-
+    1:(rl[["remaining"]] - 720 - 5)
+  spliced_list <-
+    append(spliced_list,
+    seq(max(spliced_list[[1]]),
+        length(thread_ids),
+        175) %>%
+      map(~.x + 1:175))
+  spliced_list <-
+    spliced_list %>%
+    map(~thread_ids[.x] %>%
+          na.omit() %>%
+          as.character())
+  if (rl[["remaining"]] <= 2) {
+    print(paste0("Rate limit reached. Resuming at ", rl[["reset_at"]]))
+    Sys.sleep(as.numeric(rl[["reset"]], "secs") + 1)
+  }
+
+  load_slowly <- function(thread_ids, index) {
+
+    df <- safe_tl(thread_ids,
+                  since_id = main_status_id,
+                  n = 3200)
+    print(paste0("Index: ", index,
+                 "Scraped ", nrow(df),
+                 " tweets. Remaining: ", rl[["remaining"]]))
+
+    print(df)
+    df
+  }
+  spliced_list <- seq(0, length(thread_ids), 179) %>% map(~.x + 1:179)
+
+  l_tls <- spliced_list %>% map(~thread_ids[.x] %>% na.omit(c(1,NA)) %>% as.character()) %>% imap(~load_slowly(.x, .y))
+
+  # if (save_res == TRUE) {
+  #   save_name <- paste0(df_main_status$screen_name,
+  #                       "_",
+  #                       str_sub(df_main_status$text, end = 15),
+  #                       "_tls.rds")
+  #   saveRDS(l_tls, save_name)
+  # }
+  l_tls %>% bind_rows()
 }
 
 
