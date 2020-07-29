@@ -4,9 +4,12 @@
 \alias{search_thread}
 \title{Scrape thread}
 \usage{
-search_thread(main_status_id,
+search_thread(
+  main_status_id,
   df_main_status = rtweet::lookup_statuses(main_status_id),
-  save_res = TRUE, n = 1e+06)
+  save_res = TRUE,
+  n = 1e+06
+)
 }
 \arguments{
 \item{main_status_id}{string of twitter status_id}

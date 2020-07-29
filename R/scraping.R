@@ -202,7 +202,9 @@ scrape_favs2 <- function(ids, save_res = TRUE) {
                  "; Scraped ", nrow(l[[i]]),
                  " tweets. Remaining: ", rl[["remaining"]]))
   }
-  df_favs <- l %>% dplyr::bind_rows()
+  df_favs <-
+    l %>% purrr::compact() %>%
+    dplyr::bind_rows()
   # if (save_res == TRUE) {
   #   save_name <- paste0(df_main_status$screen_name,
   #                       "_",
