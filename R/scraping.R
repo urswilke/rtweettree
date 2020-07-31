@@ -24,7 +24,7 @@ search_tree <- function(main_status_id,
                                  tweet_text),
                            n = n,
                            retryonratelimit = TRUE) %>%
-    dplyr::distinct(status_id, .keep_all = TRUE)
+    dplyr::distinct(.data$status_id, .keep_all = TRUE)
   new_ids <-
     setdiff(df_search_tweet$status_id, df_main_status$status_id)
   df_replies <- rtweet::search_tweets2(new_ids,
@@ -49,22 +49,23 @@ search_tree <- function(main_status_id,
 #' @param df1 data frame
 #' @param n  maximum number of tweets to scrape
 #'
+#' @importFrom rlang .data
 #' @return data frame like rtweet::search_tweets2, but laso all direct answers
 #'   to the tweet (one level lower; if available).
 
 add_tree_level <- function(df0, df1, n) {
   new_ids <-
-    setdiff(df1$status_id, df0$status_id)
+    setdiff(df1[["status_id"]], df0[["status_id"]])
 
   df1 <- rtweet::search_tweets2(new_ids,
                                 n = n,
                                 retryonratelimit = T)
   res <-
     dplyr::bind_rows(df0, df1) %>%
-    dplyr::distinct(status_id, .keep_all = T)
+    dplyr::distinct(.data$status_id, .keep_all = T)
 
   if (length(new_ids) > 0) {
-    new_ids <- setdiff(df1$status_id, df0$status_id)
+    new_ids <- setdiff(df1[["status_id"]], df0[["status_id"]])
 
     add_tree_level(df1, res)
   } else {
@@ -80,6 +81,7 @@ add_tree_level <- function(df0, df1, n) {
 #'
 #' @param tree_ids \code{user_id}s of a tree scraped by \code{search_tree}
 #' @param save_res logical if file should be saved
+#' @param main_status_id status id of the root tweet
 #'
 #' @return Dataframe of all timelines of all \code{tree_ids}
 #' @export
@@ -89,10 +91,10 @@ add_tree_level <- function(df0, df1, n) {
 #' df_main_status <- rtweet::lookup_statuses(main_status_id)
 #' df_tree <- search_tree(main_status_id)
 #' tree_ids <- df_tree$user_id %>% unique()
-#' df_tls <- scrape_timelines(tree_ids)
+#' df_tls <- scrape_timelines(tree_ids, main_status_id)
 
-scrape_timelines <- function(tree_ids, save_res = TRUE) {
-  safe_tl <- purrr::possibly(rtweet::get_timelines, otherwise = tibble())
+scrape_timelines <- function(tree_ids, main_status_id, save_res = TRUE) {
+  safe_tl <- purrr::possibly(rtweet::get_timelines, otherwise = tibble::tibble())
   # l <- vector("list", length(tree_ids))
   # for (i in 1:length(l)) {
   #   rl <- rtweet::rate_limit("get_timeline")
@@ -121,8 +123,8 @@ scrape_timelines <- function(tree_ids, save_res = TRUE) {
   }
   spliced_list <-
     seq(0, length(tree_ids), 175) %>%
-    map(~.x + 1:175) %>%
-    map(~tree_ids[.x] %>%
+    purrr::map(~.x + 1:175) %>%
+    purrr::map(~tree_ids[.x] %>%
           na.omit() %>%
           as.character())
   # if (rl[["remaining"]] <= 2) {
@@ -148,7 +150,7 @@ scrape_timelines <- function(tree_ids, save_res = TRUE) {
 
   l_tls <-
     spliced_list %>%
-    imap(~load_slowly(.x, .y))
+    purrr::imap(~load_slowly(.x, .y))
 
   # if (save_res == TRUE) {
   #   save_name <- paste0(df_main_status$screen_name,
@@ -157,7 +159,7 @@ scrape_timelines <- function(tree_ids, save_res = TRUE) {
   #                       "_tls.rds")
   #   saveRDS(l_tls, save_name)
   # }
-  l_tls %>% bind_rows()
+  l_tls %>% dplyr::bind_rows()
 }
 
 
@@ -169,6 +171,7 @@ scrape_timelines <- function(tree_ids, save_res = TRUE) {
 #'
 #' @param ids Vector of all \code{user_id}s
 #' @param save_res logical if file should be saved
+#' @param main_status_id status id of the root tweet
 #'
 #' @return Dataframe of all timelines of all \code{tree_ids}
 #' @export
@@ -178,7 +181,7 @@ scrape_timelines <- function(tree_ids, save_res = TRUE) {
 #' df_main_status <- rtweet::lookup_statuses(main_status_id)
 #' df_tree <- search_tree(main_status_id)
 #' tree_ids <- df_tree$user_id %>% unique()
-#' df_tls <- scrape_timelines(tree_ids)
+#' df_tls <- scrape_timelines(tree_ids, main_status_id)
 #'df0 <- df_main_status %>%
 #'                        dplyr::filter(status_id == main_status_id) %>%
 #'                        dplyr::select(to = status_id, user_id) %>%
@@ -186,10 +189,10 @@ scrape_timelines <- function(tree_ids, save_res = TRUE) {
 #' tweet_edges <-
 #' find_connections_rec(dplyr::bind_rows(df_tree, df_tls), df0)
 #' ids <- tweet_edges$user_id %>% unique()
-#' df_favs <- scrape_favs2(ids)
+#' df_favs <- scrape_favs2(ids, main_status_id)
 
-scrape_favs2 <- function(ids, save_res = TRUE) {
-  safe_fav <- purrr::possibly(rtweet::get_favorites, otherwise = tibble())
+scrape_favs2 <- function(ids, main_status_id, save_res = TRUE) {
+  safe_fav <- purrr::possibly(rtweet::get_favorites, otherwise = tibble::tibble())
   l <- vector("list", length(ids))
   for (i in 1:length(l)) {
     rl <- rtweet::rate_limit("get_favorites")

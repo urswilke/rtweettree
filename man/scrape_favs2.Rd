@@ -4,10 +4,12 @@
 \alias{scrape_favs2}
 \title{Scrape all likes of all users occurring in a tree of a twitter status_id}
 \usage{
-scrape_favs2(ids, save_res = TRUE)
+scrape_favs2(ids, main_status_id, save_res = TRUE)
 }
 \arguments{
 \item{ids}{Vector of all \code{user_id}s}
+
+\item{main_status_id}{status id of the root tweet}
 
 \item{save_res}{logical if file should be saved}
 }
@@ -22,7 +24,7 @@ main_status_id <- "1234620900386975744"
 df_main_status <- rtweet::lookup_statuses(main_status_id)
 df_tree <- search_tree(main_status_id)
 tree_ids <- df_tree$user_id \%>\% unique()
-df_tls <- scrape_timelines(tree_ids)
+df_tls <- scrape_timelines(tree_ids, main_status_id)
 df0 <- df_main_status \%>\%
                        dplyr::filter(status_id == main_status_id) \%>\%
                        dplyr::select(to = status_id, user_id) \%>\%
@@ -30,5 +32,5 @@ df0 <- df_main_status \%>\%
 tweet_edges <-
 find_connections_rec(dplyr::bind_rows(df_tree, df_tls), df0)
 ids <- tweet_edges$user_id \%>\% unique()
-df_favs <- scrape_favs2(ids)
+df_favs <- scrape_favs2(ids, main_status_id)
 }

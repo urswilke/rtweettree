@@ -18,23 +18,23 @@
 #'                        dplyr::mutate(from = "root", type = "root")
 #' tweet_edges <-
 #' find_connections_rec(dplyr::bind_rows(df_tree, df_tls), df0)
-find_connections_rec <- function(df_tree, df0 = rtweet::lookup_statuses(main_status_id)) {
+find_connections_rec <- function(df_tree, df0) {
   df_quote1 <-
     df_tree %>%
-    dplyr::filter(quoted_status_id %in% df0$to) %>%
-    dplyr::select(to = status_id, from = quoted_status_id, user_id, screen_name) %>%
+    dplyr::filter(.data$quoted_status_id %in% df0$to) %>%
+    dplyr::select(to = .data$status_id, from = .data$quoted_status_id, .data$user_id, .data$screen_name) %>%
     dplyr::mutate(type = "quote")
   df_reply1 <-
     df_tree %>%
-    dplyr::filter(reply_to_status_id %in% df0$to) %>%
-    dplyr::select(to = status_id, from = reply_to_status_id, user_id, screen_name) %>%
+    dplyr::filter(.data$reply_to_status_id %in% df0$to) %>%
+    dplyr::select(to = .data$status_id, from = .data$reply_to_status_id, .data$user_id, .data$screen_name) %>%
     dplyr::mutate(type = "reply")
   res <- list(df0, df_reply1, df_quote1) %>%
     purrr::reduce(dplyr::full_join) %>%
     dplyr::distinct()
   if (nrow(res) == nrow(df0)) {
     return(res %>%
-             dplyr::filter(from != "root"))
+             dplyr::filter(.data$from != "root"))
   } else {
     find_connections_rec(df_tree, res)
   }

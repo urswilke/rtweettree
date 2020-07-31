@@ -4,10 +4,12 @@
 \alias{scrape_timelines}
 \title{Scrape the timelines of a tree scraped by \code{search_tree}}
 \usage{
-scrape_timelines(tree_ids, save_res = TRUE)
+scrape_timelines(tree_ids, main_status_id, save_res = TRUE)
 }
 \arguments{
 \item{tree_ids}{\code{user_id}s of a tree scraped by \code{search_tree}}
+
+\item{main_status_id}{status id of the root tweet}
 
 \item{save_res}{logical if file should be saved}
 }
@@ -22,5 +24,5 @@ main_status_id <- "1234620900386975744"
 df_main_status <- rtweet::lookup_statuses(main_status_id)
 df_tree <- search_tree(main_status_id)
 tree_ids <- df_tree$user_id \%>\% unique()
-df_tls <- scrape_timelines(tree_ids)
+df_tls <- scrape_timelines(tree_ids, main_status_id)
 }
