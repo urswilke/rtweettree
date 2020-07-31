@@ -1,4 +1,4 @@
 library(testthat)
-library(threadnet)
+library(rtweettree)
 
-test_check("threadnet")
+test_check("rtweettree")
