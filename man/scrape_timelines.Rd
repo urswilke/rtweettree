@@ -2,25 +2,25 @@
 % Please edit documentation in R/scraping.R
 \name{scrape_timelines}
 \alias{scrape_timelines}
-\title{Scrape the timelines of a thread scraped by \code{search_thread}}
+\title{Scrape the timelines of a tree scraped by \code{search_tree}}
 \usage{
-scrape_timelines(thread_ids, save_res = TRUE)
+scrape_timelines(tree_ids, save_res = TRUE)
 }
 \arguments{
-\item{thread_ids}{\code{user_id}s of a thread scraped by \code{search_thread}}
+\item{tree_ids}{\code{user_id}s of a tree scraped by \code{search_tree}}
 
 \item{save_res}{logical if file should be saved}
 }
 \value{
-Dataframe of all timelines of all \code{thread_ids}
+Dataframe of all timelines of all \code{tree_ids}
 }
 \description{
-Scrape the timelines of a thread scraped by \code{search_thread}
+Scrape the timelines of a tree scraped by \code{search_tree}
 }
 \examples{
 main_status_id <- "1234620900386975744"
 df_main_status <- rtweet::lookup_statuses(main_status_id)
-df_thread <- search_thread(main_status_id)
-thread_ids <- df_thread$user_id \%>\% unique()
-df_tls <- scrape_timelines(thread_ids)
+df_tree <- search_tree(main_status_id)
+tree_ids <- df_tree$user_id \%>\% unique()
+df_tls <- scrape_timelines(tree_ids)
 }

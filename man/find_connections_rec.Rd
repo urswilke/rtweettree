@@ -4,10 +4,10 @@
 \alias{find_connections_rec}
 \title{Recursively return all \code{status_id}s of a tweet and its replies}
 \usage{
-find_connections_rec(df_thread, df0 = rtweet::lookup_statuses(main_status_id))
+find_connections_rec(df_tree, df0 = rtweet::lookup_statuses(main_status_id))
 }
 \arguments{
-\item{df_thread}{data frame returned by rtweet::search_tweets2(main_status_id)}
+\item{df_tree}{data frame returned by rtweet::search_tweets2(main_status_id)}
 
 \item{df0}{data frame returned by rtweet::lookup_statuses(main_status_id)}
 }
@@ -20,13 +20,13 @@ Recursively return all \code{status_id}s of a tweet and its replies
 \examples{
 main_status_id <- "1234620900386975744"
 df_main_status <- rtweet::lookup_statuses(main_status_id)
-df_thread <- search_thread(main_status_id)
-thread_ids <- df_thread$user_id \%>\% unique()
-df_tls <- scrape_timelines(thread_ids)
+df_tree <- search_tree(main_status_id)
+tree_ids <- df_tree$user_id \%>\% unique()
+df_tls <- scrape_timelines(tree_ids)
 df0 <- df_main_status \%>\%
                        dplyr::filter(status_id == main_status_id) \%>\%
                        dplyr::select(to = status_id, user_id) \%>\%
                        dplyr::mutate(from = "root", type = "root")
 tweet_edges <-
-find_connections_rec(dplyr::bind_rows(df_thread, df_tls), df0)
+find_connections_rec(dplyr::bind_rows(df_tree, df_tls), df0)
 }

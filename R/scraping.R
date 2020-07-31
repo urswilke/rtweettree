@@ -1,4 +1,4 @@
-#' Scrape thread
+#' Scrape tree
 #'
 #' @param main_status_id string of twitter status_id
 #' @param save_res logical if file should be saved
@@ -6,14 +6,14 @@
 #' @param df_main_status data frame returned by rtweet::lookup_statuses(main_status_id)
 #'
 #' @return data frame like rtweet::search_tweets2, but all subtweets of the
-#'   thread added (if available)
+#'   tree added (if available)
 #' @export
 #'
 #' @examples
 #' main_status_id <- "1234620900386975744"
 #' df_main_status <- rtweet::lookup_statuses(main_status_id)
-#' df_thread <- search_thread(main_status_id)
-search_thread <- function(main_status_id,
+#' df_tree <- search_tree(main_status_id)
+search_tree <- function(main_status_id,
                           df_main_status = rtweet::lookup_statuses(main_status_id),
                           save_res = TRUE,
                           n = 1e6) {
@@ -30,12 +30,12 @@ search_thread <- function(main_status_id,
   df_replies <- rtweet::search_tweets2(new_ids,
                                        n = n,
                                        retryonratelimit = T)
-  result <- add_thread_level(df_search_tweet, df_replies, n)
+  result <- add_tree_level(df_search_tweet, df_replies, n)
   # if (save_res == TRUE) {
   #   save_name <- paste0(df_main_status$screen_name,
   #                       "_",
   #                       str_sub(df_main_status$text, end = 15),
-  #                       "_thread.rds")
+  #                       "_tree.rds")
   #   saveRDS(result, save_name)
   #
   # }
@@ -52,7 +52,7 @@ search_thread <- function(main_status_id,
 #' @return data frame like rtweet::search_tweets2, but laso all direct answers
 #'   to the tweet (one level lower; if available).
 
-add_thread_level <- function(df0, df1, n) {
+add_tree_level <- function(df0, df1, n) {
   new_ids <-
     setdiff(df1$status_id, df0$status_id)
 
@@ -66,7 +66,7 @@ add_thread_level <- function(df0, df1, n) {
   if (length(new_ids) > 0) {
     new_ids <- setdiff(df1$status_id, df0$status_id)
 
-    add_thread_level(df1, res)
+    add_tree_level(df1, res)
   } else {
     return(res)
   }
@@ -76,31 +76,31 @@ add_thread_level <- function(df0, df1, n) {
 
 
 
-#' Scrape the timelines of a thread scraped by \code{search_thread}
+#' Scrape the timelines of a tree scraped by \code{search_tree}
 #'
-#' @param thread_ids \code{user_id}s of a thread scraped by \code{search_thread}
+#' @param tree_ids \code{user_id}s of a tree scraped by \code{search_tree}
 #' @param save_res logical if file should be saved
 #'
-#' @return Dataframe of all timelines of all \code{thread_ids}
+#' @return Dataframe of all timelines of all \code{tree_ids}
 #' @export
 #'
 #' @examples
 #' main_status_id <- "1234620900386975744"
 #' df_main_status <- rtweet::lookup_statuses(main_status_id)
-#' df_thread <- search_thread(main_status_id)
-#' thread_ids <- df_thread$user_id %>% unique()
-#' df_tls <- scrape_timelines(thread_ids)
+#' df_tree <- search_tree(main_status_id)
+#' tree_ids <- df_tree$user_id %>% unique()
+#' df_tls <- scrape_timelines(tree_ids)
 
-scrape_timelines <- function(thread_ids, save_res = TRUE) {
+scrape_timelines <- function(tree_ids, save_res = TRUE) {
   safe_tl <- purrr::possibly(rtweet::get_timelines, otherwise = tibble())
-  # l <- vector("list", length(thread_ids))
+  # l <- vector("list", length(tree_ids))
   # for (i in 1:length(l)) {
   #   rl <- rtweet::rate_limit("get_timeline")
   #   if (rl[["remaining"]] <= 2) {
   #     print(paste0("Rate limit reached. Resuming at ", rl[["reset_at"]]))
   #     Sys.sleep(as.numeric(rl[["reset"]], "secs") + 1)
   #   }
-  #   l[[i]] <- safe_tl(thread_ids[[i]], n = 3200, since_id = main_status_id)
+  #   l[[i]] <- safe_tl(tree_ids[[i]], n = 3200, since_id = main_status_id)
   #   print(paste0("Index: ", i,
   #                "; Scraped ", nrow(l[[i]]),
   #                " tweets. Remaining: ", rl[["remaining"]]))
@@ -120,9 +120,9 @@ scrape_timelines <- function(thread_ids, save_res = TRUE) {
     Sys.sleep(as.numeric(rl[1,][["reset"]], "secs") + 1)
   }
   spliced_list <-
-    seq(0, length(thread_ids), 175) %>%
+    seq(0, length(tree_ids), 175) %>%
     map(~.x + 1:175) %>%
-    map(~thread_ids[.x] %>%
+    map(~tree_ids[.x] %>%
           na.omit() %>%
           as.character())
   # if (rl[["remaining"]] <= 2) {
@@ -130,9 +130,9 @@ scrape_timelines <- function(thread_ids, save_res = TRUE) {
   #   Sys.sleep(as.numeric(rl[["reset"]], "secs") + 1)
   # }
 
-  load_slowly <- function(thread_ids, index) {
+  load_slowly <- function(tree_ids, index) {
 
-    df <- safe_tl(thread_ids,
+    df <- safe_tl(tree_ids,
                   since_id = main_status_id,
                   n = 3200)
     rl <- rtweet::rate_limit("get_timeline")
@@ -165,26 +165,26 @@ scrape_timelines <- function(thread_ids, save_res = TRUE) {
 
 
 
-#' Scrape all likes of all users occurring in a thread of a twitter status_id
+#' Scrape all likes of all users occurring in a tree of a twitter status_id
 #'
 #' @param ids Vector of all \code{user_id}s
 #' @param save_res logical if file should be saved
 #'
-#' @return Dataframe of all timelines of all \code{thread_ids}
+#' @return Dataframe of all timelines of all \code{tree_ids}
 #' @export
 #'
 #' @examples
 #' main_status_id <- "1234620900386975744"
 #' df_main_status <- rtweet::lookup_statuses(main_status_id)
-#' df_thread <- search_thread(main_status_id)
-#' thread_ids <- df_thread$user_id %>% unique()
-#' df_tls <- scrape_timelines(thread_ids)
+#' df_tree <- search_tree(main_status_id)
+#' tree_ids <- df_tree$user_id %>% unique()
+#' df_tls <- scrape_timelines(tree_ids)
 #'df0 <- df_main_status %>%
 #'                        dplyr::filter(status_id == main_status_id) %>%
 #'                        dplyr::select(to = status_id, user_id) %>%
 #'                        dplyr::mutate(from = "root", type = "root")
 #' tweet_edges <-
-#' find_connections_rec(dplyr::bind_rows(df_thread, df_tls), df0)
+#' find_connections_rec(dplyr::bind_rows(df_tree, df_tls), df0)
 #' ids <- tweet_edges$user_id %>% unique()
 #' df_favs <- scrape_favs2(ids)
 
