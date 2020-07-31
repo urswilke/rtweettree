@@ -1,23 +1,23 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# threadnet
+# rtweettree
 
 <!-- badges: start -->
 
 <!-- badges: end -->
 
-The goal of threadnet is to scrape all the tweets in a twitter thread
-and visualize them in a network
+The goal of rtweettree is to scrape a twitter tweet and all replies,
+quotes and likes (recursively) and visualize them in a network
 graph.
 
 ## Installation
 
-<!-- You can install the released version of threadnet from [CRAN](https://CRAN.R-project.org) with: -->
+<!-- You can install the released version of rtweettree from [CRAN](https://CRAN.R-project.org) with: -->
 
 <!-- ``` r -->
 
-<!-- install.packages("threadnet") -->
+<!-- install.packages("rtweettree") -->
 
 <!-- ``` -->
 
@@ -26,7 +26,7 @@ graph.
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-library(threadnet)
+library(rtweettree)
 ## basic example code
 ```
 

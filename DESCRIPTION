@@ -1,5 +1,5 @@
-Package: threadnet
-Title: What the Package Does (One Line, Title Case)
+Package: rtweettree
+Title: Scrape and visualize a tweet and all available replies, quotes and likes via the rtweet package
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "First",
