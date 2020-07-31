@@ -19,6 +19,7 @@ Recursively return all \code{status_id}s of a tweet and its replies
 }
 \examples{
 main_status_id <- "1234620900386975744"
+\dontrun{
 df_main_status <- rtweet::lookup_statuses(main_status_id)
 df_tree <- search_tree(main_status_id)
 tree_ids <- df_tree$user_id \%>\% unique()
@@ -29,4 +30,5 @@ df0 <- df_main_status \%>\%
                        dplyr::mutate(from = "root", type = "root")
 tweet_edges <-
 find_connections_rec(dplyr::bind_rows(df_tree, df_tls), df0)
+}
 }

@@ -28,7 +28,9 @@ data frame like rtweet::search_tweets2, but all subtweets of the
 Scrape tree
 }
 \examples{
+\dontrun{
 main_status_id <- "1234620900386975744"
 df_main_status <- rtweet::lookup_statuses(main_status_id)
 df_tree <- search_tree(main_status_id)
+}
 }

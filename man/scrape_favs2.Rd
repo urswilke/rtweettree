@@ -20,6 +20,7 @@ Dataframe of all timelines of all \code{tree_ids}
 Scrape all likes of all users occurring in a tree of a twitter status_id
 }
 \examples{
+\dontrun{
 main_status_id <- "1234620900386975744"
 df_main_status <- rtweet::lookup_statuses(main_status_id)
 df_tree <- search_tree(main_status_id)
@@ -33,4 +34,5 @@ tweet_edges <-
 find_connections_rec(dplyr::bind_rows(df_tree, df_tls), df0)
 ids <- tweet_edges$user_id \%>\% unique()
 df_favs <- scrape_favs2(ids, main_status_id)
+}
 }

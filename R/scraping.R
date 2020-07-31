@@ -10,9 +10,11 @@
 #' @export
 #'
 #' @examples
+#'\dontrun{
 #' main_status_id <- "1234620900386975744"
 #' df_main_status <- rtweet::lookup_statuses(main_status_id)
 #' df_tree <- search_tree(main_status_id)
+#'}
 search_tree <- function(main_status_id,
                           df_main_status = rtweet::lookup_statuses(main_status_id),
                           save_res = TRUE,
@@ -87,11 +89,13 @@ add_tree_level <- function(df0, df1, n) {
 #' @export
 #'
 #' @examples
+#'\dontrun{
 #' main_status_id <- "1234620900386975744"
 #' df_main_status <- rtweet::lookup_statuses(main_status_id)
 #' df_tree <- search_tree(main_status_id)
 #' tree_ids <- df_tree$user_id %>% unique()
 #' df_tls <- scrape_timelines(tree_ids, main_status_id)
+#' }
 
 scrape_timelines <- function(tree_ids, main_status_id, save_res = TRUE) {
   safe_tl <- purrr::possibly(rtweet::get_timelines, otherwise = tibble::tibble())
@@ -177,6 +181,7 @@ scrape_timelines <- function(tree_ids, main_status_id, save_res = TRUE) {
 #' @export
 #'
 #' @examples
+#'\dontrun{
 #' main_status_id <- "1234620900386975744"
 #' df_main_status <- rtweet::lookup_statuses(main_status_id)
 #' df_tree <- search_tree(main_status_id)
@@ -190,6 +195,7 @@ scrape_timelines <- function(tree_ids, main_status_id, save_res = TRUE) {
 #' find_connections_rec(dplyr::bind_rows(df_tree, df_tls), df0)
 #' ids <- tweet_edges$user_id %>% unique()
 #' df_favs <- scrape_favs2(ids, main_status_id)
+#' }
 
 scrape_favs2 <- function(ids, main_status_id, save_res = TRUE) {
   safe_fav <- purrr::possibly(rtweet::get_favorites, otherwise = tibble::tibble())

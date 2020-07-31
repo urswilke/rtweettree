@@ -20,9 +20,11 @@ Dataframe of all timelines of all \code{tree_ids}
 Scrape the timelines of a tree scraped by \code{search_tree}
 }
 \examples{
+\dontrun{
 main_status_id <- "1234620900386975744"
 df_main_status <- rtweet::lookup_statuses(main_status_id)
 df_tree <- search_tree(main_status_id)
 tree_ids <- df_tree$user_id \%>\% unique()
 df_tls <- scrape_timelines(tree_ids, main_status_id)
+}
 }
