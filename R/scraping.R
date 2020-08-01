@@ -1,7 +1,6 @@
 #' Scrape tree
 #'
 #' @param main_status_id string of twitter status_id
-#' @param save_res logical if file should be saved
 #' @param n maximum number of tweets to scrape
 #' @param df_main_status data frame returned by rtweet::lookup_statuses(main_status_id)
 #'
@@ -17,7 +16,6 @@
 #'}
 search_tree <- function(main_status_id,
                           df_main_status = rtweet::lookup_statuses(main_status_id),
-                          save_res = TRUE,
                           n = 1e6) {
 
   # tweet_text <- paste0("\"", df_main_status$text, "\"")
@@ -33,14 +31,7 @@ search_tree <- function(main_status_id,
                                        n = n,
                                        retryonratelimit = T)
   result <- add_tree_level(df_search_tweet, df_replies, n)
-  # if (save_res == TRUE) {
-  #   save_name <- paste0(df_main_status$screen_name,
-  #                       "_",
-  #                       str_sub(df_main_status$text, end = 15),
-  #                       "_tree.rds")
-  #   saveRDS(result, save_name)
-  #
-  # }
+
   result
 }
 
@@ -86,7 +77,6 @@ add_tree_level <- function(df0, df1, n) {
 #' Scrape the timelines of a tree scraped by \code{search_tree}
 #'
 #' @param tree_ids \code{user_id}s of a tree scraped by \code{search_tree}
-#' @param save_res logical if file should be saved
 #' @param main_status_id status id of the root tweet
 #'
 #' @return Dataframe of all timelines of all \code{tree_ids}
@@ -101,7 +91,7 @@ add_tree_level <- function(df0, df1, n) {
 #' df_tls <- scrape_timelines(tree_ids, main_status_id)
 #' }
 
-scrape_timelines <- function(tree_ids, main_status_id, save_res = TRUE) {
+scrape_timelines <- function(tree_ids, main_status_id) {
   if (length(tree_ids) == 0) {
     return(create_empty_rtweet_tbl())
   }
@@ -167,13 +157,6 @@ scrape_timelines <- function(tree_ids, main_status_id, save_res = TRUE) {
     spliced_list %>%
     purrr::imap(~load_slowly(.x, .y))
 
-  # if (save_res == TRUE) {
-  #   save_name <- paste0(df_main_status$screen_name,
-  #                       "_",
-  #                       str_sub(df_main_status$text, end = 15),
-  #                       "_tls.rds")
-  #   saveRDS(l_tls, save_name)
-  # }
   l_tls %>% dplyr::bind_rows()
 }
 
@@ -185,7 +168,6 @@ scrape_timelines <- function(tree_ids, main_status_id, save_res = TRUE) {
 #' Scrape all likes of all users occurring in a tree of a twitter status_id
 #'
 #' @param ids Vector of all \code{user_id}s
-#' @param save_res logical if file should be saved
 #' @param main_status_id status id of the root tweet
 #'
 #' @return Dataframe of all timelines of all \code{tree_ids}
@@ -208,7 +190,7 @@ scrape_timelines <- function(tree_ids, main_status_id, save_res = TRUE) {
 #' df_favs <- scrape_favs2(ids, main_status_id)
 #' }
 
-scrape_favs2 <- function(ids, main_status_id, save_res = TRUE) {
+scrape_favs2 <- function(ids, main_status_id) {
   if (length(ids) == 0) {
     return(create_empty_rtweet_tbl() %>% dplyr::mutate(favorited_by = NA_character_))
   }
@@ -228,13 +210,6 @@ scrape_favs2 <- function(ids, main_status_id, save_res = TRUE) {
   df_favs <-
     l %>% purrr::compact() %>%
     dplyr::bind_rows()
-  # if (save_res == TRUE) {
-  #   save_name <- paste0(df_main_status$screen_name,
-  #                       "_",
-  #                       str_sub(df_main_status$text, end = 15),
-  #                       "_favs.rds")
-  #   saveRDS(df_favs, save_name)
-  # }
   df_favs
 }
 
