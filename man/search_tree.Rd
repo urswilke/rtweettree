@@ -7,7 +7,6 @@
 search_tree(
   main_status_id,
   df_main_status = rtweet::lookup_statuses(main_status_id),
-  save_res = TRUE,
   n = 1e+06
 )
 }
@@ -15,8 +14,6 @@ search_tree(
 \item{main_status_id}{string of twitter status_id}
 
 \item{df_main_status}{data frame returned by rtweet::lookup_statuses(main_status_id)}
-
-\item{save_res}{logical if file should be saved}
 
 \item{n}{maximum number of tweets to scrape}
 }

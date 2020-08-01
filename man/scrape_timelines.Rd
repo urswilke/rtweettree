@@ -4,14 +4,12 @@
 \alias{scrape_timelines}
 \title{Scrape the timelines of a tree scraped by \code{search_tree}}
 \usage{
-scrape_timelines(tree_ids, main_status_id, save_res = TRUE)
+scrape_timelines(tree_ids, main_status_id)
 }
 \arguments{
 \item{tree_ids}{\code{user_id}s of a tree scraped by \code{search_tree}}
 
 \item{main_status_id}{status id of the root tweet}
-
-\item{save_res}{logical if file should be saved}
 }
 \value{
 Dataframe of all timelines of all \code{tree_ids}

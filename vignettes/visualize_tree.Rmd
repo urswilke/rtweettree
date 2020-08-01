@@ -10,7 +10,7 @@ vignette: >
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  cache = TRUE,
+  # cache = TRUE,
   comment = "#>"
 )
 ```
@@ -34,7 +34,7 @@ On the other hand, for large amounts it can take a long time due to rate limits 
 
 ### Scrape tweets
 
-```{r scrape, cache=TRUE}
+```{r scrape}
 # Replace this number by any status_id (the last number in the twitter.com url of a tweet):
 main_status_id <- "1289565453707173889"
 df_main_status <- rtweet::lookup_statuses(main_status_id)
@@ -44,7 +44,7 @@ df_tree <- search_tree(main_status_id)
 
 ### Scrape timelines
 
-```{r scrape_timelines, cache=TRUE}
+```{r scrape_timelines}
 tree_ids <- df_tree$user_id %>% unique()
 # Scrape the timelines of the users scraped:
 df_tls <- scrape_timelines(tree_ids)
@@ -52,7 +52,7 @@ df_tls <- scrape_timelines(tree_ids)
 
 ### Scrape likes
 
-```{r scrape_favs, cache=TRUE}
+```{r scrape_favs}
 df0 <- df_main_status %>%
   dplyr::filter(status_id == main_status_id) %>%
   dplyr::select(to = status_id, user_id) %>%

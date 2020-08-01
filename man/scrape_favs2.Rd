@@ -4,14 +4,12 @@
 \alias{scrape_favs2}
 \title{Scrape all likes of all users occurring in a tree of a twitter status_id}
 \usage{
-scrape_favs2(ids, main_status_id, save_res = TRUE)
+scrape_favs2(ids, main_status_id)
 }
 \arguments{
 \item{ids}{Vector of all \code{user_id}s}
 
 \item{main_status_id}{status id of the root tweet}
-
-\item{save_res}{logical if file should be saved}
 }
 \value{
 Dataframe of all timelines of all \code{tree_ids}

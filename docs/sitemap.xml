@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://urswilke.github.io/rtweettree//index.html</loc>
+    <loc>https://urswilke.github.io/rtweettree/, https://rtweettree.github.io/urswilke/index.html</loc>
   </url>
   <url>
-    <loc>https://urswilke.github.io/rtweettree//reference/add_tree_level.html</loc>
+    <loc>https://urswilke.github.io/rtweettree/, https://rtweettree.github.io/urswilke/reference/add_tree_level.html</loc>
   </url>
   <url>
-    <loc>https://urswilke.github.io/rtweettree//reference/create_empty_rtweet_tbl.html</loc>
+    <loc>https://urswilke.github.io/rtweettree/, https://rtweettree.github.io/urswilke/reference/create_empty_rtweet_tbl.html</loc>
   </url>
   <url>
-    <loc>https://urswilke.github.io/rtweettree//reference/create_tweet_tbl_graph.html</loc>
+    <loc>https://urswilke.github.io/rtweettree/, https://rtweettree.github.io/urswilke/reference/create_tweet_tbl_graph.html</loc>
   </url>
   <url>
-    <loc>https://urswilke.github.io/rtweettree//reference/find_connections_rec.html</loc>
+    <loc>https://urswilke.github.io/rtweettree/, https://rtweettree.github.io/urswilke/reference/find_connections_rec.html</loc>
   </url>
   <url>
-    <loc>https://urswilke.github.io/rtweettree//reference/pipe.html</loc>
+    <loc>https://urswilke.github.io/rtweettree/, https://rtweettree.github.io/urswilke/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>https://urswilke.github.io/rtweettree//reference/scrape_favs2.html</loc>
+    <loc>https://urswilke.github.io/rtweettree/, https://rtweettree.github.io/urswilke/reference/scrape_favs2.html</loc>
   </url>
   <url>
-    <loc>https://urswilke.github.io/rtweettree//reference/scrape_timelines.html</loc>
+    <loc>https://urswilke.github.io/rtweettree/, https://rtweettree.github.io/urswilke/reference/scrape_timelines.html</loc>
   </url>
   <url>
-    <loc>https://urswilke.github.io/rtweettree//reference/search_tree.html</loc>
+    <loc>https://urswilke.github.io/rtweettree/, https://rtweettree.github.io/urswilke/reference/search_tree.html</loc>
   </url>
   <url>
-    <loc>https://urswilke.github.io/rtweettree//articles/visualize_tree.html</loc>
+    <loc>https://urswilke.github.io/rtweettree/, https://rtweettree.github.io/urswilke/articles/visualize_tree.html</loc>
   </url>
 </urlset>

@@ -32,4 +32,5 @@ Imports:
     glue,
     tidyr
 RoxygenNote: 7.1.0
+BugReports: https://github.com/urswilke/rtweettree/issues
 URL: https://github.com/urswilke/rtweettree
