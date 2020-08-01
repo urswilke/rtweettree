@@ -22,8 +22,7 @@ search_tree <- function(main_status_id,
 
   tweet_text <- paste0("\"", df_main_status$text, "\"")
   df_search_tweet <-
-    rtweet::search_tweets2(q = c(main_status_id,
-                                 tweet_text),
+    rtweet::search_tweets2(q = main_status_id,
                            n = n,
                            retryonratelimit = TRUE) %>%
     dplyr::distinct(.data$status_id, .keep_all = TRUE)
