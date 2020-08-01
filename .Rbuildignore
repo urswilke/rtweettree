@@ -5,3 +5,6 @@
 ^usethis_etc\.R$
 ^doc$
 ^Meta$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
