@@ -8,41 +8,44 @@
 <!-- badges: end -->
 
 The goal of rtweettree is to scrape a twitter tweet and all replies,
-quotes and likes (recursively) and visualize them in a network
-graph.
+quotes and likes (recursively) and visualize them in a network graph.
+
+## Responsible use
+
+**{{rtweettree}}** should be used in strict accordance with Twitter’s
+[developer
+terms](https://developer.twitter.com/en/developer-terms/more-on-restricted-use-cases).
 
 ## Installation
 
-<!-- You can install the released version of rtweettree from [CRAN](https://CRAN.R-project.org) with: -->
+To get the current development version from Github:
 
-<!-- ``` r -->
+``` r
+## install remotes package if it's not already
+if (!requireNamespace("remotes", quietly = TRUE)) {
+  install.packages("remotes")
+}
 
-<!-- install.packages("rtweettree") -->
+## install dev version of rtweettree from github
+# remotes::install_github("UrsWilke/rtweettree")
+```
 
-<!-- ``` -->
-
-## Example
-
-This is a basic example which shows you how to solve a common problem:
+## load rtweettree package
 
 ``` r
 library(rtweettree)
-## basic example code
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+## Usage
+
+In order to use **{{rtweettree}}** please refer to [the according
+section of **{{rtweet}}**](https://github.com/ropensci/rtweet#usage).
+
+An example how to create a subtweet network graph is shown in the
+[vignette for tree
+visualization](https://github.com/UrsWilke/tree/master/vignettes/visualize_tree.Rmd)
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+vignette("visualize_tree", package = "rtweettree")
+#> Warning: vignette 'visualize_tree' not found
 ```
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date.
