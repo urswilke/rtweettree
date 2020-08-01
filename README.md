@@ -43,7 +43,7 @@ section of **{{rtweet}}**](https://github.com/ropensci/rtweet#usage).
 
 An example how to create a subtweet network graph is shown in the
 [vignette for tree
-visualization](https://github.com/UrsWilke/tree/master/vignettes/visualize_tree.Rmd)
+visualization](https://github.com/urswilke/rtweettree/blob/master/vignettes/visualize_tree.Rmd)
 
 ``` r
 vignette("visualize_tree", package = "rtweettree")

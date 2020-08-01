@@ -46,7 +46,7 @@ library(rtweettree)
 
 In order to use **{{rtweettree}}** please refer to [the according section of **{{rtweet}}**](https://github.com/ropensci/rtweet#usage).
 
-An example how to create a subtweet network graph is shown in the [vignette for tree visualization](https://github.com/UrsWilke/tree/master/vignettes/visualize_tree.Rmd)
+An example how to create a subtweet network graph is shown in the [vignette for tree visualization](https://github.com/urswilke/rtweettree/blob/master/vignettes/visualize_tree.Rmd)
 
 ```{r tree_viz}
 vignette("visualize_tree", package = "rtweettree")
