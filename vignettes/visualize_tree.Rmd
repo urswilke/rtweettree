@@ -35,7 +35,7 @@ On the other hand, for large amounts it can take a long time due to rate limits 
 ### Scrape tweets
 
 ```{r scrape, cache=TRUE}
-# This number can be replaced by any status_id (the last number in the twitter.com url of a tweet)
+# Replace this number by any status_id (the last number in the twitter.com url of a tweet):
 main_status_id <- "1289565453707173889"
 df_main_status <- rtweet::lookup_statuses(main_status_id)
 # Scrape available subtweets:
