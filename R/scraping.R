@@ -20,12 +20,13 @@ search_tree <- function(main_status_id,
                           save_res = TRUE,
                           n = 1e6) {
 
-  tweet_text <- paste0("\"", df_main_status$text, "\"")
+  # tweet_text <- paste0("\"", df_main_status$text, "\"")
   df_search_tweet <-
     rtweet::search_tweets2(q = main_status_id,
                            n = n,
-                           retryonratelimit = TRUE) %>%
-    dplyr::distinct(.data$status_id, .keep_all = TRUE)
+                           retryonratelimit = TRUE)
+  # %>%
+  #   dplyr::distinct(.data$status_id, .keep_all = TRUE)
   new_ids <-
     setdiff(df_search_tweet$status_id, df_main_status$status_id)
   df_replies <- rtweet::search_tweets2(new_ids,
@@ -61,6 +62,10 @@ add_tree_level <- function(df0, df1, n) {
   df1 <- rtweet::search_tweets2(new_ids,
                                 n = n,
                                 retryonratelimit = T)
+  # print(df1)
+  if (nrow(df1) == 0) {
+    df1 <- create_empty_rtweet_tbl()
+  }
   res <-
     dplyr::bind_rows(df0, df1) %>%
     dplyr::distinct(.data$status_id, .keep_all = T)
@@ -97,7 +102,11 @@ add_tree_level <- function(df0, df1, n) {
 #' }
 
 scrape_timelines <- function(tree_ids, main_status_id, save_res = TRUE) {
-  safe_tl <- purrr::possibly(rtweet::get_timelines, otherwise = tibble::tibble())
+  if (length(tree_ids) == 0) {
+    return(create_empty_rtweet_tbl())
+  }
+
+  safe_tl <- purrr::possibly(rtweet::get_timelines, otherwise = create_empty_rtweet_tbl())
   # l <- vector("list", length(tree_ids))
   # for (i in 1:length(l)) {
   #   rl <- rtweet::rate_limit("get_timeline")
@@ -145,7 +154,10 @@ scrape_timelines <- function(tree_ids, main_status_id, save_res = TRUE) {
                  " of ", length(spliced_list),
                  "; Scraped ", nrow(df),
                  " tweets. Resuming at: ", rl[["reset_at"]]))
-    Sys.sleep(as.numeric(rl[["reset"]], "secs") + 1)
+    if (length(spliced_list) > 1) {
+      Sys.sleep(as.numeric(rl[["reset"]], "secs") + 1)
+    }
+
 
     # print(df)
     df
@@ -197,7 +209,10 @@ scrape_timelines <- function(tree_ids, main_status_id, save_res = TRUE) {
 #' }
 
 scrape_favs2 <- function(ids, main_status_id, save_res = TRUE) {
-  safe_fav <- purrr::possibly(rtweet::get_favorites, otherwise = tibble::tibble())
+  if (length(ids) == 0) {
+    return(create_empty_rtweet_tbl() %>% dplyr::mutate(favorited_by = NA_character_))
+  }
+  safe_fav <- purrr::possibly(rtweet::get_favorites, otherwise = create_empty_rtweet_tbl())
   l <- vector("list", length(ids))
   for (i in 1:length(l)) {
     rl <- rtweet::rate_limit("get_favorites")
