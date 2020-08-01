@@ -2,19 +2,23 @@ Package: rtweettree
 Title: Scrape and visualize a tweet and all available replies, quotes and likes via the rtweet package
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Urs",
+           family = "Wilke",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           # comment = c(ORCID = "YOUR-ORCID-ID"),
+           email = "urs.wilke@gmail.com"
+           )
+Description: Recursively scrape and visualize a tweet and all available replies, quotes and likes  via the rtweet package.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests: 
     testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    ggforce,
+    ggiraph,
+    ggraph
 VignetteBuilder: knitr
 Imports: 
     rtweet,
@@ -23,5 +27,8 @@ Imports:
     stringr,
     purrr,
     rlang,
-    tibble
+    tibble,
+    tidygraph,
+    glue,
+    tidyr
 RoxygenNote: 7.1.0
