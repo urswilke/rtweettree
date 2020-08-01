@@ -1,0 +1,142 @@
+---
+title: "Visualize tweet tree"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{scrape_tree}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  cache = TRUE,
+  comment = "#>"
+)
+```
+
+## Load packages
+
+```{r libs}
+# library(tidyr)
+library(dplyr)
+# library(purrr)
+library(rtweettree)
+library(ggraph)
+library(tidygraph)
+```
+
+## Scraping 
+
+Unfortunately, the twitter API (rtweet is based on) doesn't allow to scrape all sub tweets. 
+For small amounts of replies/quotes/likes this often results in no subtweets at all.
+On the other hand, for large amounts it can take a long time due to rate limits (please refer to [the twitter developer website on rate limits](https://developer.twitter.com/en/docs/basics/rate-limiting), or the [documentation of the rtweet functions](https://docs.ropensci.org/rtweet/reference/index.html)).
+
+### Scrape tweets
+
+```{r scrape, cache=TRUE}
+# This number can be replaced by any status_id (the last number in the twitter.com url of a tweet)
+main_status_id <- "1289565453707173889"
+df_main_status <- rtweet::lookup_statuses(main_status_id)
+# Scrape available subtweets:
+df_tree <- search_tree(main_status_id)
+```
+
+### Scrape timelines
+
+```{r scrape_timelines, cache=TRUE}
+tree_ids <- df_tree$user_id %>% unique()
+# Scrape the timelines of the users scraped:
+df_tls <- scrape_timelines(tree_ids)
+```
+
+### Scrape likes
+
+```{r scrape_favs, cache=TRUE}
+df0 <- df_main_status %>%
+  dplyr::filter(status_id == main_status_id) %>%
+  dplyr::select(to = status_id, user_id) %>%
+  dplyr::mutate(from = "root", type = "root")
+tweet_edges <-
+  find_connections_rec(dplyr::bind_rows(df_tree, df_tls), df0)
+ids <- tweet_edges$user_id %>% unique()
+# Scrape the likes of the users scraped:
+df_favs <- scrape_favs2(ids, main_status_id)
+```
+
+## Create tbl_graph object
+
+```{r tbl_graph}
+g <- create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs)
+```
+
+
+## Visualize graphs
+
+### Using ggraph
+
+Circlepack plot:
+
+```{r ggraph_circlepack}
+g %>%
+  ggraph('circlepack', circular = T) +
+  geom_node_circle(aes(fill = dist_to_center), n = 50) +
+  scale_fill_viridis_c(direction = -1) +
+  coord_fixed()
+```
+
+Hierarchical tree plot:
+
+```{r ggraph}
+# g1 <- g %>% ggraph("dendrogram")
+
+g1 <- g %>% ggraph()
+
+# Hack to put all user nodes on the bottom line of the graph:
+g1$data$y[g1$data$type == "user"] <- min(g1$data$y)
+g1 +
+  geom_edge_diagonal(aes(color= type)) +
+  geom_node_point(aes(color = dist_to_center,
+                      shape = type))
+# +
+#   ggforce::geom_mark_hull(aes(x = g1$data$x,
+#                               y = g1$data$y,
+#                               filter = type == 'user',
+#                               label = "user")
+#   )
+```
+
+### Using ggiraph (for interactivity)
+
+* Hover over the nodes to see the tweets/users. 
+* Click on the nodes to open the tweets/users on twitter.com
+
+```{r ggiraph}
+# Add on click information to the graph nodes:
+g1$data$onclick  <- glue::glue('window.open("{g1$data$url}")')
+
+# Reproduce the above ggraph using the according ggiraph components:
+g2 <- g1 +
+  geom_edge_diagonal(aes(color= type)) +
+  ggforce::geom_mark_rect(aes(x = g1$data$x,
+                              y = g1$data$y,
+                              # filter = type == 'user',
+                              color = g1$data$type)
+  ) +
+  ggiraph::geom_point_interactive(aes(x=g1$data$x,
+                                      y = g1$data$y,
+                                      color = type,
+                                      data_id = g1$data$screen_name,
+                                      tooltip = g1$data$label,
+                                      onclick = g1$data$onclick),
+                                  size = 3)
+ggiraph::girafe(ggobj = g2,
+                options = list(
+                  ggiraph::opts_zoom(min = 0.3, max = 5),
+                  ggiraph::opts_hover(ggiraph::girafe_css(css = "stroke:yellow;",
+                                                          point = "stroke-width:6px"))
+                )
+)
+```
+
+
