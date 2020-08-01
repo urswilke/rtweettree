@@ -126,7 +126,11 @@ create_tweet_tbl_graph <- function(df_main_status, df_tree, df_tls, df_favs) {
              unique(),
            type = "tweet") %>%
     dplyr::left_join(df %>% dplyr::select(name = .data$status_id, .data$screen_name, .data$text) %>% dplyr::distinct()) %>%
-    dplyr::mutate(url = glue::glue("https://twitter.com/{screen_name}/status/{name}"))
+    dplyr::mutate(url = glue::glue("https://twitter.com/fake_screen_name/status/{name}"))
+    # the correct url would be:
+    # dplyr::mutate(url = glue::glue("https://twitter.com/{screen_name}/status/{name}"))
+    # however, this probably wouldn't be completely inline with the twitter terms of use...
+    # (twitter will correct for the correct screen_name if the tweet is still available)
   nodes <-
     dplyr::full_join(user_nodes,
               tweet_nodes) %>%

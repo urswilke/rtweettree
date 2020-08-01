@@ -108,12 +108,15 @@ g1 +
 
 ### Using ggiraph (for interactivity)
 
-* Hover over the nodes to see the tweets/users. 
+* Hover over the nodes to see the tweets/users. (in order to comply to the twitter terms of use this information will be anonymized for this public vignette; see below)
 * Click on the nodes to open the tweets/users on twitter.com
 
 ```{r ggiraph}
 # Add on click information to the graph nodes:
 g1$data$onclick  <- glue::glue('window.open("{g1$data$url}")')
+
+# anonymize hover information, as it is not allowed to publish this:
+g1$data$label <- sample(LETTERS, length(g1$data$label))
 
 # Reproduce the above ggraph using the according ggiraph components:
 g2 <- g1 +
