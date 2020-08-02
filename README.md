@@ -46,6 +46,5 @@ An example how to create a subtweet network graph is shown in the
 visualization](https://github.com/urswilke/rtweettree/blob/master/vignettes/visualize_tree.Rmd)
 
 ``` r
-vignette("visualize_tree", package = "rtweettree")
-#> Warning: vignette 'visualize_tree' not found
+# vignette("visualize_tree", package = "rtweettree")
 ```
