@@ -1,6 +1,7 @@
 ---
 title: "Visualize tweet tree"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{scrape_tree}
   %\VignetteEngine{knitr::rmarkdown}
