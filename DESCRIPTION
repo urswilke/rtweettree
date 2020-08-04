@@ -33,4 +33,4 @@ Imports:
     tidyr
 RoxygenNote: 7.1.0
 BugReports: https://github.com/urswilke/rtweettree/issues
-URL: https://github.com/urswilke/rtweettree
+URL: https://github.com/urswilke/rtweettree, https://urswilke.github.io/rtweettree/
