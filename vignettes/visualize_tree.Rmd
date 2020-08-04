@@ -202,7 +202,7 @@ withr::with_dir(pic_path, htmlwidgets::saveWidget(p, file = fig_name))
 ```{r ggiraph_pic, echo=FALSE, eval = TRUE}
 # withr::with_dir(pic_path, htmlwidgets::saveWidget(p, file = fig_name)) 
 # htmltools::tags$iframe(title = "My embedded document", src = fig_name)
-htmltools::includeHTML(fig_path_name)
+# htmltools::includeHTML(fig_path_name)
 # knitr::include_graphics(fig_path_name)
 ```
 
