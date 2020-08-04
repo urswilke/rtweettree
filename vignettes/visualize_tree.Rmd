@@ -7,17 +7,22 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include = FALSE}
+```{r setup, include = FALSE, eval=TRUE}
 knitr::opts_chunk$set(
+  # eval=TRUE,
+  eval=FALSE,
+  # echo=TRUE,
   collapse = TRUE,
   # cache = TRUE,
   comment = "#>"
 )
+
+pic_path <- "visualize_tree_pics"
 ```
 
 ## Load packages
 
-```{r libs}
+```{r libs, eval = TRUE}
 # library(tidyr)
 library(dplyr)
 # library(purrr)
@@ -34,9 +39,13 @@ On the other hand, for large amounts it can take a long time due to rate limits 
 
 ### Scrape tweets
 
-```{r scrape}
+```{r status_id, cache=TRUE}
 # Replace this number by any status_id (the last number in the twitter.com url of a tweet):
 main_status_id <- "1289565453707173889"
+```
+
+
+```{r scrape, cache=TRUE}
 df_main_status <- rtweet::lookup_statuses(main_status_id)
 # Scrape available subtweets:
 df_tree <- search_tree(main_status_id)
@@ -44,7 +53,7 @@ df_tree <- search_tree(main_status_id)
 
 ### Scrape timelines
 
-```{r scrape_timelines}
+```{r scrape_timelines, cache=TRUE}
 tree_ids <- df_tree$user_id %>% unique()
 # Scrape the timelines of the users scraped:
 df_tls <- scrape_timelines(tree_ids)
@@ -52,7 +61,7 @@ df_tls <- scrape_timelines(tree_ids)
 
 ### Scrape likes
 
-```{r scrape_favs}
+```{r scrape_favs, cache=TRUE}
 df0 <- df_main_status %>%
   dplyr::filter(status_id == main_status_id) %>%
   dplyr::select(to = status_id, user_id) %>%
@@ -66,7 +75,7 @@ df_favs <- scrape_favs2(ids, main_status_id)
 
 ## Create tbl_graph object
 
-```{r tbl_graph}
+```{r tbl_graph, cache=TRUE}
 g <- create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs)
 ```
 
@@ -78,12 +87,30 @@ g <- create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs)
 Circlepack plot:
 
 ```{r ggraph_circlepack}
-g %>%
+p <- g %>%
   ggraph('circlepack', circular = T) +
   geom_node_circle(aes(fill = dist_to_center), n = 50) +
   scale_fill_viridis_c(direction = -1) +
   coord_fixed()
+p
 ```
+
+
+```{r ggraph_circlepack_str, eval=TRUE, include=FALSE}
+fig_name <- "ggraph_circlepack.png"
+fig_path_name <- paste0(pic_path, "/", fig_name)
+```
+
+
+```{r ggraph_circlepack_save, include=FALSE}
+ggsave(fig_name, p, path = pic_path)
+```
+
+
+```{r ggraph_circlepack_pic, include=FALSE, eval = TRUE}
+knitr::include_graphics(fig_path_name)
+```
+
 
 Hierarchical tree plot:
 
@@ -104,6 +131,21 @@ g1 +
 #                               filter = type == 'user',
 #                               label = "user")
 #   )
+```
+
+```{r gghier_str, eval=TRUE, include=FALSE}
+fig_name <- "gghier.png"
+fig_path_name <- paste0(pic_path, "/", fig_name)
+```
+
+
+```{r gghier_save, include=FALSE}
+ggsave(fig_name, p, path = pic_path)
+```
+
+
+```{r gghier_pic, include=FALSE, eval = TRUE}
+knitr::include_graphics(fig_path_name)
 ```
 
 ### Using ggiraph (for interactivity)
@@ -133,13 +175,35 @@ g2 <- g1 +
                                       tooltip = g1$data$label,
                                       onclick = g1$data$onclick),
                                   size = 3)
-ggiraph::girafe(ggobj = g2,
+p <- ggiraph::girafe(ggobj = g2,
                 options = list(
                   ggiraph::opts_zoom(min = 0.3, max = 5),
                   ggiraph::opts_hover(ggiraph::girafe_css(css = "stroke:yellow;",
                                                           point = "stroke-width:6px"))
                 )
 )
+
+p
+```
+
+```{r ggiraph_str, eval=TRUE, include=FALSE}
+fig_name <- "ggiraph.html"
+fig_path_name <- paste0(pic_path, "/", fig_name)
+```
+
+
+```{r ggiraph_save, include=FALSE}
+
+withr::with_dir(pic_path, htmlwidgets::saveWidget(p, file = fig_name)) 
+# htmlwidgets::saveWidget(p, file = fig_name)
+```
+
+
+```{r ggiraph_pic, echo=FALSE, eval = TRUE}
+# withr::with_dir(pic_path, htmlwidgets::saveWidget(p, file = fig_name)) 
+# htmltools::tags$iframe(title = "My embedded document", src = fig_name)
+htmltools::includeHTML(fig_path_name)
+# knitr::include_graphics(fig_path_name)
 ```
 
 
