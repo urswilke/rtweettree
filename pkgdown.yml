@@ -3,5 +3,8 @@ pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
   visualize_tree: visualize_tree.html
-last_built: 2020-08-04T16:38Z
+last_built: 2020-08-04T16:54Z
+urls:
+  reference: https://urswilke.github.io/rtweettree//reference
+  article: https://urswilke.github.io/rtweettree//articles
 
