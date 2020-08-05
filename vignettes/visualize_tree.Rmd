@@ -23,10 +23,8 @@ pic_path <- "visualize_tree_pics"
 
 ## Load packages
 
-```{r libs, eval = TRUE}
-# library(tidyr)
+```{r libs, eval = TRUE, message=FALSE}
 library(dplyr)
-# library(purrr)
 library(rtweettree)
 library(ggraph)
 library(tidygraph)
@@ -116,8 +114,6 @@ knitr::include_graphics(fig_path_name)
 Hierarchical tree plot:
 
 ```{r ggraph}
-# g1 <- g %>% ggraph("dendrogram")
-
 g1 <- g %>% ggraph()
 
 # Hack to put all user nodes on the bottom line of the graph:
@@ -126,12 +122,6 @@ g1 +
   geom_edge_diagonal(aes(color= type)) +
   geom_node_point(aes(color = dist_to_center,
                       shape = type))
-# +
-#   ggforce::geom_mark_hull(aes(x = g1$data$x,
-#                               y = g1$data$y,
-#                               filter = type == 'user',
-#                               label = "user")
-#   )
 ```
 
 ```{r gghier_str, eval=TRUE, include=FALSE}
