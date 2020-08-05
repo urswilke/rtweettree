@@ -92,26 +92,10 @@
 <div id="load-packages" class="section level2">
 <h2 class="hasAnchor">
 <a href="#load-packages" class="anchor"></a>Load packages</h2>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="co"># library(tidyr)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'dplyr'</span>
-<span class="co">#&gt; The following objects are masked from 'package:stats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     filter, lag</span>
-<span class="co">#&gt; The following objects are masked from 'package:base':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     intersect, setdiff, setequal, union</span>
-<span class="co"># library(purrr)</span>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rtweettree</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggraph</span>)
-<span class="co">#&gt; Loading required package: ggplot2</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidygraph</span>)
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'tidygraph'</span>
-<span class="co">#&gt; The following object is masked from 'package:stats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     filter</span></pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidygraph</span>)</pre></body></html></div>
 </div>
 <div id="scraping" class="section level2">
 <h2 class="hasAnchor">
@@ -166,22 +150,14 @@
   <span class="fu">coord_fixed</span>()
 <span class="no">p</span></pre></body></html></div>
 <p>Hierarchical tree plot:</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="co"># g1 &lt;- g %&gt;% ggraph("dendrogram")</span>
-
-<span class="no">g1</span> <span class="kw">&lt;-</span> <span class="no">g</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span>()
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">g1</span> <span class="kw">&lt;-</span> <span class="no">g</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/ggraph.html">ggraph</a></span>()
 
 <span class="co"># Hack to put all user nodes on the bottom line of the graph:</span>
 <span class="no">g1</span>$<span class="no">data</span>$<span class="no">y</span>[<span class="no">g1</span>$<span class="no">data</span>$<span class="no">type</span> <span class="kw">==</span> <span class="st">"user"</span>] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(<span class="no">g1</span>$<span class="no">data</span>$<span class="no">y</span>)
 <span class="no">g1</span> +
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_edge_diagonal.html">geom_edge_diagonal</a></span>(<span class="fu">aes</span>(<span class="kw">color</span><span class="kw">=</span> <span class="no">type</span>)) +
   <span class="fu"><a href="https://ggraph.data-imaginist.com/reference/geom_node_point.html">geom_node_point</a></span>(<span class="fu">aes</span>(<span class="kw">color</span> <span class="kw">=</span> <span class="no">dist_to_center</span>,
-                      <span class="kw">shape</span> <span class="kw">=</span> <span class="no">type</span>))
-<span class="co"># +</span>
-<span class="co">#   ggforce::geom_mark_hull(aes(x = g1$data$x,</span>
-<span class="co">#                               y = g1$data$y,</span>
-<span class="co">#                               filter = type == 'user',</span>
-<span class="co">#                               label = "user")</span>
-<span class="co">#   )</span></pre></body></html></div>
+                      <span class="kw">shape</span> <span class="kw">=</span> <span class="no">type</span>))</pre></body></html></div>
 </div>
 <div id="using-ggiraph-for-interactivity" class="section level3">
 <h3 class="hasAnchor">
