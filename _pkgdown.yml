@@ -1,2 +1,5 @@
 destination: docs
 url: https://urswilke.github.io/rtweettree/
+template:
+  params:
+    bootswatch: cerulean
