@@ -3,3 +3,18 @@ url: https://urswilke.github.io/rtweettree/
 template:
   params:
     bootswatch: cerulean
+
+
+navbar:
+  title: ggiraph
+  type: default
+  left:
+  - text: Home
+    href: index.html
+  - text: visualize_tree
+    href: articles/visualize_tree.html
+  - text: Function reference
+    href: reference/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/urswilke/rtweettree
