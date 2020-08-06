@@ -34,3 +34,5 @@ Imports:
 RoxygenNote: 7.1.0
 BugReports: https://github.com/urswilke/rtweettree/issues
 URL: https://github.com/urswilke/rtweettree, https://urswilke.github.io/rtweettree/
+Depends: 
+    R (>= 2.10)

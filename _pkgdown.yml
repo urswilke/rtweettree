@@ -6,7 +6,7 @@ template:
 
 
 navbar:
-  title: ggiraph
+  title: rtweettree
   type: default
   left:
   - text: Home

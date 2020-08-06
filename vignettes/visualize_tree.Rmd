@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-pic_path <- "visualize_tree_pics"
+pic_path <- "visualize_tree_files"
 ```
 
 ## Load packages
@@ -75,17 +75,39 @@ df_favs <- scrape_favs2(ids, main_status_id)
 ## Create tbl_graph object
 
 ```{r tbl_graph, cache=TRUE}
-g <- create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs)
+g <- 
+  create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs) %>% 
+  mutate_at(c("screen_name", "label"),  ~(factor(.)) %>% as.numeric()) %E>% 
+  mutate_at(c("screen_name"),  ~(factor(.)) %>% as.numeric())  
+usethis::use_data(g, overwrite = TRUE, internal = TRUE)
+```
+
+```{r save_g}
+# saveRDS(g, paste0(here::here(), "/vignettes/visualize_tree_files/tbl_graph.RDS"))
 ```
 
 
+```{r load_g_ALT, eval=TRUE}
+# g <- readRDS(paste0(here::here(), "/vignettes/visualize_tree_files/tbl_graph.RDS"))
+```
+
+
+
 ## Visualize graphs
+
+```{r load_g, eval=TRUE, include=FALSE}
+# load g from internal dataset
+g <- rtweettree:::g
+```
 
 ### Using ggraph
 
 Circlepack plot:
 
-```{r ggraph_circlepack}
+
+
+```{r ggraph_circlepack, eval=TRUE}
+
 p <- g %>%
   ggraph('circlepack', circular = T) +
   geom_node_circle(aes(fill = dist_to_center), n = 50) +
@@ -113,7 +135,7 @@ knitr::include_graphics(fig_path_name)
 
 Hierarchical tree plot:
 
-```{r ggraph}
+```{r ggraph, eval=TRUE}
 g1 <- g %>% ggraph()
 
 # Hack to put all user nodes on the bottom line of the graph:
@@ -144,7 +166,7 @@ knitr::include_graphics(fig_path_name)
 * Hover over the nodes to see the tweets/users. (in order to comply to the twitter terms of use this information will be anonymized for this public vignette; see below)
 * Click on the nodes to open the tweets/users on twitter.com
 
-```{r ggiraph}
+```{r ggiraph, eval=TRUE}
 # Add on click information to the graph nodes:
 g1$data$onclick  <- glue::glue('window.open("{g1$data$url}")')
 
