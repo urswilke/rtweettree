@@ -159,13 +159,13 @@ g2 <- g1 +
                                       tooltip = g1$data$label,
                                       onclick = g1$data$onclick),
                                   size = 3)
-p <- ggiraph::girafe(ggobj = g2,
-                options = list(
+p <- ggiraph::girafe(ggobj = g2, width_svg = 6, height_svg = 5)
+
+p <- ggiraph::girafe_options(x = p,
                   ggiraph::opts_zoom(min = 0.3, max = 5),
                   ggiraph::opts_hover(ggiraph::girafe_css(css = "stroke:yellow;",
                                                           point = "stroke-width:6px"))
                 )
-)
 
 p
 ```
