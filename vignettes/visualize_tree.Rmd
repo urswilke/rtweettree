@@ -117,21 +117,6 @@ p
 ```
 
 
-```{r ggraph_circlepack_str, eval=TRUE, include=FALSE}
-fig_name <- "ggraph_circlepack.png"
-fig_path_name <- paste0(pic_path, "/", fig_name)
-```
-
-
-```{r ggraph_circlepack_save, include=FALSE}
-ggsave(fig_name, p, path = pic_path)
-```
-
-
-```{r ggraph_circlepack_pic, include=FALSE, eval = TRUE}
-knitr::include_graphics(fig_path_name)
-```
-
 
 Hierarchical tree plot:
 
@@ -146,20 +131,6 @@ g1 +
                       shape = type))
 ```
 
-```{r gghier_str, eval=TRUE, include=FALSE}
-fig_name <- "gghier.png"
-fig_path_name <- paste0(pic_path, "/", fig_name)
-```
-
-
-```{r gghier_save, include=FALSE}
-ggsave(fig_name, p, path = pic_path)
-```
-
-
-```{r gghier_pic, include=FALSE, eval = TRUE}
-knitr::include_graphics(fig_path_name)
-```
 
 ### Using ggiraph (for interactivity)
 
@@ -198,25 +169,3 @@ p <- ggiraph::girafe(ggobj = g2,
 
 p
 ```
-
-```{r ggiraph_str, eval=TRUE, include=FALSE}
-fig_name <- "ggiraph.html"
-fig_path_name <- paste0(pic_path, "/", fig_name)
-```
-
-
-```{r ggiraph_save, include=FALSE}
-
-withr::with_dir(pic_path, htmlwidgets::saveWidget(p, file = fig_name)) 
-# htmlwidgets::saveWidget(p, file = fig_name)
-```
-
-
-```{r ggiraph_pic, echo=FALSE, eval = TRUE}
-# withr::with_dir(pic_path, htmlwidgets::saveWidget(p, file = fig_name)) 
-# htmltools::tags$iframe(title = "My embedded document", src = fig_name)
-# htmltools::includeHTML(fig_path_name)
-# knitr::include_graphics(fig_path_name)
-```
-
-
