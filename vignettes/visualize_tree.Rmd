@@ -38,13 +38,13 @@ On the other hand, for large amounts it can take a long time due to rate limits 
 
 ### Scrape tweets
 
-```{r status_id, cache=TRUE}
+```{r status_id}
 # Replace this number by any status_id (the last number in the twitter.com url of a tweet):
-main_status_id <- "1289565453707173889"
+main_status_id <- "1291490153559724033"
 ```
 
 
-```{r scrape, cache=TRUE}
+```{r scrape}
 df_main_status <- rtweet::lookup_statuses(main_status_id)
 # Scrape available subtweets:
 df_tree <- search_tree(main_status_id)
@@ -52,7 +52,7 @@ df_tree <- search_tree(main_status_id)
 
 ### Scrape timelines
 
-```{r scrape_timelines, cache=TRUE}
+```{r scrape_timelines}
 tree_ids <- df_tree$user_id %>% unique()
 # Scrape the timelines of the users scraped:
 df_tls <- scrape_timelines(tree_ids)
@@ -60,7 +60,7 @@ df_tls <- scrape_timelines(tree_ids)
 
 ### Scrape likes
 
-```{r scrape_favs, cache=TRUE}
+```{r scrape_favs}
 df0 <- df_main_status %>%
   dplyr::filter(status_id == main_status_id) %>%
   dplyr::select(to = status_id, user_id) %>%
@@ -74,7 +74,7 @@ df_favs <- scrape_favs2(ids, main_status_id)
 
 ## Create tbl_graph object
 
-```{r tbl_graph, cache=TRUE}
+```{r tbl_graph}
 g <- 
   create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs) %>% 
   mutate_at(c("screen_name", "label"),  ~(factor(.)) %>% as.numeric()) %E>% 
