@@ -17,7 +17,6 @@ Suggests:
     knitr,
     rmarkdown,
     ggforce,
-    ggiraph,
     ggraph
 VignetteBuilder: knitr
 Imports: 
@@ -30,7 +29,8 @@ Imports:
     tibble,
     tidygraph,
     glue,
-    tidyr
+    tidyr,
+    ggiraph
 RoxygenNote: 7.1.0
 BugReports: https://github.com/urswilke/rtweettree/issues
 URL: https://github.com/urswilke/rtweettree, https://urswilke.github.io/rtweettree/
