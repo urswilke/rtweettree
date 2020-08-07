@@ -138,7 +138,7 @@ g1 +
 * Hover over the nodes to see the tweets/users. (in order to comply to the twitter terms of use this information will be anonymized for this public vignette; see below)
 * Click on the nodes to open the tweets/users on twitter.com
 
-```{r ggiraph, eval=TRUE}
+```{r ggiraph, eval=TRUE, results='asis'}
 # Add on click information to the graph nodes:
 g1$data$onclick  <- glue::glue('window.open("{g1$data$url}")')
 
