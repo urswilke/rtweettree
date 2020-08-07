@@ -28,6 +28,7 @@ library(dplyr)
 library(rtweettree)
 library(ggraph)
 library(tidygraph)
+library(ggiraph)
 ```
 
 ## Scraping 
@@ -152,20 +153,19 @@ g2 <- g1 +
                               # filter = type == 'user',
                               color = g1$data$type)
   ) +
-  ggiraph::geom_point_interactive(aes(x=g1$data$x,
+  geom_point_interactive(aes(x=g1$data$x,
                                       y = g1$data$y,
                                       color = type,
                                       data_id = g1$data$screen_name,
                                       tooltip = g1$data$label,
                                       onclick = g1$data$onclick),
                                   size = 3)
-p <- ggiraph::girafe(ggobj = g2, width_svg = 6, height_svg = 5)
+p <- girafe(code = print(g2), width_svg = 6, height_svg = 5)
 
-p <- ggiraph::girafe_options(x = p,
-                  ggiraph::opts_zoom(min = 0.3, max = 5),
-                  ggiraph::opts_hover(ggiraph::girafe_css(css = "stroke:yellow;",
-                                                          point = "stroke-width:6px"))
-                )
+p <- girafe_options(x = p,
+                    opts_zoom(min = 0.3, max = 5),
+                    opts_hover(girafe_css(css = "stroke:yellow;",
+                                          point = "stroke-width:6px")))
 
 p
 ```
