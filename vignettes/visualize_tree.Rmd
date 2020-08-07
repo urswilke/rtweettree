@@ -3,7 +3,7 @@ title: "Visualize tweet tree"
 output: 
   rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{scrape_tree}
+  %\VignetteIndexEntry{Visualize tweet tree}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
