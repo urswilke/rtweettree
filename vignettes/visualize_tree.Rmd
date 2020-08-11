@@ -21,7 +21,12 @@ knitr::opts_chunk$set(
 pic_path <- "visualize_tree_files"
 ```
 
+This vignette shows how {rtweettree} can be used to generate network graphs visualizing the tweets (replies and quotes) and favorites resulting of a tweet on twitter that can be acquired via the twitter API by the excellent package {rtweet}.
+
+
 ## Load packages
+
+The following libraries are loaded:
 
 ```{r libs, eval = TRUE, message=FALSE}
 library(dplyr)
@@ -39,19 +44,29 @@ On the other hand, for large amounts it can take a long time due to rate limits 
 
 ### Scrape tweets
 
+Tweets on twitter are uniquely classified via the status id:
+
 ```{r status_id}
 # Replace this number by any status_id (the last number in the twitter.com url of a tweet):
 main_status_id <- "1291490153559724033"
 ```
 
+The corresponding information on twitter is acquired via `rtweet::lookup_statuses`:
 
 ```{r scrape}
 df_main_status <- rtweet::lookup_statuses(main_status_id)
+```
+
+The function `search_tree()` calls the recursive function `add_tree_level()` for the status ids of all resulting subtweets until all available information was scraped from twitter:
+
+```{r scrape_tree}
 # Scrape available subtweets:
 df_tree <- search_tree(main_status_id)
 ```
 
 ### Scrape timelines
+
+The timelines of all users involved are scraped:
 
 ```{r scrape_timelines}
 tree_ids <- df_tree$user_id %>% unique()
@@ -60,6 +75,8 @@ df_tls <- scrape_timelines(tree_ids)
 ```
 
 ### Scrape likes
+
+The favorites of all users involved are scraped:
 
 ```{r scrape_favs}
 df0 <- df_main_status %>%
@@ -74,6 +91,8 @@ df_favs <- scrape_favs2(ids, main_status_id)
 ```
 
 ## Create tbl_graph object
+
+The relevant twitter information of these tweets is translated into a tidygraph network object: 
 
 ```{r tbl_graph}
 g <- 
