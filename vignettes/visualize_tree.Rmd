@@ -113,7 +113,9 @@ p <- g %>%
   ggraph('circlepack', circular = T) +
   geom_node_circle(aes(fill = dist_to_center), n = 50) +
   scale_fill_viridis_c(direction = -1) +
-  coord_fixed()
+  coord_fixed() + 
+  # remove legend entry:
+  guides(fill = FALSE)
 p
 ```
 
@@ -128,8 +130,11 @@ g1 <- g %>% ggraph()
 g1$data$y[g1$data$type == "user"] <- min(g1$data$y)
 g1 +
   geom_edge_diagonal(aes(color= type)) +
+  scale_edge_colour_hue(name = "action") +
   geom_node_point(aes(color = dist_to_center,
-                      shape = type))
+                      shape = type)) + 
+  # remove legend entry
+  guides(color = FALSE)
 ```
 
 
@@ -153,6 +158,7 @@ g2 <- g1 +
                               # filter = type == 'user',
                               color = g1$data$type)
   ) +
+  scale_color_discrete(name = "type") +
   geom_point_interactive(aes(x=g1$data$x,
                                       y = g1$data$y,
                                       color = type,
