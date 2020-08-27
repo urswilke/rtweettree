@@ -11,7 +11,7 @@ vignette: >
 ```{r setup, include = FALSE, eval=TRUE}
 knitr::opts_chunk$set(
   # eval=TRUE,
-  eval=FALSE,
+  # eval=FALSE,
   # echo=TRUE,
   collapse = TRUE,
   # cache = TRUE,
@@ -71,7 +71,9 @@ The timelines of all users involved are scraped:
 ```{r scrape_timelines}
 tree_ids <- df_tree$user_id %>% unique()
 # Scrape the timelines of the users scraped:
-df_tls <- scrape_timelines(tree_ids)
+# TODO: repair!
+# df_tls <- scrape_timelines(tree_ids)
+df_tls <- rtweet::get_timelines(tree_ids)
 ```
 
 ### Scrape likes
