@@ -154,6 +154,7 @@ g1 +
   scale_edge_colour_hue(name = "action") +
   geom_node_point(aes(color = dist_to_center,
                       shape = type)) + 
+  scale_color_viridis_c(direction = -1) +
   # remove legend entry
   guides(color = FALSE)
 ```
