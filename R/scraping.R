@@ -64,7 +64,7 @@ add_tree_level <- function(df0, df1, n) {
   if (length(new_ids) > 0) {
     new_ids <- setdiff(df1[["status_id"]], df0[["status_id"]])
 
-    add_tree_level(df1, res)
+    add_tree_level(df1, res, n = n)
   } else {
     return(res)
   }
