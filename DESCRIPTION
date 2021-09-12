@@ -33,7 +33,7 @@ Imports:
     tidyr,
     htmlwidgets,
     htmltools
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 BugReports: https://github.com/urswilke/rtweettree/issues
 URL: https://github.com/urswilke/rtweettree, https://urswilke.github.io/rtweettree/
 Depends: 
