@@ -4,7 +4,6 @@
 # rtweettree
 
 <!-- badges: start -->
-
 <!-- badges: end -->
 
 The goal of rtweettree is to recursively scrape a twitter tweet and all
@@ -51,10 +50,9 @@ is probably good advice to first feel comfortable with
 
 An example how to create a subtweet network graph from a tweet
 status\_id is shown in the [vignette for tree
-visualization](https://htmlpreview.github.io/?https://raw.githubusercontent.com/urswilke/rtweettree/master/docs/articles/visualize_tree.html).
-In this link, I didn’t manage to render the interactive ggiraph
-correctly yet, but after installing rtweettree it can be seen in the
-vignette:
+visualization](articles/visualize_tree.html). In this link, I didn’t
+manage to render the interactive ggiraph correctly yet, but after
+installing rtweettree it can be seen in the vignette:
 
 <!-- TODO: repair website and rendering -->
 

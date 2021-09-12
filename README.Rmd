@@ -46,7 +46,7 @@ library(rtweettree)
 
 In order to use **{{rtweettree}}** please refer to [the according section of **{{rtweet}}**](https://github.com/ropensci/rtweet#usage). It is probably good advice to first feel comfortable with [**{{rtweet}}**](https://github.com/ropensci/rtweet).
 
-An example how to create a subtweet network graph from a tweet status_id is shown in the [vignette for tree visualization](https://htmlpreview.github.io/?https://raw.githubusercontent.com/urswilke/rtweettree/master/docs/articles/visualize_tree.html). In this link, I didn't manage to render the interactive ggiraph correctly yet, but after installing rtweettree it can be seen in the vignette:
+An example how to create a subtweet network graph from a tweet status_id is shown in the [vignette for tree visualization](articles/visualize_tree.html). In this link, I didn't manage to render the interactive ggiraph correctly yet, but after installing rtweettree it can be seen in the vignette:
 
 <!-- TODO: repair website and rendering -->
 
