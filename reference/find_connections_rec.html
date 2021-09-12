@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Recursively return all <code>status_id</code>s of a tweet and its replies — find_connections_rec • rtweettree</title>
+<title>Recursively return all status_ids of a tweet and its replies — find_connections_rec • rtweettree</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Recursively return all <code>status_id</code>s of a tweet and its replies — find_connections_rec" />
+<meta property="og:title" content="Recursively return all status_ids of a tweet and its replies — find_connections_rec" />
 <meta property="og:description" content="Recursively return all status_ids of a tweet and its replies" />
 
 
@@ -117,7 +117,7 @@
     <p>Recursively return all <code>status_id</code>s of a tweet and its replies</p>
     </div>
 
-    <pre class="usage"><span class='fu'>find_connections_rec</span>(<span class='no'>df_tree</span>, <span class='no'>df0</span>)</pre>
+    <pre class="usage"><span class='fu'>find_connections_rec</span><span class='op'>(</span><span class='va'>df_tree</span>, <span class='va'>df0</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -137,19 +137,20 @@
     <p>Edges data frame that can be plotted by tidygraph &amp; ggraph</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>main_status_id</span> <span class='kw'>&lt;-</span> <span class='st'>"1234620900386975744"</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>df_main_status</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rtweet</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rtweet/man/lookup_statuses.html'>lookup_statuses</a></span>(<span class='no'>main_status_id</span>)
-<span class='no'>df_tree</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='search_tree.html'>search_tree</a></span>(<span class='no'>main_status_id</span>)
-<span class='no'>tree_ids</span> <span class='kw'>&lt;-</span> <span class='no'>df_tree</span>$<span class='no'>user_id</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>()
-<span class='no'>df_tls</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='scrape_timelines.html'>scrape_timelines</a></span>(<span class='no'>tree_ids</span>)
-<span class='no'>df0</span> <span class='kw'>&lt;-</span> <span class='no'>df_main_status</span> <span class='kw'>%&gt;%</span>
-                       <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>status_id</span> <span class='kw'>==</span> <span class='no'>main_status_id</span>) <span class='kw'>%&gt;%</span>
-                       <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span>(<span class='kw'>to</span> <span class='kw'>=</span> <span class='no'>status_id</span>, <span class='no'>user_id</span>) <span class='kw'>%&gt;%</span>
-                       <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>from</span> <span class='kw'>=</span> <span class='st'>"root"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"root"</span>)
-<span class='no'>tweet_edges</span> <span class='kw'>&lt;-</span>
-<span class='fu'>find_connections_rec</span>(<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></span>(<span class='no'>df_tree</span>, <span class='no'>df_tls</span>), <span class='no'>df0</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='va'>main_status_id</span> <span class='op'>&lt;-</span> <span class='st'>"1234620900386975744"</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>df_main_status</span> <span class='op'>&lt;-</span> <span class='fu'>rtweet</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rtweet/man/lookup_statuses.html'>lookup_statuses</a></span><span class='op'>(</span><span class='va'>main_status_id</span><span class='op'>)</span>
+<span class='va'>df_tree</span> <span class='op'>&lt;-</span> <span class='fu'><a href='search_tree.html'>search_tree</a></span><span class='op'>(</span><span class='va'>main_status_id</span><span class='op'>)</span>
+<span class='va'>tree_ids</span> <span class='op'>&lt;-</span> <span class='va'>df_tree</span><span class='op'>$</span><span class='va'>user_id</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>df_tls</span> <span class='op'>&lt;-</span> <span class='fu'><a href='scrape_timelines.html'>scrape_timelines</a></span><span class='op'>(</span><span class='va'>tree_ids</span><span class='op'>)</span>
+<span class='va'>df0</span> <span class='op'>&lt;-</span> <span class='va'>df_main_status</span> <span class='op'>%&gt;%</span>
+                       <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>status_id</span> <span class='op'>==</span> <span class='va'>main_status_id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+                       <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span>to <span class='op'>=</span> <span class='va'>status_id</span>, <span class='va'>user_id</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+                       <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>from <span class='op'>=</span> <span class='st'>"root"</span>, type <span class='op'>=</span> <span class='st'>"root"</span><span class='op'>)</span>
+<span class='va'>tweet_edges</span> <span class='op'>&lt;-</span>
+<span class='fu'>find_connections_rec</span><span class='op'>(</span><span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></span><span class='op'>(</span><span class='va'>df_tree</span>, <span class='va'>df_tls</span><span class='op'>)</span>, <span class='va'>df0</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -165,7 +166,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
