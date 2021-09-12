@@ -136,8 +136,22 @@ create_tweet_tbl_graph <- function(df_main_status, df_tree, df_tls, df_favs) {
               tweet_nodes) %>%
     dplyr::mutate(label = dplyr::coalesce(.data$text, .data$screen_name))
 
+  # dirty hack to prevent error:
+  #"
+  # Error in (function (edges, n = max(edges), directed = TRUE)  :
+  #             At type_indexededgelist.c:116 : cannot create empty graph with negative number of vertices, Invalid value
+  #"
+  xxx <- unique(nodes$name)
+  yyy <- unique(c(edges$from, edges$to))
+  ww <- setdiff(yyy, xxx)
+  oo <- edges %>% filter(from %in% ww | to %in% ww)
+  edges <- edges %>%
+    anti_join(oo)
   nodes <-
-    tidygraph::tbl_graph(nodes, edges) %>%
+    tidygraph::tbl_graph(
+      nodes,
+      edges
+    ) %>%
     dplyr::mutate(dist_to_center = tidygraph::node_distance_from(tidygraph::node_is_source()),
            group = tidygraph::group_infomap()) %>%
     dplyr::group_by(.data$group) %>%
