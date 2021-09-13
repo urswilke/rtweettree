@@ -7,9 +7,9 @@
 find_connections_rec(df_tree, df0)
 }
 \arguments{
-\item{df_tree}{data frame returned by rtweet::search_tweets2(main_status_id)}
+\item{df_tree}{data frame returned by `rtweet::search_tweets2(main_status_id)`}
 
-\item{df0}{data frame returned by rtweet::lookup_statuses(main_status_id)}
+\item{df0}{data frame returned by `rtweet::lookup_statuses(main_status_id)`}
 }
 \value{
 Edges data frame that can be plotted by tidygraph & ggraph

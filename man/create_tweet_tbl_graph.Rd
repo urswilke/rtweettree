@@ -8,13 +8,13 @@ tweet and all replies, quotes and likes that could be scraped using rtweet.}
 create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs)
 }
 \arguments{
-\item{df_main_status}{Data frame resulting of rtweet::lookup_statuses(main_status_id)}
+\item{df_main_status}{Data frame resulting of `rtweet::lookup_statuses(main_status_id)`}
 
-\item{df_tree}{Data frame resulting of search_tree(main_status_id)}
+\item{df_tree}{Data frame resulting of `search_tree(main_status_id)`}
 
-\item{df_tls}{Data frame resulting of scrape_timelines(unique(df_tree$user_id))}
+\item{df_tls}{Data frame resulting of `scrape_timelines(unique(df_tree$user_id))`}
 
-\item{df_favs}{Data frame resulting of find_connections_rec() of the involved user ids (see example)}
+\item{df_favs}{Data frame resulting of `find_connections_rec()` of the involved user ids (see example)}
 }
 \value{
 A tidygraph tbl_graph object representing the tree structure of all scraped subtweets of the tweet.
