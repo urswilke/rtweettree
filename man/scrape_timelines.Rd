@@ -7,12 +7,12 @@
 scrape_timelines(tree_ids, main_status_id)
 }
 \arguments{
-\item{tree_ids}{\code{user_id}s of a tree scraped by `search_tree()`}
+\item{tree_ids}{\code{user_id}s of a tree scraped by `search_tree()`.}
 
-\item{main_status_id}{status id of the root tweet}
+\item{main_status_id}{status id of the root tweet.}
 }
 \value{
-Dataframe of all timelines of all `tree_ids`
+Dataframe of all timelines of all `tree_ids`.
 }
 \description{
 Scrape the timelines of a tree scraped by 'search_tree()``
