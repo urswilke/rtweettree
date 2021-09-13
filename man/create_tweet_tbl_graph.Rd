@@ -2,8 +2,7 @@
 % Please edit documentation in R/network.R
 \name{create_tweet_tbl_graph}
 \alias{create_tweet_tbl_graph}
-\title{Create a tidygraph tbl_graph object representing the tree structure of a
-tweet and all replies, quotes and likes that could be scraped using rtweet.}
+\title{Create a tidygraph tbl_graph object}
 \usage{
 create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs)
 }
@@ -20,7 +19,7 @@ create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs)
 A tidygraph tbl_graph object representing the tree structure of all scraped subtweets of the tweet.
 }
 \description{
-Create a tidygraph tbl_graph object representing the tree structure of a
+Create a `tidygraph::tbl_graph` object representing the tree structure of a
 tweet and all replies, quotes and likes that could be scraped using rtweet.
 }
 \examples{
@@ -39,6 +38,6 @@ tweet_edges <-
 ids <- tweet_edges$user_id \%>\% unique()
 df_favs <- scrape_favs2(ids, main_status_id)
 g <- create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs)
-g \%>\% ggraph() + geom_node_point() + geom_edge_link()
+g \%>\% ggraph::ggraph() + ggraph::geom_node_point() + ggraph::geom_edge_link()
 }
 }
