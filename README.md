@@ -9,15 +9,15 @@
 The goal of rtweettree is to recursively scrape a twitter tweet and all
 replies, quotes and likes (that the API provides) and visualize them in
 a network graph. The functionalities to scrape twitter data are heavily
-based on the excellent
-[**{{rtweet}}**](https://github.com/ropensci/rtweet) package. The graph
-network manipulation functionalities rely on the amazing
-[**{{tidygraph}}**](https://github.com/thomasp85/tidygraph) package and
-visualized with [**{{ggraph}}**](https://github.com/thomasp85/ggraph).
+based on the excellent [**rtweet**](https://github.com/ropensci/rtweet)
+package. The graph network manipulation functionalities rely on the
+amazing [**tidygraph**](https://github.com/thomasp85/tidygraph) package
+and are visualized with
+[**ggraph**](https://github.com/thomasp85/ggraph).
 
 ## Responsible use
 
-**{{rtweettree}}** should be used in strict accordance with Twitter’s
+**rtweettree** should be used in strict accordance with Twitter’s
 [developer
 terms](https://developer.twitter.com/en/developer-terms/more-on-restricted-use-cases).
 
@@ -43,10 +43,10 @@ library(rtweettree)
 
 ## Usage
 
-In order to use **{{rtweettree}}** please refer to [the according
-section of **{{rtweet}}**](https://github.com/ropensci/rtweet#usage). It
-is probably good advice to first feel comfortable with
-[**{{rtweet}}**](https://github.com/ropensci/rtweet).
+In order to use **rtweettree** please refer to [the according section of
+**rtweet**](https://github.com/ropensci/rtweet#usage). It is probably
+good advice to first feel comfortable with
+[**rtweet**](https://github.com/ropensci/rtweet).
 
 An example how to create a subtweet network graph from a tweet
 status\_id is shown in the [vignette for tree
