@@ -2,20 +2,20 @@
 % Please edit documentation in R/network.R
 \name{find_connections_rec}
 \alias{find_connections_rec}
-\title{Recursively return all \code{status_id}s of a tweet and its replies}
+\title{Recursively return all `status_id`s of a tweet and its replies}
 \usage{
 find_connections_rec(df_tree, df0)
 }
 \arguments{
-\item{df_tree}{data frame returned by `rtweet::search_tweets2(main_status_id)`.}
+\item{df_tree}{data frame returned by `rtweet::search_tweets2()`.}
 
-\item{df0}{data frame returned by `rtweet::lookup_statuses(main_status_id)`.}
+\item{df0}{data frame returned by `rtweet::lookup_statuses()`.}
 }
 \value{
 Edges data frame that can be plotted by tidygraph & ggraph
 }
 \description{
-Recursively return all \code{status_id}s of a tweet and its replies
+Recursively return all `status_id`s of a tweet and its replies
 }
 \examples{
 main_status_id <- "1234620900386975744"

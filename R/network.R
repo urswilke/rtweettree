@@ -1,7 +1,7 @@
-#' Recursively return all \code{status_id}s of a tweet and its replies
+#' Recursively return all `status_id`s of a tweet and its replies
 #'
-#' @param df_tree data frame returned by `rtweet::search_tweets2(main_status_id)`.
-#' @param df0 data frame returned by `rtweet::lookup_statuses(main_status_id)`.
+#' @param df_tree data frame returned by `rtweet::search_tweets2()`.
+#' @param df0 data frame returned by `rtweet::lookup_statuses()`.
 #'
 #' @return Edges data frame that can be plotted by tidygraph & ggraph
 #' @export
@@ -47,9 +47,9 @@ find_connections_rec <- function(df_tree, df0) {
 #' Create a tidygraph tbl_graph object representing the tree structure of a
 #' tweet and all replies, quotes and likes that could be scraped using rtweet.
 #'
-#' @param df_main_status Data frame resulting of `rtweet::lookup_statuses(main_status_id)`.
-#' @param df_tree Data frame resulting of `search_tree(main_status_id)`.
-#' @param df_tls Data frame resulting of `scrape_timelines(unique(df_tree$user_id))`.
+#' @param df_main_status Data frame resulting of `rtweet::lookup_statuses()`.
+#' @param df_tree Data frame resulting of `search_tree()`.
+#' @param df_tls Data frame resulting of `scrape_timelines()`.
 #' @param df_favs Data frame resulting of `find_connections_rec()` of the involved user ids (see example).
 #'
 #' @return A tidygraph tbl_graph object representing the tree structure of all scraped subtweets of the tweet.
@@ -70,6 +70,8 @@ find_connections_rec <- function(df_tree, df0) {
 #'   find_connections_rec(dplyr::bind_rows(df_tree, df_tls), df0)
 #' ids <- tweet_edges$user_id %>% unique()
 #' df_favs <- scrape_favs2(ids, main_status_id)
+#' g <- create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs)
+#' g %>% ggraph() + geom_node_point() + geom_edge_link()
 #' }
 
 create_tweet_tbl_graph <- function(df_main_status, df_tree, df_tls, df_favs) {

@@ -8,11 +8,11 @@ tweet and all replies, quotes and likes that could be scraped using rtweet.}
 create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs)
 }
 \arguments{
-\item{df_main_status}{Data frame resulting of `rtweet::lookup_statuses(main_status_id)`.}
+\item{df_main_status}{Data frame resulting of `rtweet::lookup_statuses()`.}
 
-\item{df_tree}{Data frame resulting of `search_tree(main_status_id)`.}
+\item{df_tree}{Data frame resulting of `search_tree()`.}
 
-\item{df_tls}{Data frame resulting of `scrape_timelines(unique(df_tree$user_id))`.}
+\item{df_tls}{Data frame resulting of `scrape_timelines()`.}
 
 \item{df_favs}{Data frame resulting of `find_connections_rec()` of the involved user ids (see example).}
 }
@@ -38,5 +38,7 @@ tweet_edges <-
   find_connections_rec(dplyr::bind_rows(df_tree, df_tls), df0)
 ids <- tweet_edges$user_id \%>\% unique()
 df_favs <- scrape_favs2(ids, main_status_id)
+g <- create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs)
+g \%>\% ggraph() + geom_node_point() + geom_edge_link()
 }
 }
