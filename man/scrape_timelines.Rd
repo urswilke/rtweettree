@@ -2,20 +2,20 @@
 % Please edit documentation in R/scraping.R
 \name{scrape_timelines}
 \alias{scrape_timelines}
-\title{Scrape the timelines of a tree scraped by \code{search_tree}}
+\title{Scrape the timelines of a tree scraped by 'search_tree()``}
 \usage{
 scrape_timelines(tree_ids, main_status_id)
 }
 \arguments{
-\item{tree_ids}{\code{user_id}s of a tree scraped by \code{search_tree}}
+\item{tree_ids}{\code{user_id}s of a tree scraped by `search_tree()`}
 
 \item{main_status_id}{status id of the root tweet}
 }
 \value{
-Dataframe of all timelines of all \code{tree_ids}
+Dataframe of all timelines of all `tree_ids`
 }
 \description{
-Scrape the timelines of a tree scraped by \code{search_tree}
+Scrape the timelines of a tree scraped by 'search_tree()``
 }
 \examples{
 \dontrun{

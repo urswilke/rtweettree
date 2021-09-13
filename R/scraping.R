@@ -2,9 +2,9 @@
 #'
 #' @param main_status_id string of twitter status_id
 #' @param n maximum number of tweets to scrape
-#' @param df_main_status data frame returned by rtweet::lookup_statuses(main_status_id)
+#' @param df_main_status data frame returned by `rtweet::lookup_statuses(main_status_id)`
 #'
-#' @return data frame like rtweet::search_tweets2, but all subtweets of the
+#' @return data frame like `rtweet::search_tweets2()`, but all subtweets of the
 #'   tree added (if available)
 #' @export
 #'
@@ -74,12 +74,12 @@ add_tree_level <- function(df0, df1, n) {
 
 
 
-#' Scrape the timelines of a tree scraped by \code{search_tree}
+#' Scrape the timelines of a tree scraped by 'search_tree()``
 #'
-#' @param tree_ids \code{user_id}s of a tree scraped by \code{search_tree}
+#' @param tree_ids \code{user_id}s of a tree scraped by `search_tree()`
 #' @param main_status_id status id of the root tweet
 #'
-#' @return Dataframe of all timelines of all \code{tree_ids}
+#' @return Dataframe of all timelines of all `tree_ids`
 #' @export
 #'
 #' @examples
@@ -167,10 +167,10 @@ scrape_timelines <- function(tree_ids, main_status_id) {
 
 #' Scrape all likes of all users occurring in a tree of a twitter status_id
 #'
-#' @param ids Vector of all \code{user_id}s
+#' @param ids Vector of all 'user_id's
 #' @param main_status_id status id of the root tweet
 #'
-#' @return Dataframe of all timelines of all \code{tree_ids}
+#' @return Dataframe of all timelines of all 'tree_ids'
 #' @export
 #'
 #' @examples

@@ -13,12 +13,12 @@ search_tree(
 \arguments{
 \item{main_status_id}{string of twitter status_id}
 
-\item{df_main_status}{data frame returned by rtweet::lookup_statuses(main_status_id)}
+\item{df_main_status}{data frame returned by `rtweet::lookup_statuses(main_status_id)`}
 
 \item{n}{maximum number of tweets to scrape}
 }
 \value{
-data frame like rtweet::search_tweets2, but all subtweets of the
+data frame like `rtweet::search_tweets2()`, but all subtweets of the
   tree added (if available)
 }
 \description{

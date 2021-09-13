@@ -7,12 +7,12 @@
 scrape_favs2(ids, main_status_id)
 }
 \arguments{
-\item{ids}{Vector of all \code{user_id}s}
+\item{ids}{Vector of all 'user_id's}
 
 \item{main_status_id}{status id of the root tweet}
 }
 \value{
-Dataframe of all timelines of all \code{tree_ids}
+Dataframe of all timelines of all 'tree_ids'
 }
 \description{
 Scrape all likes of all users occurring in a tree of a twitter status_id
