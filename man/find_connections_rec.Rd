@@ -2,7 +2,7 @@
 % Please edit documentation in R/network.R
 \name{find_connections_rec}
 \alias{find_connections_rec}
-\title{Recursively return all `status_id`s of a tweet and its replies}
+\title{Recursively return all status ids of a tweet and its replies}
 \usage{
 find_connections_rec(df_tree, df0)
 }
@@ -15,7 +15,7 @@ find_connections_rec(df_tree, df0)
 Edges data frame that can be plotted by tidygraph & ggraph
 }
 \description{
-Recursively return all `status_id`s of a tweet and its replies
+Recursively return all status ids of a tweet and its replies
 }
 \examples{
 main_status_id <- "1234620900386975744"

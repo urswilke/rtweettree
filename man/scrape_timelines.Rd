@@ -2,7 +2,7 @@
 % Please edit documentation in R/scraping.R
 \name{scrape_timelines}
 \alias{scrape_timelines}
-\title{Scrape the timelines of a tree scraped by `search_tree()`}
+\title{Scrape the timelines of user ids}
 \usage{
 scrape_timelines(tree_ids, main_status_id)
 }
@@ -15,7 +15,7 @@ scrape_timelines(tree_ids, main_status_id)
 Dataframe of all timelines of all `tree_ids`.
 }
 \description{
-Scrape the timelines of a tree scraped by `search_tree()`
+Scrape the timelines of user ids
 }
 \examples{
 \dontrun{

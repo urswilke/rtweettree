@@ -2,7 +2,7 @@
 % Please edit documentation in R/scraping.R
 \name{scrape_favs2}
 \alias{scrape_favs2}
-\title{Scrape all likes of all users occurring in a tree of a twitter status_id}
+\title{Scrape all likes of all users occurring in a tree of a twitter status id}
 \usage{
 scrape_favs2(ids, main_status_id)
 }
@@ -15,7 +15,7 @@ scrape_favs2(ids, main_status_id)
 Dataframe of all timelines of all `tree_ids`.
 }
 \description{
-Scrape all likes of all users occurring in a tree of a twitter status_id
+Scrape all likes of all users occurring in a tree of a twitter status id
 }
 \examples{
 \dontrun{

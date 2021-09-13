@@ -1,4 +1,4 @@
-#' Recursively return all `status_id`s of a tweet and its replies
+#' Recursively return all status ids of a tweet and its replies
 #'
 #' @param df_tree data frame returned by `rtweet::search_tweets2()`.
 #' @param df0 data frame returned by `rtweet::lookup_statuses()`.

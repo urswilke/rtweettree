@@ -74,7 +74,7 @@ add_tree_level <- function(df0, df1, n) {
 
 
 
-#' Scrape the timelines of a tree scraped by `search_tree()`
+#' Scrape the timelines of user ids
 #'
 #' @param tree_ids `user_id`s of a tree scraped by `search_tree()`.
 #' @param main_status_id status id of the root tweet.
@@ -165,7 +165,7 @@ scrape_timelines <- function(tree_ids, main_status_id) {
 
 
 
-#' Scrape all likes of all users occurring in a tree of a twitter status_id
+#' Scrape all likes of all users occurring in a tree of a twitter status id
 #'
 #' @param ids Vector of all `user_id`s.
 #' @param main_status_id status id of the root tweet.
