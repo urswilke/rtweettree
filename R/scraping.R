@@ -76,7 +76,7 @@ add_tree_level <- function(df0, df1, n) {
 
 #' Scrape the timelines of a tree scraped by `search_tree()`
 #'
-#' @param tree_ids \code{user_id}s of a tree scraped by `search_tree()`.
+#' @param tree_ids `user_id`s of a tree scraped by `search_tree()`.
 #' @param main_status_id status id of the root tweet.
 #'
 #' @return Dataframe of all timelines of all `tree_ids`.
