@@ -141,15 +141,15 @@ tweet and all replies, quotes and likes that could be scraped using rtweet.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>df_main_status</th>
-      <td><p>Data frame resulting of `rtweet::lookup_statuses(main_status_id)`.</p></td>
+      <td><p>Data frame resulting of `rtweet::lookup_statuses()`.</p></td>
     </tr>
     <tr>
       <th>df_tree</th>
-      <td><p>Data frame resulting of `search_tree(main_status_id)`.</p></td>
+      <td><p>Data frame resulting of `search_tree()`.</p></td>
     </tr>
     <tr>
       <th>df_tls</th>
-      <td><p>Data frame resulting of `scrape_timelines(unique(df_tree$user_id))`.</p></td>
+      <td><p>Data frame resulting of `scrape_timelines()`.</p></td>
     </tr>
     <tr>
       <th>df_favs</th>
@@ -176,6 +176,8 @@ tweet and all replies, quotes and likes that could be scraped using rtweet.</p>
   <span class='fu'><a href='find_connections_rec.html'>find_connections_rec</a></span><span class='op'>(</span><span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></span><span class='op'>(</span><span class='va'>df_tree</span>, <span class='va'>df_tls</span><span class='op'>)</span>, <span class='va'>df0</span><span class='op'>)</span>
 <span class='va'>ids</span> <span class='op'>&lt;-</span> <span class='va'>tweet_edges</span><span class='op'>$</span><span class='va'>user_id</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='va'>df_favs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='scrape_favs2.html'>scrape_favs2</a></span><span class='op'>(</span><span class='va'>ids</span>, <span class='va'>main_status_id</span><span class='op'>)</span>
+<span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'>create_tweet_tbl_graph</span><span class='op'>(</span><span class='va'>df_main_status</span>, <span class='va'>df_tree</span>, <span class='va'>df_tls</span>, <span class='va'>df_favs</span><span class='op'>)</span>
+<span class='va'>g</span> <span class='op'>%&gt;%</span> <span class='fu'>ggraph</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_node_point</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_edge_link</span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>
