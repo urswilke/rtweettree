@@ -36,14 +36,14 @@ search_tree <- function(main_status_id,
 }
 
 
-#' Scrape tweet and all tweets returned by rtweet::search_tweets
+#' Add one level in the tree of tweets
 #'
 #' @param df0 data frame.
 #' @param df1 data frame.
 #' @param n  maximum number of tweets to scrape.
 #'
 #' @importFrom rlang .data
-#' @return data frame like `rtweet::search_tweets2()`, but laso all direct answers
+#' @return data frame like `rtweet::search_tweets2()`, but also all direct answers
 #'   to the tweet (one level lower; if available).
 
 add_tree_level <- function(df0, df1, n) {
@@ -74,7 +74,7 @@ add_tree_level <- function(df0, df1, n) {
 
 
 
-#' Scrape the timelines of a tree scraped by 'search_tree()``
+#' Scrape the timelines of a tree scraped by `search_tree()`
 #'
 #' @param tree_ids \code{user_id}s of a tree scraped by `search_tree()`.
 #' @param main_status_id status id of the root tweet.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/scraping.R
 \name{add_tree_level}
 \alias{add_tree_level}
-\title{Scrape tweet and all tweets returned by rtweet::search_tweets}
+\title{Add one level in the tree of tweets}
 \usage{
 add_tree_level(df0, df1, n)
 }
@@ -14,9 +14,9 @@ add_tree_level(df0, df1, n)
 \item{n}{maximum number of tweets to scrape.}
 }
 \value{
-data frame like `rtweet::search_tweets2()`, but laso all direct answers
+data frame like `rtweet::search_tweets2()`, but also all direct answers
   to the tweet (one level lower; if available).
 }
 \description{
-Scrape tweet and all tweets returned by rtweet::search_tweets
+Add one level in the tree of tweets
 }
