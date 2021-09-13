@@ -165,7 +165,7 @@ scrape_timelines <- function(tree_ids, main_status_id) {
 
 
 
-#' Scrape all likes of all users occurring in a tree of a twitter status id
+#' Scrape all likes of given users id
 #'
 #' @param ids Vector of all `user_id`s.
 #' @param main_status_id status id of the root tweet.
