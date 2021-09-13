@@ -1,5 +1,5 @@
 ---
-title: "Visualize tweet tree"
+title: "Getting started"
 output: 
   rmarkdown::html_vignette
 vignette: >
@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 pic_path <- "visualize_tree_files"
 ```
 
-This vignette shows how {rtweettree} can be used to generate network graphs visualizing the tweets (replies and quotes) and favorites resulting of a tweet on twitter that can be acquired via the twitter API by the excellent package {rtweet}.
+This vignette shows how {rtweettree} can be used to generate network graphs visualizing the reactions on a tweet (replies, quotes and favorites) as a tree. The nodes correspond to tweets and the users who interact with them with these reactions. 
 
 
 ## Load packages
