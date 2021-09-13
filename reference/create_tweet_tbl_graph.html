@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a tidygraph tbl_graph object representing the tree structure of a
-tweet and all replies, quotes and likes that could be scraped using rtweet. — create_tweet_tbl_graph • rtweettree</title>
+<title>Create a tidygraph tbl_graph object — create_tweet_tbl_graph • rtweettree</title>
 
 
 <!-- jquery -->
@@ -40,9 +39,8 @@ tweet and all replies, quotes and likes that could be scraped using rtweet. — 
 
 
 
-<meta property="og:title" content="Create a tidygraph tbl_graph object representing the tree structure of a
-tweet and all replies, quotes and likes that could be scraped using rtweet. — create_tweet_tbl_graph" />
-<meta property="og:description" content="Create a tidygraph tbl_graph object representing the tree structure of a
+<meta property="og:title" content="Create a tidygraph tbl_graph object — create_tweet_tbl_graph" />
+<meta property="og:description" content="Create a `tidygraph::tbl_graph` object representing the tree structure of a
 tweet and all replies, quotes and likes that could be scraped using rtweet." />
 
 
@@ -123,14 +121,13 @@ tweet and all replies, quotes and likes that could be scraped using rtweet." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a tidygraph tbl_graph object representing the tree structure of a
-tweet and all replies, quotes and likes that could be scraped using rtweet.</h1>
+    <h1>Create a tidygraph tbl_graph object</h1>
     <small class="dont-index">Source: <a href='https://github.com/urswilke/rtweettree/blob/master/R/network.R'><code>R/network.R</code></a></small>
     <div class="hidden name"><code>create_tweet_tbl_graph.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create a tidygraph tbl_graph object representing the tree structure of a
+    <p>Create a `tidygraph::tbl_graph` object representing the tree structure of a
 tweet and all replies, quotes and likes that could be scraped using rtweet.</p>
     </div>
 
@@ -177,7 +174,7 @@ tweet and all replies, quotes and likes that could be scraped using rtweet.</p>
 <span class='va'>ids</span> <span class='op'>&lt;-</span> <span class='va'>tweet_edges</span><span class='op'>$</span><span class='va'>user_id</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='va'>df_favs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='scrape_favs2.html'>scrape_favs2</a></span><span class='op'>(</span><span class='va'>ids</span>, <span class='va'>main_status_id</span><span class='op'>)</span>
 <span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'>create_tweet_tbl_graph</span><span class='op'>(</span><span class='va'>df_main_status</span>, <span class='va'>df_tree</span>, <span class='va'>df_tls</span>, <span class='va'>df_favs</span><span class='op'>)</span>
-<span class='va'>g</span> <span class='op'>%&gt;%</span> <span class='fu'>ggraph</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_node_point</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_edge_link</span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>g</span> <span class='op'>%&gt;%</span> <span class='fu'>ggraph</span><span class='fu'>::</span><span class='fu'><a href='https://ggraph.data-imaginist.com/reference/ggraph.html'>ggraph</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>ggraph</span><span class='fu'>::</span><span class='fu'><a href='https://ggraph.data-imaginist.com/reference/geom_node_point.html'>geom_node_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>ggraph</span><span class='fu'>::</span><span class='fu'><a href='https://ggraph.data-imaginist.com/reference/geom_edge_link.html'>geom_edge_link</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>
