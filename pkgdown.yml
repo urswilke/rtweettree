@@ -1,0 +1,20 @@
+destination: docs
+url: https://urswilke.github.io/rtweettree/
+template:
+  params:
+    bootswatch: minimal
+
+
+navbar:
+  title: rtweettree
+  type: default
+  left:
+  - text: Home
+    href: index.html
+  - text: visualize_tree
+    href: articles/visualize_tree.html
+  - text: Function reference
+    href: reference/index.html
+  right:
+  - text: View on github
+    href: https://github.com/urswilke/rtweettree
