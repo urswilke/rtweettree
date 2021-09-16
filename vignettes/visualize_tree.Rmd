@@ -48,7 +48,7 @@ Tweets on twitter are uniquely classified via the status id:
 
 ```{r status_id}
 # Replace this number by any status_id (the last number in the twitter.com url of a tweet):
-main_status_id <- "1291490153559724033"
+main_status_id <- "1438481824922181635"
 ```
 
 The corresponding information on twitter is acquired via `rtweet::lookup_statuses`:
