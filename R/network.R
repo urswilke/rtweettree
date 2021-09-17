@@ -43,7 +43,7 @@ find_connections_rec <- function(df_tree, df0) {
   }
 }
 
-
+# TODO: make sure to correctly auto-link (pkgdown) the inline expressions inside "``"!
 #' Create a tidygraph tbl_graph object
 #'
 #' Create a `tidygraph::tbl_graph` object representing the tree structure of a
