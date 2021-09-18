@@ -200,8 +200,10 @@ get_profile_pic_df <- function(df) {
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' g1 <- add_profile_pics_to_tree_ggraph(g, get_profile_pic_df(bind_rows(df_tls, df_main_status)))
 #' g1 + ggraph::geom_edge_diagonal(aes(color= type)) + geom_node_point(shape = type))
+#' }
 add_profile_pics_to_tree_ggraph <- function(g, df_profile_pic) {
 
   g1 <- g %>% ggraph::ggraph()

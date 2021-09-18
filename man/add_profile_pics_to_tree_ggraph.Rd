@@ -18,6 +18,8 @@ ggraph object of tweet tree with profile pictures
 Create ggraph object with profile pictures added
 }
 \examples{
+\dontrun{
 g1 <- add_profile_pics_to_tree_ggraph(g, get_profile_pic_df(bind_rows(df_tls, df_main_status)))
 g1 + ggraph::geom_edge_diagonal(aes(color= type)) + geom_node_point(shape = type))
+}
 }

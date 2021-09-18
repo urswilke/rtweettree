@@ -18,7 +18,8 @@ Suggests:
     rmarkdown,
     ggforce,
     ggiraph,
-    ggraph
+    ggraph,
+    vdiffr
 VignetteBuilder: knitr
 Imports: 
     rtweet,
