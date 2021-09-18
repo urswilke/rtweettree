@@ -75,7 +75,7 @@ find_connections_rec <- function(df_tree, df0) {
 #'   unique()
 #' df_retweets <- tweet_ids %>% purrr::map_dfr(~rtweet::get_retweets(.x))
 #'
-#' g <- create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs, df_retweets)
+#' g <- create_tweet_tbl_graph(tibble::lst(df_main_status, df_tree, df_tls, df_favs, df_retweets))
 #' g %>% ggraph::ggraph() + ggraph::geom_node_point() + ggraph::geom_edge_link()
 #' }
 create_tweet_tbl_graph <- function(x) {
@@ -106,7 +106,7 @@ create_tweet_tbl_graph <- function(x) {
     dplyr::mutate(type = "like")
 
 
-  retweet_edges <- df_retweets %>%
+  retweet_edges <- x$df_retweets %>%
     dplyr::filter(.data$is_retweet) %>%
     dplyr::transmute(from = .data$retweet_status_id, to = .data$user_id, .data$user_id, .data$screen_name) %>%
     dplyr::mutate(type = "retweet")
