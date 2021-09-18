@@ -4,7 +4,13 @@
 \alias{create_tweet_tbl_graph}
 \title{Create a tidygraph tbl_graph object}
 \usage{
-create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs)
+create_tweet_tbl_graph(
+  df_main_status,
+  df_tree,
+  df_tls,
+  df_favs,
+  add_profile_pics = FALSE
+)
 }
 \arguments{
 \item{df_main_status}{Data frame resulting of `rtweet::lookup_statuses()`.}
