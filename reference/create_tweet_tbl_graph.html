@@ -131,30 +131,14 @@ tweet and all replies, quotes and likes that could be scraped using rtweet." />
 tweet and all replies, quotes and likes that could be scraped using rtweet.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>create_tweet_tbl_graph</span><span class='op'>(</span><span class='va'>df_main_status</span>, <span class='va'>df_tree</span>, <span class='va'>df_tls</span>, <span class='va'>df_favs</span>, <span class='va'>df_retweets</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>create_tweet_tbl_graph</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>df_main_status</th>
-      <td><p>Data frame resulting of `rtweet::lookup_statuses()`.</p></td>
-    </tr>
-    <tr>
-      <th>df_tree</th>
-      <td><p>Data frame resulting of `search_tree()`.</p></td>
-    </tr>
-    <tr>
-      <th>df_tls</th>
-      <td><p>Data frame resulting of `scrape_timelines()`.</p></td>
-    </tr>
-    <tr>
-      <th>df_favs</th>
-      <td><p>Data frame resulting of `find_connections_rec()` of the involved user ids (see example).</p></td>
-    </tr>
-    <tr>
-      <th>df_retweets</th>
-      <td><p>Data frame resulting of `rtweet::get_retweets()`.</p></td>
+      <th>x</th>
+      <td><p>rtweet status_id or rtweettree_data object</p></td>
     </tr>
     </table>
 
