@@ -48,9 +48,10 @@ In order to use **rtweettree** please refer to [the according section of **rtwee
 
 An example how to create a subtweet network graph from a tweet status_id is shown in the [vignette for tree visualization](articles/visualize_tree.html). In this link, I didn't manage to render the interactive ggiraph correctly yet, but after installing rtweettree it can be seen in the vignette:
 
-<!-- TODO: repair website and rendering -->
-
 ```{r tree_viz, eval=FALSE}
 vignette("visualize_tree", package = "rtweettree")
 ```
 
+## TODOs:
+
+* add retweets to the graph

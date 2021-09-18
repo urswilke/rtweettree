@@ -54,8 +54,10 @@ visualization](articles/visualize_tree.html). In this link, I didn’t
 manage to render the interactive ggiraph correctly yet, but after
 installing rtweettree it can be seen in the vignette:
 
-<!-- TODO: repair website and rendering -->
-
 ``` r
 vignette("visualize_tree", package = "rtweettree")
 ```
+
+## TODOs:
+
+-   add retweets to the graph
