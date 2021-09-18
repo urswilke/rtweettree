@@ -6,7 +6,21 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • rtweettree</title>
+<title>Example package dataset storing the result of df_retweets &lt;- tweet_ids 
+
+A data frame with 1 row and 90 variables:
+
+  df_retweets &lt;- tweet_ids %&gt;% map_dfr(~rtweet::get_retweets(.x))
+
+
+
+
+df_retweets
+
+
+Example package dataset storing the result of df_retweets &lt;- tweet_ids 
+
+datasets — df_retweets • rtweettree</title>
 
 
 <!-- jquery -->
@@ -39,7 +53,21 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Example package dataset storing the result of df_retweets &lt;- tweet_ids 
+
+A data frame with 1 row and 90 variables:
+
+  df_retweets &lt;- tweet_ids %&gt;% map_dfr(~rtweet::get_retweets(.x))
+
+
+
+
+df_retweets
+
+
+Example package dataset storing the result of df_retweets &lt;- tweet_ids 
+
+datasets — df_retweets" />
 
 
 
@@ -58,7 +86,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -117,79 +145,9 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
-    </div>
-
-    <table class="ref-index">
-
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
-
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="add_profile_pics_to_tree_ggraph.html">add_profile_pics_to_tree_ggraph()</a></code> </p>
-        </td>
-        <td><p>Create ggraph object with profile pictures added</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="add_tree_level.html">add_tree_level()</a></code> </p>
-        </td>
-        <td><p>Add one level in the tree of tweets</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="create_empty_rtweet_tbl.html">create_empty_rtweet_tbl()</a></code> </p>
-        </td>
-        <td><p>Create an empty rtweet tibble</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="create_tweet_tbl_graph.html">create_tweet_tbl_graph()</a></code> </p>
-        </td>
-        <td><p>Create a tidygraph tbl_graph object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="df_favs.html">df_favs</a></code> </p>
-        </td>
-        <td><p>Example package dataset storing the result of scrape_favs2(ids, main_status_id)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="df_main_status.html">df_main_status</a></code> </p>
-        </td>
-        <td><p>Example package dataset storing the result of rtweet::lookup_statuses(main_status_id)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="df_profile_pic.html">df_profile_pic</a></code> </p>
-        </td>
-        <td><p>Example package dataset storing the result of rtweettree:::get_profile_pic_df()</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="df_retweets.html">df_retweets</a></code> </p>
-        </td>
-        <td><p>Example package dataset storing the result of df_retweets &lt;- tweet_ids <!-- %&gt;% map_dfr(~rtweet::get_retweets(.x))} -->
+    <h1>Example package dataset storing the result of df_retweets &lt;- tweet_ids <!-- %&gt;% map_dfr(~rtweet::get_retweets(.x))} -->
 
 A data frame with 1 row and 90 variables:
 <dl>
@@ -203,48 +161,18 @@ df_retweets
 
 Example package dataset storing the result of df_retweets &lt;- tweet_ids <!-- %&gt;% map_dfr(~rtweet::get_retweets(.x)) -->
 
-datasets</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="df_tls.html">df_tls</a></code> </p>
-        </td>
-        <td><p>Example package dataset storing the result of rtweet::get_timelines(tree_ids)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="df_tree.html">df_tree</a></code> </p>
-        </td>
-        <td><p>Example package dataset storing the result of search_tree(main_status_id)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="find_connections_rec.html">find_connections_rec()</a></code> </p>
-        </td>
-        <td><p>Recursively return all status ids of a tweet and its replies</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="scrape_favs2.html">scrape_favs2()</a></code> </p>
-        </td>
-        <td><p>Scrape all likes of given users id</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="scrape_timelines.html">scrape_timelines()</a></code> </p>
-        </td>
-        <td><p>Scrape the timelines of user ids</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="search_tree.html">search_tree()</a></code> </p>
-        </td>
-        <td><p>Scrape tree</p></td>
-      </tr>
-    </tbody>
-    </table>
-  </div>
+datasets</h1>
+    <small class="dont-index">Source: <a href='https://github.com/urswilke/rtweettree/blob/master/R/data.R'><code>R/data.R</code></a></small>
+    <div class="hidden name"><code>df_retweets.Rd</code></div>
+    </div>
 
+    <div class="ref-description">
+    </div>
+
+
+
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
