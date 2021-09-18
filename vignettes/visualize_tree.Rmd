@@ -144,15 +144,21 @@ p <- g %>%
 p
 ```
 
+We can generate a ggraph object and add profile pictures to the user nodes with the following function: 
 
+```{r ggraph, eval=TRUE, fig.width=7, fig.height=6}
 
 Hierarchical tree plot:
+g1 <- add_profile_pics_to_tree_ggraph(
+  g,
+  rtweettree:::get_profile_pic_df(bind_rows(df_tls, df_favs, df_main_status))
+)
+# without profile picture, it would be:
+# g1 <- g %>% ggraph()
+# 
+# # Hack to put all user nodes on the bottom line of the graph:
+# g1$data$y[g1$data$type == "user"] <- min(g1$data$y)
 
-```{r ggraph, eval=TRUE}
-g1 <- g %>% ggraph()
-
-# Hack to put all user nodes on the bottom line of the graph:
-g1$data$y[g1$data$type == "user"] <- min(g1$data$y)
 g1 +
   geom_edge_diagonal(aes(color= type)) +
   scale_edge_colour_hue(name = "action") +
