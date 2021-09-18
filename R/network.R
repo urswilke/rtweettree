@@ -219,7 +219,7 @@ add_profile_pics_to_tree_ggraph <- function(g, df_profile_pic) {
   df_profile_pic <- df_profile_pic %>% dplyr::full_join(user_coords, by = "screen_name")
   user_coords <- df_profile_pic %>% dplyr::select(.data$screen_name, .data$x, .data$y)
   add_img <- function(g, user_images, user_coords) {
-    g  + ggpllot2::annotation_raster(user_images, xmin = user_coords$x[1] - 0.4, ymin = user_coords$y[1] + 0.2, xmax = user_coords$x[1] + 0.4, ymax = user_coords$y[1] + 0.6)
+    g  + ggplot2::annotation_raster(user_images, xmin = user_coords$x[1] - 0.4, ymin = user_coords$y[1] + 0.2, xmax = user_coords$x[1] + 0.4, ymax = user_coords$y[1] + 0.6)
   }
   purrr::reduce2(
     df_profile_pic$img,
