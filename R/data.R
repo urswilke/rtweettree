@@ -48,13 +48,13 @@
 #' }
 "df_retweets"
 
-#' Example package dataset storing the result of rtweettree:::get_profile_pic_df()
+#' Example package dataset storing the result of get_profile_pic_df()
 #'
-#' Example package dataset storing the result of rtweettree:::get_profile_pic_df()
+#' Example package dataset storing the result of get_profile_pic_df()
 #'
 #' @examples
 #' \dontrun{
-#'   df_profile_pic <- rtweettree:::get_profile_pic_df(bind_rows(df_tls, df_favs, df_main_status))
+#'   df_profile_pic <- get_profile_pic_df(bind_rows(df_tls, df_favs, df_main_status))
 #' }
 "df_profile_pic"
 
