@@ -59,8 +59,6 @@ id `main_status_id` (using `rtweet` functions under the hood):
 ``` r
 main_status_id <- "1438481824922181635"
 l <- rtweettree_data(main_status_id)
-#> [1] "Index: 1; Scraped 5 tweets. Remaining: 63"
-#> [1] "Index: 2; Scraped 1 tweets. Remaining: 61"
 ```
 
 You can then visualize this data with:

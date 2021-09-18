@@ -53,7 +53,7 @@ To give you a quick understanding of the functionalities of this package, it can
 first be used to scrape data related to a twitter status id `main_status_id` (using `rtweet`
 functions under the hood):
 
-```{r rtweettree_data, message=FALSE}
+```{r rtweettree_data, message=FALSE, eval=FALSE}
 main_status_id <- "1438481824922181635"
 l <- rtweettree_data(main_status_id)
 ```
