@@ -119,9 +119,7 @@
 <p>To give you a quick understanding of the functionalities of this package, it can first be used to scrape data related to a twitter status id <code>main_status_id</code> (using <code>rtweet</code> functions under the hood):</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">main_status_id</span> <span class="op">&lt;-</span> <span class="st">"1438481824922181635"</span>
-<span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rtweettree_data.html">rtweettree_data</a></span><span class="op">(</span><span class="va">main_status_id</span><span class="op">)</span>
-<span class="co">#&gt; [1] "Index: 1; Scraped 5 tweets. Remaining: 63"</span>
-<span class="co">#&gt; [1] "Index: 2; Scraped 1 tweets. Remaining: 61"</span></code></pre></div>
+<span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rtweettree_data.html">rtweettree_data</a></span><span class="op">(</span><span class="va">main_status_id</span><span class="op">)</span></code></pre></div>
 <p>You can then visualize this data with:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span></code></pre></div>
