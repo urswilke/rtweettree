@@ -78,17 +78,16 @@ find_connections_rec <- function(df_tree, df0) {
 #' g <- create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs, df_retweets)
 #' g %>% ggraph::ggraph() + ggraph::geom_node_point() + ggraph::geom_edge_link()
 #' }
-
 create_tweet_tbl_graph <- function(x) {
   suppressMessages(df <- x %>% purrr::reduce(dplyr::full_join) %>% dplyr::distinct(.data$status_id, .keep_all = TRUE))
   df_root <-
-    df_main_status %>%
+    x$df_main_status %>%
     # df_tree %>%
     # filter(status_id == main_status_id) %>%
     dplyr::select(to = .data$status_id, .data$user_id, .data$screen_name) %>%
     dplyr::mutate(from = "root", type = "root")
   tweet_edges <-
-    find_connections_rec(dplyr::bind_rows(df_tree, df_tls, df_favs), df_root)
+    find_connections_rec(dplyr::bind_rows(x$df_tree, x$df_tls, x$df_favs), df_root)
   user_tweet_edges <-
     tweet_edges %>%
     dplyr::bind_rows(df_root %>% dplyr::mutate(from = .data$screen_name)) %>%
@@ -100,7 +99,7 @@ create_tweet_tbl_graph <- function(x) {
 
 
   fav_edges <-
-    df_favs %>%
+    x$df_favs %>%
     dplyr::filter(.data$status_id %in% tweet_edges$to) %>%
     dplyr::transmute(from = .data$status_id, to = .data$favorited_by, user_id = .data$favorited_by, .data$screen_name) %>%
     # dplyr::add_count(.data$to, name = "n_likes") %>%

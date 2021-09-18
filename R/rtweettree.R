@@ -45,11 +45,49 @@ rtweettree_data.rtweettree_data <- function(x, ...) {
   x
 }
 
+#' Create a tidygraph tbl_graph object
+#'
+#' Create a `tidygraph::tbl_graph` object representing the tree structure of a
+#' tweet and all replies, quotes and likes that could be scraped using rtweet.
+#'
+#' @param x rtweet status_id or rtweettree_data object
+#'
+#' @return A tidygraph tbl_graph object representing the tree structure of all scraped subtweets of the tweet.
+#' @export
+#'
+#' @examples
+#'\dontrun{
+#' main_status_id <- "1289565453707173889"
+#' df_main_status <- rtweet::lookup_statuses(main_status_id)
+#' df_tree <- search_tree(main_status_id)
+#' tree_ids <- df_tree$user_id %>% unique()
+#' df_tls <- scrape_timelines(tree_ids)
+#' df0 <- df_main_status %>%
+#'   dplyr::filter(status_id == main_status_id) %>%
+#'   dplyr::select(to = status_id, user_id) %>%
+#'   dplyr::mutate(from = "root", type = "root")
+#' tweet_edges <-
+#'   find_connections_rec(dplyr::bind_rows(df_tree, df_tls), df0)
+#' ids <- tweet_edges$user_id %>% unique()
+#' df_favs <- scrape_favs2(ids, main_status_id)
+#' tweet_ids <- list(df_tls, df_favs, df_main_status) %>%
+#'   dplyr::bind_rows() %>%
+#'   pull(status_id) %>%
+#'   unique()
+#' df_retweets <- tweet_ids %>% purrr::map_dfr(~rtweet::get_retweets(.x))
+#'
+#' l <- structure(
+#'   tibble::lst(df_main_status, df_tree, df_tls, df_favs, df_retweets),
+#'   class = c("rtweettree_data", "list")
+#' )
+#' g <- rtweettree_tbl_graph(l)
+#' g %>% ggraph::ggraph() + ggraph::geom_node_point() + ggraph::geom_edge_link()
+#' }
 rtweettree_tbl_graph <- function(x, ...) {
   UseMethod("rtweettree_tbl_graph")
 }
 
-
+#' @export
 rtweettree_tbl_graph.rtweettree_data <- function(x, ...) {
   g <-
     create_tweet_tbl_graph(x)
@@ -60,6 +98,8 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, ...) {
   class(g) <- c("rtweettree_tbl_graph", "tbl_graph", "igraph")
   g
 }
+
+#' @export
 rtweettree_tbl_graph.rtweettree_tbl_graph <- function(x, ...) {
   x
 }
@@ -116,9 +156,9 @@ autoplot.character <- function(x, ...) {
   )
 
   g1 +
-    ggraph::geom_edge_diagonal(ggplot2::aes(color= type)) +
+    ggraph::geom_edge_diagonal(ggplot2::aes(color = .data$type)) +
     ggraph::scale_edge_colour_hue(name = "action") +
-    ggraph::geom_node_point(ggplot2::aes(shape = type)) +
+    ggraph::geom_node_point(ggplot2::aes(shape = .data$type)) +
     ggplot2::scale_color_viridis_c(direction = -1)
 
 }

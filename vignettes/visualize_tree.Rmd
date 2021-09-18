@@ -122,7 +122,12 @@ The relevant twitter information of these tweets is translated into a tidygraph 
 
 ```{r tbl_graph, eval=TRUE}
 g <-
-  create_tweet_tbl_graph(list(df_main_status, df_tree, df_tls, df_favs, df_retweets))
+  rtweettree_tbl_graph(
+    structure(
+      tibble::lst(df_main_status, df_tree, df_tls, df_favs, df_retweets),
+      class = c("rtweettree_data", "list")
+    )
+  )
 ```
 
 
