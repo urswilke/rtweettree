@@ -19,7 +19,8 @@ Suggests:
     ggforce,
     ggiraph,
     ggraph,
-    vdiffr
+    vdiffr,
+    covr
 VignetteBuilder: knitr
 Imports: 
     rtweet,
