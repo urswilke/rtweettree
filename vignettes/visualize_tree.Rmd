@@ -103,7 +103,7 @@ df_favs <- scrape_favs2(ids, main_status_id)
 ### Retweets
 ```{r}
 tweet_ids <- list(df_tls, df_favs, df_main_status) %>% dplyr::bind_rows() %>% pull(status_id) %>% unique()
-df_retweets <- tweet_ids %>% map_dfr(~rtweet::get_retweets(.x))
+df_retweets <- tweet_ids %>% map_dfr(~rtweet::get_retweets(.x)) %>% tibble::as_tibble()
 ```
 
 
@@ -123,10 +123,7 @@ The relevant twitter information of these tweets is translated into a tidygraph 
 ```{r tbl_graph, eval=TRUE}
 g <-
   rtweettree_tbl_graph(
-    structure(
       tibble::lst(df_main_status, df_tree, df_tls, df_favs, df_retweets),
-      class = c("rtweettree_data", "list")
-    )
   )
 ```
 
