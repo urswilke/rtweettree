@@ -86,4 +86,4 @@ vignette("visualize_tree", package = "rtweettree")
 ## TODOs:
 
 * clean up code and refactor
-* make plotting functions more customizable, e.g. with a ggplot2 autoplot method (?)
+* make plotting functions more customizable

@@ -127,56 +127,17 @@ l
 #> #   media_type <list>, ext_media_url <list>, ext_media_t.co <list>, …
 #> 
 #> $df_retweets
-#>               user_id           status_id          created_at screen_name
-#> 1 1438479415550390275 1438482588222607371 2021-09-16 12:39:09 rtweetbird2
-#>                                                            text          source
-#> 1 this is a test tweet to illustrate how rtweettree can be used Twitter Web App
-#>   display_text_width reply_to_status_id reply_to_user_id reply_to_screen_name
-#> 1                 NA                 NA               NA                   NA
-#>   is_quote is_retweet favorite_count retweet_count quote_count reply_count
-#> 1    FALSE       TRUE              0             1          NA          NA
-#>   hashtags symbols urls_url urls_t.co urls_expanded_url media_url media_t.co
-#> 1       NA      NA       NA        NA                NA        NA         NA
-#>   media_expanded_url media_type ext_media_url ext_media_t.co
-#> 1                 NA         NA            NA             NA
-#>   ext_media_expanded_url ext_media_type    mentions_user_id
-#> 1                     NA           <NA> 1438476950746636291
-#>   mentions_screen_name lang quoted_status_id quoted_text quoted_created_at
-#> 1          rtweetbird1   en             <NA>        <NA>              <NA>
-#>   quoted_source quoted_favorite_count quoted_retweet_count quoted_user_id
-#> 1          <NA>                    NA                   NA           <NA>
-#>   quoted_screen_name quoted_name quoted_followers_count quoted_friends_count
-#> 1               <NA>        <NA>                     NA                   NA
-#>   quoted_statuses_count quoted_location quoted_description quoted_verified
-#> 1                    NA            <NA>               <NA>              NA
-#>     retweet_status_id
-#> 1 1438481824922181635
-#>                                                    retweet_text
-#> 1 this is a test tweet to illustrate how rtweettree can be used
-#>    retweet_created_at  retweet_source retweet_favorite_count
-#> 1 2021-09-16 12:36:07 Twitter Web App                      2
-#>   retweet_retweet_count     retweet_user_id retweet_screen_name retweet_name
-#> 1                     1 1438476950746636291         rtweetbird1  rtweetbird1
-#>   retweet_followers_count retweet_friends_count retweet_statuses_count
-#> 1                       0                     0                      1
-#>   retweet_location          retweet_description retweet_verified place_url
-#> 1                  i'm just a fake user profile            FALSE      <NA>
-#>   place_name place_full_name place_type country country_code geo_coords
-#> 1       <NA>            <NA>       <NA>    <NA>         <NA>     NA, NA
-#>   coords_coords                    bbox_coords
-#> 1        NA, NA NA, NA, NA, NA, NA, NA, NA, NA
-#>                                                   status_url        name
-#> 1 https://twitter.com/rtweetbird2/status/1438482588222607371 rtweetbird2
-#>   location              description url protected followers_count friends_count
-#> 1          i'm another fake profile  NA     FALSE               0             0
-#>   listed_count statuses_count favourites_count  account_created_at verified
-#> 1            0              3                1 2021-09-16 12:26:54    FALSE
-#>   profile_url profile_expanded_url account_lang profile_banner_url
-#> 1        <NA>                 <NA>           NA                 NA
-#>   profile_background_url
-#> 1                     NA
-#>                                                             profile_image_url
-#> 1 http://pbs.twimg.com/profile_images/1438498659759378434/Ua9zpiYm_normal.jpg
+#> # A tibble: 1 × 90
+#>   user_id             status_id  created_at          screen_name text     source
+#>   <chr>               <chr>      <dttm>              <chr>       <chr>    <chr> 
+#> 1 1438479415550390275 143848258… 2021-09-16 12:39:09 rtweetbird2 this is… Twitt…
+#> # … with 84 more variables: display_text_width <int>, reply_to_status_id <lgl>,
+#> #   reply_to_user_id <lgl>, reply_to_screen_name <lgl>, is_quote <lgl>,
+#> #   is_retweet <lgl>, favorite_count <int>, retweet_count <int>,
+#> #   quote_count <int>, reply_count <int>, hashtags <list>, symbols <list>,
+#> #   urls_url <list>, urls_t.co <list>, urls_expanded_url <list>,
+#> #   media_url <list>, media_t.co <list>, media_expanded_url <list>,
+#> #   media_type <list>, ext_media_url <list>, ext_media_t.co <list>, …
 ```
 
 You can then visualize this data with:
@@ -198,5 +159,4 @@ vignette("visualize_tree", package = "rtweettree")
 ## TODOs:
 
 -   clean up code and refactor
--   make plotting functions more customizable, e.g. with a ggplot2
-    autoplot method (?)
+-   make plotting functions more customizable
