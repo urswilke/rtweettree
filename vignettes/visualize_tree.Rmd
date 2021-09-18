@@ -71,8 +71,16 @@ The timelines of all users involved are scraped:
 ```{r scrape_timelines}
 tree_ids <- df_tree$user_id %>% unique()
 # Scrape the timelines of the users scraped:
+```
+
+
+```{r scrape_timelines2, include=FALSE}
 # TODO: repair!
 # df_tls <- scrape_timelines(tree_ids)
+```
+
+
+```{r scrape_timelines3}
 df_tls <- rtweet::get_timelines(tree_ids)
 ```
 
@@ -92,37 +100,40 @@ ids <- tweet_edges$user_id %>% unique()
 df_favs <- scrape_favs2(ids, main_status_id)
 ```
 
+
+```{r scrape_favs_save, include=FALSE}
+usethis::use_data(df_main_status, overwrite = TRUE)
+usethis::use_data(df_tls, overwrite = TRUE)
+usethis::use_data(df_tree, overwrite = TRUE)
+usethis::use_data(df_favs, overwrite = TRUE)
+```
+
 ## Create tbl_graph object
 
 The relevant twitter information of these tweets is translated into a tidygraph network object: 
 
 ```{r tbl_graph}
-g <- 
+g <-
   create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs)
+```
+
+
+```{r tbl_graph_save, include=FALSE}
 usethis::use_data(g, overwrite = TRUE, internal = TRUE)
-```
-
-```{r save_g}
-# saveRDS(g, paste0(here::here(), "/vignettes/visualize_tree_files/tbl_graph.RDS"))
-```
-
-
-```{r load_g_ALT, eval=TRUE}
-# g <- readRDS(paste0(here::here(), "/vignettes/visualize_tree_files/tbl_graph.RDS"))
 ```
 
 
 
 ## Visualize graphs
 
+Please make sure not to publish information from Twitter you are not allowed to and to comply in strict accordance with the [twitter developer terms](https://developer.twitter.com/en/developer-terms/more-on-restricted-use-cases)! The example rtweet data in this article only contains the tweets of three dummy accounts I created. But probably you're not allowed to publish this for the `main_status_id` of any other tweet.
+
 ```{r load_g, eval=TRUE, include=FALSE}
 # load g from internal dataset
 g <- rtweettree:::g
 ```
 
-### Using ggraph
-
-Circlepack plot:
+The generated graph object consists of nodes representing tweets and users, as well as edges that can be replies & quotes (connecting tweets), "by" connecting the author to his tweet, "like" connecting the user to the tweet he liked: 
 
 ```{r data_manip, eval=TRUE}
 g <- g %>%     
@@ -131,24 +142,21 @@ g <- g %>%
 g
 ```
 
+### Hierarchical tree plot with ggraph
 
-```{r ggraph_circlepack, eval=TRUE}
+We can generate a simple tree graph of the various tweets and users with:
 
-p <- g %>%
-  ggraph('circlepack', circular = T) +
-  geom_node_circle(aes(fill = dist_to_center), n = 50) +
-  scale_fill_viridis_c(direction = -1) +
-  coord_fixed() + 
-  # remove legend entry:
-  guides(fill = FALSE)
-p
+```{r simpleplot}
+g %>% 
+  ggraph() + 
+  geom_node_label(aes(label = label, color = type), repel = TRUE) + 
+  geom_edge_link()
 ```
 
 We can generate a ggraph object and add profile pictures to the user nodes with the following function: 
 
 ```{r ggraph, eval=TRUE, fig.width=7, fig.height=6}
 
-Hierarchical tree plot:
 g1 <- add_profile_pics_to_tree_ggraph(
   g,
   rtweettree:::get_profile_pic_df(bind_rows(df_tls, df_favs, df_main_status))
@@ -164,16 +172,15 @@ g1 +
   scale_edge_colour_hue(name = "action") +
   geom_node_point(aes(color = dist_to_center,
                       shape = type)) + 
-  scale_color_viridis_c(direction = -1) +
-  # remove legend entry
-  guides(color = FALSE)
+  scale_color_viridis_c(direction = -1) + 
+  theme(legend.position = "bottom")
 ```
 
 
-### Using ggiraph (for interactivity)
+### Using ggiraph
 
-* Hover over the nodes to see the tweets/users. (in order to comply to the twitter terms of use this information will be anonymized for this public vignette; see below)
-* Click on the nodes to open the tweets/users on twitter.com
+With ggiraph we can generate an interactive tree graph:
+
 
 ```{r ggiraph, eval=TRUE, results='asis'}
 # Add on click information to the graph nodes:
@@ -194,7 +201,9 @@ g2 <- g1 +
                                       data_id = g1$data$screen_name,
                                       tooltip = g1$data$label,
                                       onclick = g1$data$onclick),
-                                  size = 3)
+                                  size = 3) +
+  ggtitle("Hover over the nodes to see the tweets/user names.", 
+          subtitle = "Click on the nodes to open the tweets/users on twitter.com")
 p <- girafe(code = print(g2), width_svg = 6, height_svg = 5)
 
 p <- girafe_options(x = p,
