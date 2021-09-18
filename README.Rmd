@@ -47,7 +47,33 @@ library(rtweettree)
 
 In order to use **rtweettree** please refer to [the according section of **rtweet**](https://github.com/ropensci/rtweet#usage). It is probably good advice to first feel comfortable with [**rtweet**](https://github.com/ropensci/rtweet).
 
-An example how to create a subtweet network graph from a tweet status_id is shown in the [vignette for tree visualization](articles/visualize_tree.html). In this link, I didn't manage to render the interactive ggiraph correctly yet, but after installing rtweettree it can be seen in the vignette:
+## Quick dive-in
+
+To give you a quick understanding of the functionalities of this package, it can
+first be used to scrape data related to a twitter status id `main_status_id` (using `rtweet`
+functions under the hood):
+
+```{r rtweettree_data, message=FALSE}
+main_status_id <- "1438481824922181635"
+l <- rtweettree_data(main_status_id)
+```
+
+
+```{r rtweettree_data_offline, include=FALSE, eval=TRUE}
+# in order to makae it available offline:
+l <- structure(
+  tibble::lst(df_main_status, df_tree, df_tls, df_favs, df_retweets),
+  class = c("rtweettree_data", "list")
+)
+```
+
+You can then visualize this data with: 
+
+```{r autoplot, eval=TRUE, message=FALSE}
+ggplot2::autoplot(l)
+```
+
+A more in-depth example how to create the subtweet network graph from a tweet status_id is shown in the [vignette for tree visualization](articles/visualize_tree.html). 
 
 ```{r tree_viz, eval=FALSE}
 vignette("visualize_tree", package = "rtweettree")
@@ -55,4 +81,5 @@ vignette("visualize_tree", package = "rtweettree")
 
 ## TODOs:
 
-* add retweets to the graph
+* clean up code and refactor
+* make plotting functions more customizable, e.g. with a ggplot2 autoplot method (?)

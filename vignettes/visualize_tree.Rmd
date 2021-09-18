@@ -122,7 +122,7 @@ The relevant twitter information of these tweets is translated into a tidygraph 
 
 ```{r tbl_graph, eval=TRUE}
 g <-
-  create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs, df_retweets)
+  create_tweet_tbl_graph(list(df_main_status, df_tree, df_tls, df_favs, df_retweets))
 ```
 
 

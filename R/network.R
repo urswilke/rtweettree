@@ -49,11 +49,7 @@ find_connections_rec <- function(df_tree, df0) {
 #' Create a `tidygraph::tbl_graph` object representing the tree structure of a
 #' tweet and all replies, quotes and likes that could be scraped using rtweet.
 #'
-#' @param df_main_status Data frame resulting of `rtweet::lookup_statuses()`.
-#' @param df_tree Data frame resulting of `search_tree()`.
-#' @param df_tls Data frame resulting of `scrape_timelines()`.
-#' @param df_favs Data frame resulting of `find_connections_rec()` of the involved user ids (see example).
-#' @param df_retweets Data frame resulting of `rtweet::get_retweets()`.
+#' @param x rtweet status_id or rtweettree_data object
 #'
 #' @return A tidygraph tbl_graph object representing the tree structure of all scraped subtweets of the tweet.
 #' @export
@@ -83,8 +79,8 @@ find_connections_rec <- function(df_tree, df0) {
 #' g %>% ggraph::ggraph() + ggraph::geom_node_point() + ggraph::geom_edge_link()
 #' }
 
-create_tweet_tbl_graph <- function(df_main_status, df_tree, df_tls, df_favs, df_retweets) {
-  df <- list(df_main_status, df_tree, df_tls, df_favs) %>% dplyr::bind_rows() %>% dplyr::distinct(.data$status_id, .keep_all = TRUE)
+create_tweet_tbl_graph <- function(x) {
+  suppressMessages(df <- x %>% purrr::reduce(dplyr::full_join) %>% dplyr::distinct(.data$status_id, .keep_all = TRUE))
   df_root <-
     df_main_status %>%
     # df_tree %>%

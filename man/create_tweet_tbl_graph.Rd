@@ -4,18 +4,10 @@
 \alias{create_tweet_tbl_graph}
 \title{Create a tidygraph tbl_graph object}
 \usage{
-create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs, df_retweets)
+create_tweet_tbl_graph(x)
 }
 \arguments{
-\item{df_main_status}{Data frame resulting of `rtweet::lookup_statuses()`.}
-
-\item{df_tree}{Data frame resulting of `search_tree()`.}
-
-\item{df_tls}{Data frame resulting of `scrape_timelines()`.}
-
-\item{df_favs}{Data frame resulting of `find_connections_rec()` of the involved user ids (see example).}
-
-\item{df_retweets}{Data frame resulting of `rtweet::get_retweets()`.}
+\item{x}{rtweet status_id or rtweettree_data object}
 }
 \value{
 A tidygraph tbl_graph object representing the tree structure of all scraped subtweets of the tweet.
