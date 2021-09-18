@@ -153,12 +153,12 @@ create_tweet_tbl_graph <- function(df_main_status, df_tree, df_tls, df_favs, df_
   # Error in (function (edges, n = max(edges), directed = TRUE)  :
   #             At type_indexededgelist.c:116 : cannot create empty graph with negative number of vertices, Invalid value
   #"
-  xxx <- unique(nodes$name)
-  yyy <- unique(c(edges$from, edges$to))
-  ww <- setdiff(yyy, xxx)
-  oo <- edges %>% filter(from %in% ww | to %in% ww)
-  edges <- edges %>%
-    anti_join(oo)
+  # xxx <- unique(nodes$name)
+  # yyy <- unique(c(edges$from, edges$to))
+  # ww <- setdiff(yyy, xxx)
+  # oo <- edges %>% filter(from %in% ww | to %in% ww)
+  # edges <- edges %>%
+  #   anti_join(oo)
   tidygraph::tbl_graph(
       nodes %>%
         # TODO: remove row with root
