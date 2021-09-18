@@ -2,7 +2,7 @@ suppressMessages(library(tidygraph))
 suppressMessages(library(ggraph))
 suppressMessages(library(dplyr))
 suppressMessages(library(purrr))
-suppressMessages(g <- create_tweet_tbl_graph(list(df_main_status, df_tree, df_tls, df_favs, df_retweets)))
+suppressMessages(g <- rtweettree_tbl_graph(tibble::lst(df_main_status, df_tree, df_tls, df_favs, df_retweets)))
 g <- g %>% mutate(dist_to_center = node_distance_from(node_is_source()))
 
 df_profile_pic$profile_image_url <- 1:3 %>% map_chr(~system.file("profile_pics", paste0(.x, ".png"), package = "rtweettree"))

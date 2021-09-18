@@ -41,6 +41,13 @@ rtweettree_data.character <- function(x, ...) {
   scrape_rtweettree_data_from_status_id(x)
 }
 #' @export
+rtweettree_data.list <- function(x, ...) {
+  structure(
+    x,
+    class = c("rtweettree_data", "list")
+  )
+}
+#' @export
 rtweettree_data.rtweettree_data <- function(x, ...) {
   x
 }
@@ -76,10 +83,7 @@ rtweettree_data.rtweettree_data <- function(x, ...) {
 #'   unique()
 #' df_retweets <- tweet_ids %>% purrr::map_dfr(~rtweet::get_retweets(.x))
 #'
-#' l <- structure(
-#'   tibble::lst(df_main_status, df_tree, df_tls, df_favs, df_retweets),
-#'   class = c("rtweettree_data", "list")
-#' )
+#' l <- tibble::lst(df_main_status, df_tree, df_tls, df_favs, df_retweets)
 #' g <- rtweettree_tbl_graph(l)
 #' g %>% ggraph::ggraph() + ggraph::geom_node_point() + ggraph::geom_edge_link()
 #' }
@@ -105,11 +109,13 @@ rtweettree_tbl_graph.rtweettree_tbl_graph <- function(x, ...) {
 }
 
 
-rtweettree_tbl_graph.character <- function(x, ...) {
+#' @export
+rtweettree_tbl_graph.list <- rtweettree_tbl_graph.character <- function(x, ...) {
   l <- rtweettree_data(x)
   g <-
     rtweettree_tbl_graph.rtweettree_data(l)
 }
+#' @export
 rtweettree_tbl_graph.default <- function(x, ...) {
   stop("rtweettree_tbl_graph() not defined for object of class ", class(x))
 }
@@ -143,7 +149,7 @@ rtweettree_tbl_graph.default <- function(x, ...) {
 #'
 #' @importFrom ggplot2 autoplot
 #'
-autoplot.character <- function(x, ...) {
+autoplot.list <- autoplot.character <- function(x, ...) {
   l <- rtweettree_data(x)
   df_profile_pic <- rtweettree:::get_profile_pic_df(dplyr::bind_rows(l[c("df_tls", "df_favs", "df_main_status")]))
 
