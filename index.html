@@ -183,56 +183,17 @@
 <span class="co">#&gt; #   media_type &lt;list&gt;, ext_media_url &lt;list&gt;, ext_media_t.co &lt;list&gt;, …</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $df_retweets</span>
-<span class="co">#&gt;               user_id           status_id          created_at screen_name</span>
-<span class="co">#&gt; 1 1438479415550390275 1438482588222607371 2021-09-16 12:39:09 rtweetbird2</span>
-<span class="co">#&gt;                                                            text          source</span>
-<span class="co">#&gt; 1 this is a test tweet to illustrate how rtweettree can be used Twitter Web App</span>
-<span class="co">#&gt;   display_text_width reply_to_status_id reply_to_user_id reply_to_screen_name</span>
-<span class="co">#&gt; 1                 NA                 NA               NA                   NA</span>
-<span class="co">#&gt;   is_quote is_retweet favorite_count retweet_count quote_count reply_count</span>
-<span class="co">#&gt; 1    FALSE       TRUE              0             1          NA          NA</span>
-<span class="co">#&gt;   hashtags symbols urls_url urls_t.co urls_expanded_url media_url media_t.co</span>
-<span class="co">#&gt; 1       NA      NA       NA        NA                NA        NA         NA</span>
-<span class="co">#&gt;   media_expanded_url media_type ext_media_url ext_media_t.co</span>
-<span class="co">#&gt; 1                 NA         NA            NA             NA</span>
-<span class="co">#&gt;   ext_media_expanded_url ext_media_type    mentions_user_id</span>
-<span class="co">#&gt; 1                     NA           &lt;NA&gt; 1438476950746636291</span>
-<span class="co">#&gt;   mentions_screen_name lang quoted_status_id quoted_text quoted_created_at</span>
-<span class="co">#&gt; 1          rtweetbird1   en             &lt;NA&gt;        &lt;NA&gt;              &lt;NA&gt;</span>
-<span class="co">#&gt;   quoted_source quoted_favorite_count quoted_retweet_count quoted_user_id</span>
-<span class="co">#&gt; 1          &lt;NA&gt;                    NA                   NA           &lt;NA&gt;</span>
-<span class="co">#&gt;   quoted_screen_name quoted_name quoted_followers_count quoted_friends_count</span>
-<span class="co">#&gt; 1               &lt;NA&gt;        &lt;NA&gt;                     NA                   NA</span>
-<span class="co">#&gt;   quoted_statuses_count quoted_location quoted_description quoted_verified</span>
-<span class="co">#&gt; 1                    NA            &lt;NA&gt;               &lt;NA&gt;              NA</span>
-<span class="co">#&gt;     retweet_status_id</span>
-<span class="co">#&gt; 1 1438481824922181635</span>
-<span class="co">#&gt;                                                    retweet_text</span>
-<span class="co">#&gt; 1 this is a test tweet to illustrate how rtweettree can be used</span>
-<span class="co">#&gt;    retweet_created_at  retweet_source retweet_favorite_count</span>
-<span class="co">#&gt; 1 2021-09-16 12:36:07 Twitter Web App                      2</span>
-<span class="co">#&gt;   retweet_retweet_count     retweet_user_id retweet_screen_name retweet_name</span>
-<span class="co">#&gt; 1                     1 1438476950746636291         rtweetbird1  rtweetbird1</span>
-<span class="co">#&gt;   retweet_followers_count retweet_friends_count retweet_statuses_count</span>
-<span class="co">#&gt; 1                       0                     0                      1</span>
-<span class="co">#&gt;   retweet_location          retweet_description retweet_verified place_url</span>
-<span class="co">#&gt; 1                  i'm just a fake user profile            FALSE      &lt;NA&gt;</span>
-<span class="co">#&gt;   place_name place_full_name place_type country country_code geo_coords</span>
-<span class="co">#&gt; 1       &lt;NA&gt;            &lt;NA&gt;       &lt;NA&gt;    &lt;NA&gt;         &lt;NA&gt;     NA, NA</span>
-<span class="co">#&gt;   coords_coords                    bbox_coords</span>
-<span class="co">#&gt; 1        NA, NA NA, NA, NA, NA, NA, NA, NA, NA</span>
-<span class="co">#&gt;                                                   status_url        name</span>
-<span class="co">#&gt; 1 https://twitter.com/rtweetbird2/status/1438482588222607371 rtweetbird2</span>
-<span class="co">#&gt;   location              description url protected followers_count friends_count</span>
-<span class="co">#&gt; 1          i'm another fake profile  NA     FALSE               0             0</span>
-<span class="co">#&gt;   listed_count statuses_count favourites_count  account_created_at verified</span>
-<span class="co">#&gt; 1            0              3                1 2021-09-16 12:26:54    FALSE</span>
-<span class="co">#&gt;   profile_url profile_expanded_url account_lang profile_banner_url</span>
-<span class="co">#&gt; 1        &lt;NA&gt;                 &lt;NA&gt;           NA                 NA</span>
-<span class="co">#&gt;   profile_background_url</span>
-<span class="co">#&gt; 1                     NA</span>
-<span class="co">#&gt;                                                             profile_image_url</span>
-<span class="co">#&gt; 1 http://pbs.twimg.com/profile_images/1438498659759378434/Ua9zpiYm_normal.jpg</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 1 × 90</span>
+<span class="co">#&gt;   user_id             status_id  created_at          screen_name text     source</span>
+<span class="co">#&gt;   &lt;chr&gt;               &lt;chr&gt;      &lt;dttm&gt;              &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt; </span>
+<span class="co">#&gt; 1 1438479415550390275 143848258… 2021-09-16 12:39:09 rtweetbird2 this is… Twitt…</span>
+<span class="co">#&gt; # … with 84 more variables: display_text_width &lt;int&gt;, reply_to_status_id &lt;lgl&gt;,</span>
+<span class="co">#&gt; #   reply_to_user_id &lt;lgl&gt;, reply_to_screen_name &lt;lgl&gt;, is_quote &lt;lgl&gt;,</span>
+<span class="co">#&gt; #   is_retweet &lt;lgl&gt;, favorite_count &lt;int&gt;, retweet_count &lt;int&gt;,</span>
+<span class="co">#&gt; #   quote_count &lt;int&gt;, reply_count &lt;int&gt;, hashtags &lt;list&gt;, symbols &lt;list&gt;,</span>
+<span class="co">#&gt; #   urls_url &lt;list&gt;, urls_t.co &lt;list&gt;, urls_expanded_url &lt;list&gt;,</span>
+<span class="co">#&gt; #   media_url &lt;list&gt;, media_t.co &lt;list&gt;, media_expanded_url &lt;list&gt;,</span>
+<span class="co">#&gt; #   media_type &lt;list&gt;, ext_media_url &lt;list&gt;, ext_media_t.co &lt;list&gt;, …</span></code></pre></div>
 <p>You can then visualize this data with:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span></code></pre></div>
@@ -246,7 +207,7 @@
 <a href="#todos" class="anchor"></a>TODOs:</h2>
 <ul>
 <li>clean up code and refactor</li>
-<li>make plotting functions more customizable, e.g. with a ggplot2 autoplot method (?)</li>
+<li>make plotting functions more customizable</li>
 </ul>
 </div>
 </div>
