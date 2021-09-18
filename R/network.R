@@ -53,6 +53,7 @@ find_connections_rec <- function(df_tree, df0) {
 #' @param df_tree Data frame resulting of `search_tree()`.
 #' @param df_tls Data frame resulting of `scrape_timelines()`.
 #' @param df_favs Data frame resulting of `find_connections_rec()` of the involved user ids (see example).
+#' @param df_retweets Data frame resulting of `rtweet::get_retweets()`.
 #'
 #' @return A tidygraph tbl_graph object representing the tree structure of all scraped subtweets of the tweet.
 #' @export
@@ -72,11 +73,14 @@ find_connections_rec <- function(df_tree, df0) {
 #'   find_connections_rec(dplyr::bind_rows(df_tree, df_tls), df0)
 #' ids <- tweet_edges$user_id %>% unique()
 #' df_favs <- scrape_favs2(ids, main_status_id)
-#' g <- create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs)
+#' tweet_ids <- list(df_tls, df_favs, df_main_status) %>% dplyr::bind_rows() %>% pull(status_id) %>% unique()
+#' df_retweets <- tweet_ids %>% purrr::map_dfr(~rtweet::get_retweets(.x))
+#'
+#' g <- create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs, df_retweets)
 #' g %>% ggraph::ggraph() + ggraph::geom_node_point() + ggraph::geom_edge_link()
 #' }
 
-create_tweet_tbl_graph <- function(df_main_status, df_tree, df_tls, df_favs) {
+create_tweet_tbl_graph <- function(df_main_status, df_tree, df_tls, df_favs, df_retweets) {
   df <- list(df_main_status, df_tree, df_tls, df_favs) %>% dplyr::bind_rows() %>% dplyr::distinct(.data$status_id, .keep_all = TRUE)
   df_root <-
     df_main_status %>%
@@ -104,14 +108,18 @@ create_tweet_tbl_graph <- function(df_main_status, df_tree, df_tls, df_favs) {
     dplyr::mutate(type = "like")
 
 
+  retweet_edges <- df_retweets %>%
+    dplyr::filter(.data$is_retweet) %>%
+    dplyr::transmute(from = .data$retweet_status_id, to = .data$user_id, .data$user_id, .data$screen_name) %>%
+    dplyr::mutate(type = "retweet")
+
   edges <-
-    list(
+    dplyr::bind_rows(
       tweet_edges,
       fav_edges,
-      user_tweet_edges
+      user_tweet_edges,
+      retweet_edges
     ) %>%
-    purrr::reduce(dplyr::full_join) %>%
-    dplyr::mutate(from_chr = .data$from, to_chr = .data$to) %>%
     dplyr::filter(.data$from != "root")
 
   user_nodes <-

@@ -4,13 +4,7 @@
 \alias{create_tweet_tbl_graph}
 \title{Create a tidygraph tbl_graph object}
 \usage{
-create_tweet_tbl_graph(
-  df_main_status,
-  df_tree,
-  df_tls,
-  df_favs,
-  add_profile_pics = FALSE
-)
+create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs, df_retweets)
 }
 \arguments{
 \item{df_main_status}{Data frame resulting of `rtweet::lookup_statuses()`.}
@@ -20,6 +14,8 @@ create_tweet_tbl_graph(
 \item{df_tls}{Data frame resulting of `scrape_timelines()`.}
 
 \item{df_favs}{Data frame resulting of `find_connections_rec()` of the involved user ids (see example).}
+
+\item{df_retweets}{Data frame resulting of `rtweet::get_retweets()`.}
 }
 \value{
 A tidygraph tbl_graph object representing the tree structure of all scraped subtweets of the tweet.
@@ -43,7 +39,10 @@ tweet_edges <-
   find_connections_rec(dplyr::bind_rows(df_tree, df_tls), df0)
 ids <- tweet_edges$user_id \%>\% unique()
 df_favs <- scrape_favs2(ids, main_status_id)
-g <- create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs)
+tweet_ids <- list(df_tls, df_favs, df_main_status) \%>\% dplyr::bind_rows() \%>\% pull(status_id) \%>\% unique()
+df_retweets <- tweet_ids \%>\% purrr::map_dfr(~rtweet::get_retweets(.x))
+
+g <- create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs, df_retweets)
 g \%>\% ggraph::ggraph() + ggraph::geom_node_point() + ggraph::geom_edge_link()
 }
 }

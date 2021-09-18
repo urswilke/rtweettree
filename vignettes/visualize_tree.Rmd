@@ -100,21 +100,29 @@ ids <- tweet_edges$user_id %>% unique()
 df_favs <- scrape_favs2(ids, main_status_id)
 ```
 
+### Retweets
+```{r}
+tweet_ids <- list(df_tls, df_favs, df_main_status) %>% dplyr::bind_rows() %>% pull(status_id) %>% unique()
+df_retweets <- tweet_ids %>% map_dfr(~rtweet::get_retweets(.x))
+```
+
+
 
 ```{r scrape_favs_save, include=FALSE}
 usethis::use_data(df_main_status, overwrite = TRUE)
 usethis::use_data(df_tls, overwrite = TRUE)
 usethis::use_data(df_tree, overwrite = TRUE)
 usethis::use_data(df_favs, overwrite = TRUE)
+usethis::use_data(df_retweets, overwrite = TRUE)
 ```
 
 ## Create tbl_graph object
 
 The relevant twitter information of these tweets is translated into a tidygraph network object: 
 
-```{r tbl_graph}
+```{r tbl_graph, eval=TRUE}
 g <-
-  create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs)
+  create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs, df_retweets)
 ```
 
 
@@ -126,14 +134,18 @@ usethis::use_data(g, overwrite = TRUE, internal = TRUE)
 
 ## Visualize graphs
 
-Please make sure not to publish information from Twitter you are not allowed to and to comply in strict accordance with the [twitter developer terms](https://developer.twitter.com/en/developer-terms/more-on-restricted-use-cases)! The example rtweet data in this article only contains the tweets of three dummy accounts I created. But probably you're not allowed to publish this for the `main_status_id` of any other tweet.
+Please make sure not to publish information from Twitter you are not allowed to and to comply in strict accordance with the [twitter developer terms](https://developer.twitter.com/en/developer-terms/more-on-restricted-use-cases)! The example rtweet data in this article only contains the tweets of three dummy accounts I created. But probably you're not allowed to publish all this information for the `main_status_id` of any other tweet.
 
 ```{r load_g, eval=TRUE, include=FALSE}
 # load g from internal dataset
-g <- rtweettree:::g
+# g <- rtweettree:::g
 ```
 
-The generated graph object consists of nodes representing tweets and users, as well as edges that can be replies & quotes (connecting tweets), "by" connecting the author to his tweet, "like" connecting the user to the tweet he liked: 
+The generated graph object consists of nodes representing tweets and users. These are connected by edges that can be 
+
+* replies & quotes (connecting tweets),
+* "by" connecting the author to his respective tweet, and 
+* "like" connecting the user to the tweet he liked. 
 
 ```{r data_manip, eval=TRUE}
 g <- g %>%     
@@ -155,7 +167,7 @@ g %>%
 
 We can generate a ggraph object and add profile pictures to the user nodes with the following function: 
 
-```{r ggraph, eval=TRUE, fig.width=7, fig.height=6}
+```{r ggraph, eval=TRUE, fig.width=8, fig.height=6}
 
 g1 <- add_profile_pics_to_tree_ggraph(
   g,
