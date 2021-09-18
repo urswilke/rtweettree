@@ -4,6 +4,8 @@
 # rtweettree
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/urswilke/rtweettree/workflows/R-CMD-check/badge.svg)](https://github.com/urswilke/rtweettree/actions)
 <!-- badges: end -->
 
 The goal of rtweettree is to recursively scrape a twitter tweet and all
