@@ -58,6 +58,7 @@ rtweettree_data.rtweettree_data <- function(x, ...) {
 #' tweet and all replies, quotes and likes that could be scraped using rtweet.
 #'
 #' @param x rtweet status_id or rtweettree_data object
+#' @param ... for the moment not used
 #'
 #' @return A tidygraph tbl_graph object representing the tree structure of all scraped subtweets of the tweet.
 #' @export

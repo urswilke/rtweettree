@@ -8,6 +8,8 @@ rtweettree_tbl_graph(x, ...)
 }
 \arguments{
 \item{x}{rtweet status_id or rtweettree_data object}
+
+\item{...}{for the moment not used}
 }
 \value{
 A tidygraph tbl_graph object representing the tree structure of all scraped subtweets of the tweet.
