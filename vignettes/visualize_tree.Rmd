@@ -171,7 +171,7 @@ We can generate a ggraph object and add profile pictures to the user nodes with 
 df_profile_pic <- rtweettree:::get_profile_pic_df(bind_rows(df_tls, df_favs, df_main_status))
 ```
 ```{r, eval=TRUE, include=FALSE}
-df_profile_pic$profile_image_url <- 1:3 %>% map_chr(~system.file("profile_pics", paste0(.x, ".png"), package = "rtweettree"))
+df_profile_pic$profile_image_url <- 1:3 %>% purrr::map_chr(~system.file("profile_pics", paste0(.x, ".png"), package = "rtweettree"))
 df_profile_pic <- df_profile_pic <- df_profile_pic %>%
   dplyr::mutate(
     img = profile_image_url %>%
