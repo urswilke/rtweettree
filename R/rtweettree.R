@@ -152,7 +152,7 @@ rtweettree_tbl_graph.default <- function(x, ...) {
 #'
 autoplot.list <- autoplot.character <- function(x, ...) {
   l <- rtweettree_data(x)
-  df_profile_pic <- rtweettree:::get_profile_pic_df(dplyr::bind_rows(l[c("df_tls", "df_favs", "df_main_status")]))
+  df_profile_pic <- get_profile_pic_df(dplyr::bind_rows(l[c("df_tls", "df_favs", "df_main_status")]))
 
 
   g <- rtweettree_tbl_graph(l)
