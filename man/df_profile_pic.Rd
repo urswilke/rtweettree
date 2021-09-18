@@ -3,7 +3,7 @@
 \docType{data}
 \name{df_profile_pic}
 \alias{df_profile_pic}
-\title{Example package dataset storing the result of rtweettree:::get_profile_pic_df()}
+\title{Example package dataset storing the result of get_profile_pic_df()}
 \format{
 An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3 rows and 3 columns.
 }
@@ -11,11 +11,11 @@ An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) w
 df_profile_pic
 }
 \description{
-Example package dataset storing the result of rtweettree:::get_profile_pic_df()
+Example package dataset storing the result of get_profile_pic_df()
 }
 \examples{
 \dontrun{
-  df_profile_pic <- rtweettree:::get_profile_pic_df(bind_rows(df_tls, df_favs, df_main_status))
+  df_profile_pic <- get_profile_pic_df(bind_rows(df_tls, df_favs, df_main_status))
 }
 }
 \keyword{datasets}
