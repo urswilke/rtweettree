@@ -5,15 +5,15 @@ scrape_rtweettree_data_from_status_id <- function(main_status_id) {
   tree_ids <- df_tree$user_id %>% unique()
   df_tls <- rtweet::get_timelines(tree_ids)
   df0 <- df_main_status %>%
-    dplyr::filter(status_id == main_status_id) %>%
-    dplyr::select(to = status_id, user_id) %>%
+    dplyr::filter(.data$status_id == main_status_id) %>%
+    dplyr::select(to = .data$status_id, .data$user_id) %>%
     dplyr::mutate(from = "root", type = "root")
   tweet_edges <-
     find_connections_rec(dplyr::bind_rows(df_tree, df_tls), df0)
   ids <- tweet_edges$user_id %>% unique()
   # Scrape the likes of the users scraped:
   df_favs <- scrape_favs2(ids, main_status_id)
-  tweet_ids <- list(df_tls, df_favs, df_main_status) %>% dplyr::bind_rows() %>% dplyr::pull(status_id) %>% unique()
+  tweet_ids <- list(df_tls, df_favs, df_main_status) %>% dplyr::bind_rows() %>% dplyr::pull(.data$status_id) %>% unique()
   df_retweets <- tweet_ids %>% purrr::map_dfr(~rtweet::get_retweets(.x))
   l <- tibble::lst(df_main_status, df_tree, df_tls, df_favs, df_retweets)
 
