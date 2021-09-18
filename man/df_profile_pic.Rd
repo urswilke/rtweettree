@@ -5,15 +5,17 @@
 \alias{df_profile_pic}
 \title{Example package dataset storing the result of rtweettree:::get_profile_pic_df()}
 \format{
-A data frame with 1 row and 90 variables:
-\describe{
-  df_profile_pic <- rtweettree:::get_profile_pic_df(bind_rows(df_tls, df_favs, df_main_status))
-}
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3 rows and 3 columns.
 }
 \usage{
 df_profile_pic
 }
 \description{
 Example package dataset storing the result of rtweettree:::get_profile_pic_df()
+}
+\examples{
+\dontrun{
+  df_profile_pic <- rtweettree:::get_profile_pic_df(bind_rows(df_tls, df_favs, df_main_status))
+}
 }
 \keyword{datasets}

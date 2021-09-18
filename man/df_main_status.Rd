@@ -5,15 +5,17 @@
 \alias{df_main_status}
 \title{Example package dataset storing the result of rtweet::lookup_statuses(main_status_id)}
 \format{
-A data frame with 1 row and 90 variables:
-\describe{
-  df_main_status <- rtweet::lookup_statuses(main_status_id)
-}
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 1 rows and 90 columns.
 }
 \usage{
 df_main_status
 }
 \description{
 Example package dataset storing the result of rtweet::lookup_statuses(main_status_id)
+}
+\examples{
+\dontrun{
+  df_main_status <- rtweet::lookup_statuses(main_status_id)
+}
 }
 \keyword{datasets}

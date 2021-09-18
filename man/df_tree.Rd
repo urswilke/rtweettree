@@ -5,15 +5,17 @@
 \alias{df_tree}
 \title{Example package dataset storing the result of search_tree(main_status_id)}
 \format{
-A data frame with 1 row and 91 variables:
-\describe{
-  df_tree <- search_tree(main_status_id)
-}
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 1 rows and 91 columns.
 }
 \usage{
 df_tree
 }
 \description{
 Example package dataset storing the result of search_tree(main_status_id)
+}
+\examples{
+\dontrun{
+  df_tree <- search_tree(main_status_id)
+}
 }
 \keyword{datasets}

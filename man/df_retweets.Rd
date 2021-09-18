@@ -3,17 +3,19 @@
 \docType{data}
 \name{df_retweets}
 \alias{df_retweets}
-\title{Example package dataset storing the result of df_retweets <- tweet_ids %>% map_dfr(~rtweet::get_retweets(.x))}
+\title{Example package dataset storing the result of rtweet::get_retweets() for multiple status_ids}
 \format{
-A data frame with 1 row and 90 variables:
-\describe{
-  df_retweets <- tweet_ids %>% map_dfr(~rtweet::get_retweets(.x))
-}
+An object of class \code{data.frame} with 1 rows and 90 columns.
 }
 \usage{
 df_retweets
 }
 \description{
-Example package dataset storing the result of df_retweets <- tweet_ids %>% map_dfr(~rtweet::get_retweets(.x))
+Example package dataset storing the result of rtweet::get_retweets() for multiple status_ids
+}
+\examples{
+\dontrun{
+  df_retweets <- tweet_ids \%>\% map_dfr(~rtweet::get_retweets(.x))
+}
 }
 \keyword{datasets}

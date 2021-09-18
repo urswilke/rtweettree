@@ -39,7 +39,10 @@ tweet_edges <-
   find_connections_rec(dplyr::bind_rows(df_tree, df_tls), df0)
 ids <- tweet_edges$user_id \%>\% unique()
 df_favs <- scrape_favs2(ids, main_status_id)
-tweet_ids <- list(df_tls, df_favs, df_main_status) \%>\% dplyr::bind_rows() \%>\% pull(status_id) \%>\% unique()
+tweet_ids <- list(df_tls, df_favs, df_main_status) \%>\%
+  dplyr::bind_rows() \%>\%
+  pull(status_id) \%>\%
+  unique()
 df_retweets <- tweet_ids \%>\% purrr::map_dfr(~rtweet::get_retweets(.x))
 
 g <- create_tweet_tbl_graph(df_main_status, df_tree, df_tls, df_favs, df_retweets)

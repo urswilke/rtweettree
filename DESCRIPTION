@@ -34,7 +34,8 @@ Imports:
     tidyr,
     htmlwidgets,
     htmltools,
-    magick
+    magick,
+    ggplot2
 RoxygenNote: 7.1.1
 BugReports: https://github.com/urswilke/rtweettree/issues
 URL: https://github.com/urswilke/rtweettree, https://urswilke.github.io/rtweettree/

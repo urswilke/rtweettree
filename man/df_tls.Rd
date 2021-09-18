@@ -5,15 +5,17 @@
 \alias{df_tls}
 \title{Example package dataset storing the result of rtweet::get_timelines(tree_ids)}
 \format{
-A data frame with 1 row and 90 variables:
-\describe{
-  df_tls <- rtweet::get_timelines(tree_ids)
-}
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3 rows and 90 columns.
 }
 \usage{
 df_tls
 }
 \description{
 Example package dataset storing the result of rtweet::get_timelines(tree_ids)
+}
+\examples{
+\dontrun{
+  df_tls <- rtweet::get_timelines(tree_ids)
+}
 }
 \keyword{datasets}

@@ -5,15 +5,17 @@
 \alias{df_favs}
 \title{Example package dataset storing the result of scrape_favs2(ids, main_status_id)}
 \format{
-A data frame with 1 row and 91 variables:
-\describe{
-  df_favs <- scrape_favs2(ids, main_status_id)
-}
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 6 rows and 91 columns.
 }
 \usage{
 df_favs
 }
 \description{
 Example package dataset storing the result of scrape_favs2(ids, main_status_id)
+}
+\examples{
+\dontrun{
+  df_favs <- scrape_favs2(ids, main_status_id)
+}
 }
 \keyword{datasets}
