@@ -104,7 +104,7 @@ create_tweet_tbl_graph <- function(df_main_status, df_tree, df_tls, df_favs, df_
     df_favs %>%
     dplyr::filter(.data$status_id %in% tweet_edges$to) %>%
     dplyr::transmute(from = .data$status_id, to = .data$favorited_by, user_id = .data$favorited_by, .data$screen_name) %>%
-    dplyr::add_count(.data$to, name = "n_likes") %>%
+    # dplyr::add_count(.data$to, name = "n_likes") %>%
     dplyr::mutate(type = "like")
 
 
