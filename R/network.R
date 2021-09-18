@@ -151,10 +151,23 @@ create_tweet_tbl_graph <- function(df_main_status, df_tree, df_tls, df_favs) {
   oo <- edges %>% filter(from %in% ww | to %in% ww)
   edges <- edges %>%
     anti_join(oo)
-  nodes <-
-    tidygraph::tbl_graph(
-      nodes,
+  tidygraph::tbl_graph(
+      nodes %>%
+        # TODO: remove row with root
+        tidyr::drop_na(.data$screen_name),
       edges
+    )
+  # %>%
+  #   dplyr::mutate(dist_to_center = tidygraph::node_distance_from(tidygraph::node_is_source()),
+  #          group = tidygraph::group_infomap()) %>%
+  #   dplyr::group_by(.data$group) %>%
+  #   dplyr::mutate(n_group = dplyr::n()) %>%
+  #   dplyr::ungroup() %>%
+  #   tibble::as_tibble() %>%
+  #   tidyr::drop_na(.data$screen_name)
+  # g <- tidygraph::tbl_graph(nodes, edges)
+  # g
+}
     ) %>%
     dplyr::mutate(dist_to_center = tidygraph::node_distance_from(tidygraph::node_is_source()),
            group = tidygraph::group_infomap()) %>%

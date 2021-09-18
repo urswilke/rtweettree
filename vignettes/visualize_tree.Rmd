@@ -124,6 +124,12 @@ g <- rtweettree:::g
 
 Circlepack plot:
 
+```{r data_manip, eval=TRUE}
+g <- g %>%     
+  # calculate the distance to the tree root with tidygraph:
+  mutate(dist_to_center = node_distance_from(node_is_source()))
+g
+```
 
 
 ```{r ggraph_circlepack, eval=TRUE}
