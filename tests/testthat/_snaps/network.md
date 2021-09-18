@@ -21,26 +21,26 @@
     Code
       g %E>% as_tibble()
     Output
-      # A tibble: 19 x 6
-          from    to user_id             screen_name type    n_likes
-         <int> <int> <chr>               <chr>       <chr>     <int>
-       1     4     5 1438480252003569671 rtweetbird3 reply        NA
-       2     4     6 1438479415550390275 rtweetbird2 reply        NA
-       3     4     7 1438479415550390275 rtweetbird2 reply        NA
-       4     4     8 1438480252003569671 rtweetbird3 quote        NA
-       5     6     9 1438480252003569671 rtweetbird3 reply        NA
-       6     8     1 1438476950746636291 rtweetbird3 like          5
-       7     9     1 1438476950746636291 rtweetbird3 like          5
-       8     5     1 1438476950746636291 rtweetbird3 like          5
-       9     6     1 1438476950746636291 rtweetbird2 like          5
-      10     7     1 1438476950746636291 rtweetbird2 like          5
-      11     6     2 1438480252003569671 rtweetbird2 like          1
-      12     4     1 1438476950746636291 rtweetbird1 by           NA
-      13     5     2 1438480252003569671 rtweetbird3 by           NA
-      14     6     3 1438479415550390275 rtweetbird2 by           NA
-      15     7     3 1438479415550390275 rtweetbird2 by           NA
-      16     8     2 1438480252003569671 rtweetbird3 by           NA
-      17     9     2 1438480252003569671 rtweetbird3 by           NA
-      18     4     1 1438476950746636291 rtweetbird1 by           NA
-      19     4     3 1438479415550390275 rtweetbird2 retweet      NA
+      # A tibble: 19 x 5
+          from    to user_id             screen_name type   
+         <int> <int> <chr>               <chr>       <chr>  
+       1     4     5 1438480252003569671 rtweetbird3 reply  
+       2     4     6 1438479415550390275 rtweetbird2 reply  
+       3     4     7 1438479415550390275 rtweetbird2 reply  
+       4     4     8 1438480252003569671 rtweetbird3 quote  
+       5     6     9 1438480252003569671 rtweetbird3 reply  
+       6     8     1 1438476950746636291 rtweetbird3 like   
+       7     9     1 1438476950746636291 rtweetbird3 like   
+       8     5     1 1438476950746636291 rtweetbird3 like   
+       9     6     1 1438476950746636291 rtweetbird2 like   
+      10     7     1 1438476950746636291 rtweetbird2 like   
+      11     6     2 1438480252003569671 rtweetbird2 like   
+      12     4     1 1438476950746636291 rtweetbird1 by     
+      13     5     2 1438480252003569671 rtweetbird3 by     
+      14     6     3 1438479415550390275 rtweetbird2 by     
+      15     7     3 1438479415550390275 rtweetbird2 by     
+      16     8     2 1438480252003569671 rtweetbird3 by     
+      17     9     2 1438480252003569671 rtweetbird3 by     
+      18     4     1 1438476950746636291 rtweetbird1 by     
+      19     4     3 1438479415550390275 rtweetbird2 retweet
 
