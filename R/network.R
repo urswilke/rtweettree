@@ -184,11 +184,11 @@ create_tweet_tbl_graph <- function(df_main_status, df_tree, df_tls, df_favs, df_
 get_profile_pic_df <- function(df) {
   df %>%
     dplyr::distinct(
-      screen_name,
-      profile_image_url
+      .data$screen_name,
+      .data$profile_image_url
     ) %>%
     dplyr::mutate(
-      img = profile_image_url %>%
+      img = .data$profile_image_url %>%
         purrr::map(magick::image_read)
     )
 
@@ -214,12 +214,12 @@ add_profile_pics_to_tree_ggraph <- function(g, df_profile_pic) {
   # Hack to put all user nodes on the bottom line of the graph:
   g1$data$y[g1$data$type == "user"] <- min(g1$data$y)
 
-  user_coords <- g1$data %>% dplyr::select(screen_name, x, y) %>% dplyr::filter(y == 1)
+  user_coords <- g1$data %>% dplyr::select(.data$screen_name, .data$x, .data$y) %>% dplyr::filter(.data$y == 1)
 
   df_profile_pic <- df_profile_pic %>% dplyr::full_join(user_coords, by = "screen_name")
-  user_coords <- df_profile_pic %>% dplyr::select(screen_name, x, y)
+  user_coords <- df_profile_pic %>% dplyr::select(.data$screen_name, .data$x, .data$y)
   add_img <- function(g, user_images, user_coords) {
-    g  + annotation_raster(user_images, xmin = user_coords$x[1] - 0.4, ymin = user_coords$y[1] + 0.2, xmax = user_coords$x[1] + 0.4, ymax = user_coords$y[1] + 0.6)
+    g  + ggpllot2::annotation_raster(user_images, xmin = user_coords$x[1] - 0.4, ymin = user_coords$y[1] + 0.2, xmax = user_coords$x[1] + 0.4, ymax = user_coords$y[1] + 0.6)
   }
   purrr::reduce2(
     df_profile_pic$img,
