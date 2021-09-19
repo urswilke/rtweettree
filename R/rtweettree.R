@@ -166,7 +166,8 @@ autoplot.list <- autoplot.character <- function(x, ...) {
     ggraph::geom_edge_diagonal(ggplot2::aes(color = .data$type)) +
     ggraph::scale_edge_colour_hue(name = "action") +
     ggraph::geom_node_point(ggplot2::aes(shape = .data$type)) +
-    ggplot2::scale_color_viridis_c(direction = -1)
+    ggplot2::scale_color_viridis_c(direction = -1) +
+    ggplot2::theme_void()
 
 }
 #' @export
