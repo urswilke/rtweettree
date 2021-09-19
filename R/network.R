@@ -153,10 +153,10 @@ create_tweet_tbl_graph <- function(x) {
   #"
   xxx <- unique(nodes$name)
   yyy <- unique(c(edges$from, edges$to))
-  ww <- setdiff(yyy, xxx)
-  oo <- edges %>% filter(from %in% ww | to %in% ww)
+  ww <- dplyr::setdiff(yyy, xxx)
+  oo <- edges %>% dplyr::filter(from %in% ww | to %in% ww)
   edges <- edges %>%
-    anti_join(oo)
+    dplyr::anti_join(oo)
   tidygraph::tbl_graph(
       nodes %>%
         # TODO: remove row with root
