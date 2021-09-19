@@ -63,7 +63,7 @@ main_status_id <- "1438481824922181635"
 l <- rtweettree_data(main_status_id)
 ```
 
-This generates a list of rtweet dataframes:
+This generates a named list of rtweet dataframes:
 
 ``` r
 l

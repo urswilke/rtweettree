@@ -65,7 +65,7 @@ l <- rtweettree_data(main_status_id)
 l <- tibble::lst(df_main_status, df_tree, df_tls, df_favs, df_retweets)
 ```
 
-This generates a list of rtweet dataframes:
+This generates a named list of rtweet dataframes:
 ```{r l}
 l
 ```
