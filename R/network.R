@@ -182,6 +182,7 @@ get_profile_pic_df <- function(df) {
       .data$screen_name,
       .data$profile_image_url
     ) %>%
+    dplyr::filter(!stringr::str_detect(profile_image_url, "default_profile_normal\\.png")) %>%
     dplyr::mutate(
       img = .data$profile_image_url %>%
         purrr::map(magick::image_read)
