@@ -5,7 +5,7 @@ Authors@R:
     person(given = "Urs",
            family = "Wilke",
            role = c("aut", "cre"),
-           # comment = c(ORCID = "YOUR-ORCID-ID"),
+           # comment = c(ORCID = " 0000-0001-7257-2524"),
            email = "urs.wilke@gmail.com"
            )
 Description: Recursively scrape and visualize a tweet and all available replies, quotes and likes  via the rtweet package.
