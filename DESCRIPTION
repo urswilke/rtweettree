@@ -1,6 +1,6 @@
 Package: rtweettree
 Title: Scrape and visualize a tweet and all available replies, quotes and likes via the rtweet package
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: 
     person(given = "Urs",
            family = "Wilke",
