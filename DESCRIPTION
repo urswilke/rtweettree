@@ -37,7 +37,7 @@ Imports:
     htmltools,
     magick,
     ggplot2
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 BugReports: https://github.com/urswilke/rtweettree/issues
 URL: https://github.com/urswilke/rtweettree, https://urswilke.github.io/rtweettree/
 Depends: 
