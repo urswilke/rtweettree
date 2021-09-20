@@ -140,6 +140,8 @@ rtweettree_tbl_graph.default <- function(x, ...) {
 #' Plot rtweettree
 #'
 #' @param x rtweet status_id or rtweettree_data object
+#' @param add_profile_pics logical whether to add the profile pictures of the
+#' users to the graph; defualts to TRUE
 #' @param ... for the moment not used
 #'
 #' @return rtweettree

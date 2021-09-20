@@ -9,6 +9,9 @@
 \arguments{
 \item{x}{rtweet status_id or rtweettree_data object}
 
+\item{add_profile_pics}{logical whether to add the profile pictures of the
+users to the graph; defualts to TRUE}
+
 \item{...}{for the moment not used}
 }
 \value{
