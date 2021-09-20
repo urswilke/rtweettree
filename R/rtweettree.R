@@ -150,17 +150,22 @@ rtweettree_tbl_graph.default <- function(x, ...) {
 #'
 #' @importFrom ggplot2 autoplot
 #'
-autoplot.list <- autoplot.character <- function(x, ...) {
+autoplot.list <- autoplot.character <- function(x, add_profile_pics = TRUE, ...) {
   l <- rtweettree_data(x)
-  df_profile_pic <- get_profile_pic_df(dplyr::bind_rows(l[c("df_tls", "df_favs", "df_main_status")]))
 
 
   g <- rtweettree_tbl_graph(l)
 
-  g1 <- add_profile_pics_to_tree_ggraph(
-    g,
-    df_profile_pic
-  )
+  g1 <- g %>% ggraph::ggraph(...)
+
+  if (add_profile_pics) {
+    df_profile_pic <- get_profile_pic_df(dplyr::bind_rows(l[c("df_tls", "df_favs", "df_main_status")]))
+
+    g1 <- add_profile_pics_to_tree_ggraph(
+      g1,
+      df_profile_pic
+    )
+  }
 
   g1 +
     ggraph::geom_edge_diagonal(ggplot2::aes(color = .data$type)) +
