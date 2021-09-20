@@ -193,7 +193,7 @@ usethis::use_data(df_profile_pic, overwrite = TRUE)
 
 ```{r ggraph2, eval=TRUE, fig.width=8, fig.height=6}
 g1 <- add_profile_pics_to_tree_ggraph(
-  g,
+  ggraph(g),
   df_profile_pic
 )
 # without profile picture, it would be:
