@@ -12,6 +12,7 @@ test_that("generated tbl graph object still the same", {
 })
 
 test_that("generated ggraph graph object still the same", {
+  skip_on_os(os = c("windows", "mac"))
   suppressMessages(ggraph_fun <- autoplot(l))
   vdiffr::expect_doppelganger(
     "tweet ggraph",
