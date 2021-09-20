@@ -157,7 +157,7 @@ rtweettree_tbl_graph.default <- function(x, ...) {
 #'
 #' @importFrom ggplot2 autoplot
 #'
-autoplot.list <- autoplot.character <- function(x, add_profile_pics = TRUE, ...) {
+autoplot.character <- function(x, add_profile_pics = TRUE, ...) {
   l <- rtweettree_data(x)
 
 
@@ -184,6 +184,8 @@ autoplot.list <- autoplot.character <- function(x, add_profile_pics = TRUE, ...)
 }
 #' @export
 autoplot.rtweettree_data <- autoplot.character
+#' @export
+autoplot.list <- autoplot.character
 
 #' @importFrom graphics plot
 plot.character <- function(x, ...) {
