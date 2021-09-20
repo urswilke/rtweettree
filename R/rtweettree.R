@@ -1,9 +1,16 @@
-scrape_rtweettree_data_from_status_id <- function(main_status_id) {
+scrape_rtweettree_data_from_status_id <- function(main_status_id, new_tls = TRUE) {
 
   df_main_status <- rtweet::lookup_statuses(main_status_id)
   df_tree <- search_tree(main_status_id)
   tree_ids <- df_tree$user_id %>% unique()
-  df_tls <- rtweet::get_timelines(tree_ids)
+  if (new_tls) {
+    df_main_status <- rtweet::lookup_statuses(main_status_id)
+    main_user_name <- paste0("@", df_main_status$screen_name)
+    # df_tls <- scrape_timelines(tree_ids)
+    df_tls <- rtweet::search_tweets(main_user_name, n = 10000)
+  } else {
+    df_tls <- rtweet::get_timelines(tree_ids)
+  }
   df0 <- df_main_status %>%
     dplyr::filter(.data$status_id == main_status_id) %>%
     dplyr::select(to = .data$status_id, .data$user_id) %>%
