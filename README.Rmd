@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-The goal of rtweettree is to recursively scrape a twitter tweet and all replies, quotes and likes (that the API provides) and visualize them in a network graph. The functionalities to scrape twitter data are heavily based on the excellent [**rtweet**](https://github.com/ropensci/rtweet) package. The graph network manipulation functionalities rely on the amazing [**tidygraph**](https://github.com/thomasp85/tidygraph) package and are visualized with [**ggraph**](https://github.com/thomasp85/ggraph).
+The goal of rtweettree is to recursively scrape a twitter tweet and all replies, quotes, retweets and likes (that the API provides) and visualize them in a network graph. The functionalities to scrape twitter data are heavily based on the excellent [**rtweet**](https://github.com/ropensci/rtweet) package. The graph network manipulation functionalities rely on the amazing [**tidygraph**](https://github.com/thomasp85/tidygraph) package and are visualized with [**ggraph**](https://github.com/thomasp85/ggraph).
 
 ## Responsible use
 
@@ -28,14 +28,9 @@ The goal of rtweettree is to recursively scrape a twitter tweet and all replies,
 
 ## Installation
 
-To get the current development version from Github:
+To get the current development version from Github (with the [remotes](https://github.com/r-lib/remotes) package):
 
 ```{r eval=FALSE}
-## install remotes package if it's not already
-if (!requireNamespace("remotes", quietly = TRUE)) {
-  install.packages("remotes")
-}
-
 ## install dev version of rtweettree from github
 remotes::install_github("UrsWilke/rtweettree")
 ```
@@ -47,13 +42,18 @@ library(rtweettree)
 
 ## Usage
 
-In order to use **rtweettree** please refer to [the according section of **rtweet**](https://github.com/ropensci/rtweet#usage). It is probably good advice to first feel comfortable with [**rtweet**](https://github.com/ropensci/rtweet).
+In order to use **rtweettree** please refer to [the according section of
+**rtweet**](https://github.com/ropensci/rtweet#usage). It is probably good
+advice to first feel comfortable with
+[**rtweet**](https://github.com/ropensci/rtweet).
 
 ## Quick dive-in
 
 To give you a quick understanding of the functionalities of this package, it can
-first be used to scrape data related to a twitter status id `main_status_id` (using `rtweet`
-functions under the hood):
+be used to scrape data related to a twitter status id `main_status_id` and all
+the replies (to replies), quotes, retweets and likes the API provides using
+`rtweet` functions under the hood. The status id is the last number in the url
+of every tweet on twitter.
 
 ```{r rtweettree_data, message=FALSE, eval=FALSE}
 main_status_id <- "1438481824922181635"
@@ -63,14 +63,13 @@ l <- rtweettree_data(main_status_id)
 
 ```{r rtweettree_data_offline, include=FALSE, eval=TRUE}
 # in order to make it available offline:
-l <- tibble::lst(df_main_status, df_tree, df_tls, df_favs, df_retweets)
+l <- rtweettree_data(tibble::lst(df_main_status, df_tree, df_tls, df_favs, df_retweets))
 ```
 
-This generates a named list of rtweet dataframes:
+This results in a named list of rtweet dataframes:
 ```{r l}
 l
 ```
-
 
 You can then visualize this data with: 
 
@@ -78,7 +77,19 @@ You can then visualize this data with:
 ggplot2::autoplot(l)
 ```
 
-A more in-depth example how to create the subtweet network graph from a tweet status_id is shown in the [vignette for tree visualization](articles/visualize_tree.html). 
+Under the hood, the scraped data is first transformed into a `tidygraph::tbl_graph()`
+
+```{r tbl_graph, message=FALSE}
+g <- rtweettree_tbl_graph(l)
+g
+```
+
+which is then visualized with ggraph.
+
+
+A more in-depth example how to create the subtweet network graph from a tweet
+status_id is shown in the [vignette for tree
+visualization](articles/visualize_tree.html).
 
 ```{r tree_viz, eval=FALSE}
 vignette("visualize_tree", package = "rtweettree")
@@ -86,5 +97,6 @@ vignette("visualize_tree", package = "rtweettree")
 
 ## TODOs:
 
+* also capture the likes of the original tweet at the root of the tree 
 * clean up code and refactor
 * make plotting functions more customizable

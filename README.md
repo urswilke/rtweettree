@@ -13,13 +13,13 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 <!-- badges: end -->
 
 The goal of rtweettree is to recursively scrape a twitter tweet and all
-replies, quotes and likes (that the API provides) and visualize them in
-a network graph. The functionalities to scrape twitter data are heavily
-based on the excellent [**rtweet**](https://github.com/ropensci/rtweet)
-package. The graph network manipulation functionalities rely on the
-amazing [**tidygraph**](https://github.com/thomasp85/tidygraph) package
-and are visualized with
-[**ggraph**](https://github.com/thomasp85/ggraph).
+replies, quotes, retweets and likes (that the API provides) and
+visualize them in a network graph. The functionalities to scrape twitter
+data are heavily based on the excellent
+[**rtweet**](https://github.com/ropensci/rtweet) package. The graph
+network manipulation functionalities rely on the amazing
+[**tidygraph**](https://github.com/thomasp85/tidygraph) package and are
+visualized with [**ggraph**](https://github.com/thomasp85/ggraph).
 
 ## Responsible use
 
@@ -29,14 +29,10 @@ terms](https://developer.twitter.com/en/developer-terms/more-on-restricted-use-c
 
 ## Installation
 
-To get the current development version from Github:
+To get the current development version from Github (with the
+[remotes](https://github.com/r-lib/remotes) package):
 
 ``` r
-## install remotes package if it's not already
-if (!requireNamespace("remotes", quietly = TRUE)) {
-  install.packages("remotes")
-}
-
 ## install dev version of rtweettree from github
 remotes::install_github("UrsWilke/rtweettree")
 ```
@@ -57,15 +53,17 @@ good advice to first feel comfortable with
 ## Quick dive-in
 
 To give you a quick understanding of the functionalities of this
-package, it can first be used to scrape data related to a twitter status
-id `main_status_id` (using `rtweet` functions under the hood):
+package, it can be used to scrape data related to a twitter status id
+`main_status_id` and all the replies (to replies), quotes, retweets and
+likes the API provides using `rtweet` functions under the hood. The
+status id is the last number in the url of every tweet on twitter.
 
 ``` r
 main_status_id <- "1438481824922181635"
 l <- rtweettree_data(main_status_id)
 ```
 
-This generates a named list of rtweet dataframes:
+This results in a named list of rtweet dataframes:
 
 ``` r
 l
@@ -140,6 +138,9 @@ l
 #> #   urls_url <list>, urls_t.co <list>, urls_expanded_url <list>,
 #> #   media_url <list>, media_t.co <list>, media_expanded_url <list>,
 #> #   media_type <list>, ext_media_url <list>, ext_media_t.co <list>, …
+#> 
+#> attr(,"class")
+#> [1] "rtweettree_data" "list"
 ```
 
 You can then visualize this data with:
@@ -149,6 +150,38 @@ ggplot2::autoplot(l)
 ```
 
 <img src="man/figures/README-autoplot-1.png" width="100%" />
+
+Under the hood, the scraped data is first transformed into a
+`tidygraph::tbl_graph()`
+
+``` r
+g <- rtweettree_tbl_graph(l)
+g
+#> # A tbl_graph: 9 nodes and 19 edges
+#> #
+#> # A directed acyclic multigraph with 1 component
+#> #
+#> # Node Data: 9 × 7 (active)
+#>   name                type  screen_name url      text     label   dist_to_center
+#>   <chr>               <chr> <chr>       <glue>   <chr>    <chr>            <dbl>
+#> 1 1438476950746636291 user  rtweetbird1 https:/… <NA>     rtweet…              1
+#> 2 1438480252003569671 user  rtweetbird3 https:/… <NA>     rtweet…              2
+#> 3 1438479415550390275 user  rtweetbird2 https:/… <NA>     rtweet…              1
+#> 4 1438481824922181635 tweet rtweetbird1 https:/… this is… this i…              0
+#> 5 1438483457697591297 tweet rtweetbird3 https:/… @rtweet… @rtwee…              1
+#> 6 1438482432030818307 tweet rtweetbird2 https:/… @rtweet… @rtwee…              1
+#> # … with 3 more rows
+#> #
+#> # Edge Data: 19 × 5
+#>    from    to user_id             screen_name type 
+#>   <int> <int> <chr>               <chr>       <chr>
+#> 1     4     5 1438480252003569671 rtweetbird3 reply
+#> 2     4     6 1438479415550390275 rtweetbird2 reply
+#> 3     4     7 1438479415550390275 rtweetbird2 reply
+#> # … with 16 more rows
+```
+
+which is then visualized with ggraph.
 
 A more in-depth example how to create the subtweet network graph from a
 tweet status\_id is shown in the [vignette for tree
@@ -160,5 +193,6 @@ vignette("visualize_tree", package = "rtweettree")
 
 ## TODOs:
 
+-   also capture the likes of the original tweet at the root of the tree
 -   clean up code and refactor
 -   make plotting functions more customizable
