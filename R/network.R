@@ -154,7 +154,7 @@ create_tweet_tbl_graph <- function(x) {
   xxx <- unique(nodes$name)
   yyy <- unique(c(edges$from, edges$to))
   ww <- dplyr::setdiff(yyy, xxx)
-  oo <- edges %>% dplyr::filter(from %in% ww | to %in% ww)
+  oo <- edges %>% dplyr::filter(.data$from %in% ww | .data$to %in% ww)
   edges <- edges %>%
     dplyr::anti_join(oo)
   tidygraph::tbl_graph(
@@ -182,7 +182,7 @@ get_profile_pic_df <- function(df) {
       .data$screen_name,
       .data$profile_image_url
     ) %>%
-    dplyr::filter(!stringr::str_detect(profile_image_url, "default_profile_normal\\.png")) %>%
+    dplyr::filter(!stringr::str_detect(.data$profile_image_url, "default_profile_normal\\.png")) %>%
     dplyr::mutate(
       img = .data$profile_image_url %>%
         purrr::map(magick::image_read)
