@@ -86,7 +86,7 @@
 <a href="#rtweettree" class="anchor"></a>rtweettree</h1></div>
 <!-- badges: start -->
 
-<p>The goal of rtweettree is to recursively scrape a twitter tweet and all replies, quotes and likes (that the API provides) and visualize them in a network graph. The functionalities to scrape twitter data are heavily based on the excellent <a href="https://github.com/ropensci/rtweet"><strong>rtweet</strong></a> package. The graph network manipulation functionalities rely on the amazing <a href="https://github.com/thomasp85/tidygraph"><strong>tidygraph</strong></a> package and are visualized with <a href="https://github.com/thomasp85/ggraph"><strong>ggraph</strong></a>.</p>
+<p>The goal of rtweettree is to recursively scrape a twitter tweet and all replies, quotes, retweets and likes (that the API provides) and visualize them in a network graph. The functionalities to scrape twitter data are heavily based on the excellent <a href="https://github.com/ropensci/rtweet"><strong>rtweet</strong></a> package. The graph network manipulation functionalities rely on the amazing <a href="https://github.com/thomasp85/tidygraph"><strong>tidygraph</strong></a> package and are visualized with <a href="https://github.com/thomasp85/ggraph"><strong>ggraph</strong></a>.</p>
 <div id="responsible-use" class="section level2">
 <h2 class="hasAnchor">
 <a href="#responsible-use" class="anchor"></a>Responsible use</h2>
@@ -95,14 +95,9 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>To get the current development version from Github:</p>
+<p>To get the current development version from Github (with the <a href="https://github.com/r-lib/remotes">remotes</a> package):</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## install remotes package if it's not already</span>
-<span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"remotes"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="co">## install dev version of rtweettree from github</span>
+<code class="sourceCode R"><span class="co">## install dev version of rtweettree from github</span>
 <span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"UrsWilke/rtweettree"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="load-rtweettree-package" class="section level2">
@@ -119,11 +114,11 @@
 <div id="quick-dive-in" class="section level2">
 <h2 class="hasAnchor">
 <a href="#quick-dive-in" class="anchor"></a>Quick dive-in</h2>
-<p>To give you a quick understanding of the functionalities of this package, it can first be used to scrape data related to a twitter status id <code>main_status_id</code> (using <code>rtweet</code> functions under the hood):</p>
+<p>To give you a quick understanding of the functionalities of this package, it can be used to scrape data related to a twitter status id <code>main_status_id</code> and all the replies (to replies), quotes, retweets and likes the API provides using <code>rtweet</code> functions under the hood. The status id is the last number in the url of every tweet on twitter.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">main_status_id</span> <span class="op">&lt;-</span> <span class="st">"1438481824922181635"</span>
 <span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rtweettree_data.html">rtweettree_data</a></span><span class="op">(</span><span class="va">main_status_id</span><span class="op">)</span></code></pre></div>
-<p>This generates a named list of rtweet dataframes:</p>
+<p>This results in a named list of rtweet dataframes:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">l</span>
 <span class="co">#&gt; $df_main_status</span>
@@ -196,19 +191,50 @@
 <span class="co">#&gt; #   quote_count &lt;int&gt;, reply_count &lt;int&gt;, hashtags &lt;list&gt;, symbols &lt;list&gt;,</span>
 <span class="co">#&gt; #   urls_url &lt;list&gt;, urls_t.co &lt;list&gt;, urls_expanded_url &lt;list&gt;,</span>
 <span class="co">#&gt; #   media_url &lt;list&gt;, media_t.co &lt;list&gt;, media_expanded_url &lt;list&gt;,</span>
-<span class="co">#&gt; #   media_type &lt;list&gt;, ext_media_url &lt;list&gt;, ext_media_t.co &lt;list&gt;, …</span></code></pre></div>
+<span class="co">#&gt; #   media_type &lt;list&gt;, ext_media_url &lt;list&gt;, ext_media_t.co &lt;list&gt;, …</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; attr(,"class")</span>
+<span class="co">#&gt; [1] "rtweettree_data" "list"</span></code></pre></div>
 <p>You can then visualize this data with:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-autoplot-1.png" width="100%"></p>
-<p>A more in-depth example how to create the subtweet network graph from a tweet status_id is shown in the <a href="articles/visualize_tree.html">vignette for tree visualization</a>.</p>
+<p>Under the hood, the scraped data is first transformed into a <code><a href="https://tidygraph.data-imaginist.com/reference/tbl_graph.html">tidygraph::tbl_graph()</a></code></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rtweettree_tbl_graph.html">rtweettree_tbl_graph</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span>
+<span class="va">g</span>
+<span class="co">#&gt; # A tbl_graph: 9 nodes and 19 edges</span>
+<span class="co">#&gt; #</span>
+<span class="co">#&gt; # A directed acyclic multigraph with 1 component</span>
+<span class="co">#&gt; #</span>
+<span class="co">#&gt; # Node Data: 9 × 7 (active)</span>
+<span class="co">#&gt;   name                type  screen_name url      text     label   dist_to_center</span>
+<span class="co">#&gt;   &lt;chr&gt;               &lt;chr&gt; &lt;chr&gt;       &lt;glue&gt;   &lt;chr&gt;    &lt;chr&gt;            &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 1438476950746636291 user  rtweetbird1 https:/… &lt;NA&gt;     rtweet…              1</span>
+<span class="co">#&gt; 2 1438480252003569671 user  rtweetbird3 https:/… &lt;NA&gt;     rtweet…              2</span>
+<span class="co">#&gt; 3 1438479415550390275 user  rtweetbird2 https:/… &lt;NA&gt;     rtweet…              1</span>
+<span class="co">#&gt; 4 1438481824922181635 tweet rtweetbird1 https:/… this is… this i…              0</span>
+<span class="co">#&gt; 5 1438483457697591297 tweet rtweetbird3 https:/… @rtweet… @rtwee…              1</span>
+<span class="co">#&gt; 6 1438482432030818307 tweet rtweetbird2 https:/… @rtweet… @rtwee…              1</span>
+<span class="co">#&gt; # … with 3 more rows</span>
+<span class="co">#&gt; #</span>
+<span class="co">#&gt; # Edge Data: 19 × 5</span>
+<span class="co">#&gt;    from    to user_id             screen_name type </span>
+<span class="co">#&gt;   &lt;int&gt; &lt;int&gt; &lt;chr&gt;               &lt;chr&gt;       &lt;chr&gt;</span>
+<span class="co">#&gt; 1     4     5 1438480252003569671 rtweetbird3 reply</span>
+<span class="co">#&gt; 2     4     6 1438479415550390275 rtweetbird2 reply</span>
+<span class="co">#&gt; 3     4     7 1438479415550390275 rtweetbird2 reply</span>
+<span class="co">#&gt; # … with 16 more rows</span></code></pre></div>
+<p>which is then visualized with ggraph.</p>
+<p>A more in-depth example how to create the subtweet network graph from a tweet status_id is shown in the <a href="articles/visualize_tree.html">vignette for tree visualization</a>.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span><span class="op">(</span><span class="st">"visualize_tree"</span>, package <span class="op">=</span> <span class="st">"rtweettree"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="todos" class="section level2">
 <h2 class="hasAnchor">
 <a href="#todos" class="anchor"></a>TODOs:</h2>
 <ul>
+<li>also capture the likes of the original tweet at the root of the tree</li>
 <li>clean up code and refactor</li>
 <li>make plotting functions more customizable</li>
 </ul>
@@ -245,6 +271,7 @@
 <ul class="list-unstyled">
 <li><a href="https://github.com/urswilke/rtweettree/actions"><img src="https://github.com/urswilke/rtweettree/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://codecov.io/gh/urswilke/rtweettree?branch=master"><img src="https://codecov.io/gh/urswilke/rtweettree/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 </ul>
 </div>
 </div>
