@@ -50,7 +50,3 @@ autoplot.rtweettree_data <- autoplot.character
 #' @export
 autoplot.list <- autoplot.character
 
-#' @importFrom graphics plot
-plot.character <- function(x, ...) {
-  print(ggplot2::autoplot(x, ...))
-}
