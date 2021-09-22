@@ -3,18 +3,18 @@
     Code
       g %>% as_tibble()
     Output
-      # A tibble: 9 x 7
-        name                type  screen_name url      text     label   dist_to_center
-        <chr>               <chr> <chr>       <glue>   <chr>    <chr>            <dbl>
-      1 1438476950746636291 user  rtweetbird1 https:/~ <NA>     rtweet~              1
-      2 1438480252003569671 user  rtweetbird3 https:/~ <NA>     rtweet~              2
-      3 1438479415550390275 user  rtweetbird2 https:/~ <NA>     rtweet~              1
-      4 1438481824922181635 tweet rtweetbird1 https:/~ this is~ this i~              0
-      5 1438483457697591297 tweet rtweetbird3 https:/~ @rtweet~ @rtwee~              1
-      6 1438482432030818307 tweet rtweetbird2 https:/~ @rtweet~ @rtwee~              1
-      7 1438482309490040835 tweet rtweetbird2 https:/~ @rtweet~ @rtwee~              1
-      8 1438484289616859145 tweet rtweetbird3 https:/~ this is~ this i~              1
-      9 1438483563314360322 tweet rtweetbird3 https:/~ @rtweet~ @rtwee~              2
+      # A tibble: 9 x 6
+        name                type  screen_name url           text          label       
+        <chr>               <chr> <chr>       <glue>        <chr>         <chr>       
+      1 1438476950746636291 user  rtweetbird1 https://twit~ <NA>          rtweetbird1 
+      2 1438480252003569671 user  rtweetbird3 https://twit~ <NA>          rtweetbird3 
+      3 1438479415550390275 user  rtweetbird2 https://twit~ <NA>          rtweetbird2 
+      4 1438481824922181635 tweet rtweetbird1 https://twit~ this is a te~ this is a t~
+      5 1438483457697591297 tweet rtweetbird3 https://twit~ @rtweetbird1~ @rtweetbird~
+      6 1438482432030818307 tweet rtweetbird2 https://twit~ @rtweetbird1~ @rtweetbird~
+      7 1438482309490040835 tweet rtweetbird2 https://twit~ @rtweetbird1~ @rtweetbird~
+      8 1438484289616859145 tweet rtweetbird3 https://twit~ this is my q~ this is my ~
+      9 1438483563314360322 tweet rtweetbird3 https://twit~ @rtweetbird2~ @rtweetbird~
 
 ---
 
