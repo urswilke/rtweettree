@@ -26,7 +26,7 @@ Scrape tree
 }
 \examples{
 \dontrun{
-main_status_id <- "1234620900386975744"
+main_status_id <- "1438481824922181635"
 df_main_status <- rtweet::lookup_statuses(main_status_id)
 df_tree <- search_tree(main_status_id)
 }

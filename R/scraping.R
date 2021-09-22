@@ -10,7 +10,7 @@
 #'
 #' @examples
 #'\dontrun{
-#' main_status_id <- "1234620900386975744"
+#' main_status_id <- "1438481824922181635"
 #' df_main_status <- rtweet::lookup_statuses(main_status_id)
 #' df_tree <- search_tree(main_status_id)
 #'}
@@ -84,7 +84,7 @@ add_tree_level <- function(df0, df1, n) {
 #'
 #' @examples
 #'\dontrun{
-#' main_status_id <- "1234620900386975744"
+#' main_status_id <- "1438481824922181635"
 #' df_main_status <- rtweet::lookup_statuses(main_status_id)
 #' df_tree <- search_tree(main_status_id)
 #' tree_ids <- df_tree$user_id %>% unique()
@@ -175,7 +175,7 @@ scrape_timelines <- function(tree_ids, main_status_id) {
 #'
 #' @examples
 #'\dontrun{
-#' main_status_id <- "1234620900386975744"
+#' main_status_id <- "1438481824922181635"
 #' df_main_status <- rtweet::lookup_statuses(main_status_id)
 #' df_tree <- search_tree(main_status_id)
 #' tree_ids <- df_tree$user_id %>% unique()

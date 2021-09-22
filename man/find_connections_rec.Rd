@@ -18,7 +18,7 @@ Edges data frame that can be plotted by tidygraph & ggraph
 Recursively return all status ids of a tweet and its replies
 }
 \examples{
-main_status_id <- "1234620900386975744"
+main_status_id <- "1438481824922181635"
 \dontrun{
 df_main_status <- rtweet::lookup_statuses(main_status_id)
 df_tree <- search_tree(main_status_id)
