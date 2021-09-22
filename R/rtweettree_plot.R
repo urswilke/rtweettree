@@ -2,7 +2,7 @@
 #'
 #' @param x rtweet status_id or rtweettree_data object
 #' @param add_profile_pics logical whether to add the profile pictures of the
-#' users to the graph; defualts to TRUE
+#' users to the graph; defaults to TRUE
 #' @param ... for the moment not used
 #'
 #' @return rtweettree
