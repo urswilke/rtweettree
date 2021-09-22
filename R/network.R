@@ -4,7 +4,6 @@
 #' @param df0 data frame returned by `rtweet::lookup_statuses()`.
 #'
 #' @return Edges data frame that can be plotted by tidygraph & ggraph
-#' @export
 #'
 #' @examples
 #' main_status_id <- "1438481824922181635"

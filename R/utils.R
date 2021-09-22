@@ -2,7 +2,6 @@
 #'
 #'
 #' @return An empty tibble with columns of the type that, e.g. rtweet::lookup_statuses() produces
-#' @export
 #'
 #' @examples
 #' df <- create_empty_rtweet_tbl()
