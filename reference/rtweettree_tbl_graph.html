@@ -125,7 +125,7 @@ tweet and all replies, quotes and likes that could be scraped using rtweet." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create a tidygraph tbl_graph object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/urswilke/rtweettree/blob/master/R/rtweettree.R'><code>R/rtweettree.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/urswilke/rtweettree/blob/master/R/rtweettree_tbl_graph.R'><code>R/rtweettree_tbl_graph.R</code></a></small>
     <div class="hidden name"><code>rtweettree_tbl_graph.Rd</code></div>
     </div>
 
@@ -155,7 +155,7 @@ tweet and all replies, quotes and likes that could be scraped using rtweet.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>main_status_id</span> <span class='op'>&lt;-</span> <span class='st'>"1289565453707173889"</span>
+<span class='va'>main_status_id</span> <span class='op'>&lt;-</span> <span class='st'>"1438481824922181635"</span>
 <span class='va'>df_main_status</span> <span class='op'>&lt;-</span> <span class='fu'>rtweet</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rtweet/man/lookup_statuses.html'>lookup_statuses</a></span><span class='op'>(</span><span class='va'>main_status_id</span><span class='op'>)</span>
 <span class='va'>df_tree</span> <span class='op'>&lt;-</span> <span class='fu'><a href='search_tree.html'>search_tree</a></span><span class='op'>(</span><span class='va'>main_status_id</span><span class='op'>)</span>
 <span class='va'>tree_ids</span> <span class='op'>&lt;-</span> <span class='va'>df_tree</span><span class='op'>$</span><span class='va'>user_id</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='op'>)</span>
