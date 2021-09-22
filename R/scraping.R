@@ -73,7 +73,7 @@ add_tree_level <- function(df0, df1, n) {
 
 
 
-
+# TODO: update in examples to use rtweet::get_timelines() instead!
 #' Scrape the timelines of user ids
 #'
 #' @param tree_ids `user_id`s of a tree scraped by `search_tree()`.
