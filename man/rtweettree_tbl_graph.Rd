@@ -2,9 +2,21 @@
 % Please edit documentation in R/rtweettree_tbl_graph.R
 \name{rtweettree_tbl_graph}
 \alias{rtweettree_tbl_graph}
+\alias{rtweettree_tbl_graph.rtweettree_data}
+\alias{rtweettree_tbl_graph.rtweettree_tbl_graph}
+\alias{rtweettree_tbl_graph.character}
+\alias{rtweettree_tbl_graph.list}
 \title{Create a tidygraph tbl_graph object}
 \usage{
 rtweettree_tbl_graph(x, ...)
+
+\method{rtweettree_tbl_graph}{rtweettree_data}(x, ...)
+
+\method{rtweettree_tbl_graph}{rtweettree_tbl_graph}(x, ...)
+
+\method{rtweettree_tbl_graph}{character}(x, ...)
+
+\method{rtweettree_tbl_graph}{list}(x, ...)
 }
 \arguments{
 \item{x}{rtweet status_id or rtweettree_data object}
@@ -18,6 +30,17 @@ A tidygraph tbl_graph object representing the tree structure of all scraped subt
 Create a `tidygraph::tbl_graph` object representing the tree structure of a
 tweet and all replies, quotes and likes that could be scraped using rtweet.
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{rtweettree_data}: Construct rtweettree_tbl_graph object from rtweettree_data.
+
+\item \code{rtweettree_tbl_graph}: return rtweettree_tbl_graph object as is.
+
+\item \code{character}: First run rtweettree_data on the status id `x` and then transform to rtweettree tbl_graph.
+
+\item \code{list}: First run rtweettree_data on the named list `x` and then transform to rtweettree tbl_graph.
+}}
+
 \examples{
 \dontrun{
 main_status_id <- "1438481824922181635"
