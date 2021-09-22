@@ -1,51 +1,32 @@
-#' Example package dataset storing the result of rtweet::lookup_statuses(main_status_id)
+#' Included datasets
 #'
-#' Example package dataset storing the result of rtweet::lookup_statuses(main_status_id)
-#'
+#' The package includes several datasets resulting of rtweet queries (to make
+#' them available for documentation purposes and offline use). All these
+#' datasets are included in the result of running `rtweettree_data()` (see
+#' examples).
+#' @name incl_data
 #' @examples
 #' \dontrun{
-#'   df_main_status <- rtweet::lookup_statuses(main_status_id)
+#' main_status_id <- "1438481824922181635"
+#' rtweettree_data(main_status_id)
 #' }
+NULL
+
+
+
+#' @rdname incl_data
 "df_main_status"
 
-#' Example package dataset storing the result of search_tree(main_status_id)
-#'
-#' Example package dataset storing the result of search_tree(main_status_id)
-#'
-#' @examples
-#' \dontrun{
-#'   df_tree <- search_tree(main_status_id)
-#' }
+#' @rdname incl_data
 "df_tree"
 
-#' Example package dataset storing the result of rtweet::get_timelines(tree_ids)
-#'
-#' Example package dataset storing the result of rtweet::get_timelines(tree_ids)
-#'
-#' @examples
-#' \dontrun{
-#'   df_tls <- rtweet::get_timelines(tree_ids)
-#' }
+#' @rdname incl_data
 "df_tls"
 
-#' Example package dataset storing the result of scrape_favs2(ids, main_status_id)
-#'
-#' Example package dataset storing the result of scrape_favs2(ids, main_status_id)
-#'
-#' @examples
-#' \dontrun{
-#'   df_favs <- scrape_favs2(ids, main_status_id)
-#' }
+#' @rdname incl_data
 "df_favs"
 
-#' Example package dataset storing the result of rtweet::get_retweets() for multiple status_ids
-#'
-#' Example package dataset storing the result of rtweet::get_retweets() for multiple status_ids
-#'
-#' @examples
-#' \dontrun{
-#'   df_retweets <- tweet_ids %>% map_dfr(~rtweet::get_retweets(.x))
-#' }
+#' @rdname incl_data
 "df_retweets"
 
 #' Example package dataset storing the result of get_profile_pic_df()
