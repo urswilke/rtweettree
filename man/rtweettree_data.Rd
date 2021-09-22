@@ -19,6 +19,9 @@ rtweettree_data(x, ...)
 \item{x}{rtweet status_id}
 
 \item{...}{for the moment not used}
+
+\item{new_tls}{logical whether to use the new method or the old one to scrape
+the timelines of users in the tree; defaults to TRUE.}
 }
 \value{
 object of class rtweettree_data: a list containing the objects df_main_status, df_tree, df_tls, df_favs & df_retweets (see `vignette("visualize_tree", package = "rtweettree")`)

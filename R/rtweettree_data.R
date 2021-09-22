@@ -15,6 +15,8 @@ rtweettree_data <- function(x, ...) {
   UseMethod("rtweettree_data")
 }
 #' @export
+#' @param new_tls logical whether to use the new method or the old one to scrape
+#'   the timelines of users in the tree; defaults to TRUE.
 #' @describeIn rtweettree_data Scrape the rtweettree data from a Twitter status id.
 rtweettree_data.character <- function(x, new_tls = TRUE, ...) {
 
