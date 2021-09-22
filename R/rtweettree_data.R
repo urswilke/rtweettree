@@ -15,6 +15,7 @@ rtweettree_data <- function(x, ...) {
   UseMethod("rtweettree_data")
 }
 #' @export
+#' @describeIn rtweettree_data Scrape the rtweettree data from a Twitter status id.
 rtweettree_data.character <- function(x, new_tls = TRUE, ...) {
 
   df_main_status <- rtweet::lookup_statuses(x)
@@ -45,6 +46,7 @@ rtweettree_data.character <- function(x, new_tls = TRUE, ...) {
   l
 }
 #' @export
+#' @describeIn rtweettree_data Add rtweettree_data class to list.
 rtweettree_data.list <- function(x, ...) {
   structure(
     x,
@@ -52,6 +54,7 @@ rtweettree_data.list <- function(x, ...) {
   )
 }
 #' @export
+#' @describeIn rtweettree_data Return rtweettree_data object as is.
 rtweettree_data.rtweettree_data <- function(x, ...) {
   x
 }
