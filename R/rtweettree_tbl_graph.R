@@ -139,10 +139,6 @@ rtweettree_tbl_graph.rtweettree_tbl_graph <- function(x, ...) {
   x
 }
 
-# TODO: add example in docs how to add dist_to_center to tbl_graph object:
-# g <- g %>%
-# # calculate the distance to the tree root with tidygraph:
-#   dplyr::mutate(dist_to_center = tidygraph::node_distance_from(tidygraph::node_is_source()))
 #' @export
 #' @describeIn rtweettree_tbl_graph First run rtweettree_data on the status id `x` and then transform to rtweettree tbl_graph.
 rtweettree_tbl_graph.character <- function(x, ...) {
