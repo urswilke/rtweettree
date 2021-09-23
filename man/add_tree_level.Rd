@@ -20,3 +20,4 @@ data frame like `rtweet::search_tweets2()`, but also all direct answers
 \description{
 Add one level in the tree of tweets
 }
+\keyword{internal}

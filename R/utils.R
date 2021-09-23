@@ -2,7 +2,7 @@
 #'
 #'
 #' @return An empty tibble with columns of the type that, e.g. rtweet::lookup_statuses() produces
-#'
+#' @keywords internal
 #' @examples
 #' df <- rtweettree:::create_empty_rtweet_tbl()
 #' df

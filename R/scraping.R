@@ -42,6 +42,7 @@ search_tree <- function(main_status_id,
 #' @param df1 data frame.
 #' @param n  maximum number of tweets to scrape.
 #'
+#' @keywords internal
 #' @importFrom rlang .data
 #' @return data frame like `rtweet::search_tweets2()`, but also all direct answers
 #'   to the tweet (one level lower; if available).

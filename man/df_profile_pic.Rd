@@ -18,4 +18,4 @@ Example package dataset storing the result of get_profile_pic_df()
   df_profile_pic <- get_profile_pic_df(bind_rows(df_tls, df_favs, df_main_status))
 }
 }
-\keyword{datasets}
+\keyword{internal}

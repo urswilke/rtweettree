@@ -16,3 +16,4 @@ Create an empty rtweet tibble
 df <- rtweettree:::create_empty_rtweet_tbl()
 df
 }
+\keyword{internal}
