@@ -120,11 +120,13 @@ usethis::use_data(df_retweets, overwrite = TRUE)
 
 The relevant twitter information of these tweets is translated into a tidygraph network object: 
 
-```{r tbl_graph, eval=TRUE}
-g <-
-  rtweettree_tbl_graph(
-      tibble::lst(df_main_status, df_tree, df_tls, df_favs, df_retweets),
-  )
+```{r tbl_graph, eval=TRUE, message=FALSE}
+l <- tibble::lst(df_main_status, df_tree, df_tls, df_favs, df_retweets)
+g <- rtweettree_tbl_graph(l)
+```
+
+
+```{r tbl_graph2, eval=TRUE}
 g
 ```
 
@@ -210,8 +212,11 @@ g1 <- add_profile_pics_to_tree_ggraph(
 g1 +
   geom_edge_diagonal(aes(color= type)) +
   scale_edge_colour_hue(name = "action") +
-  geom_node_point(aes(color = dist_to_root,
-                      shape = type)) + 
+  geom_node_point(aes(
+    # we color the nodes by dist_to_root that we calculated above for the tbl_graph object:
+    color = dist_to_root,
+    shape = type
+  )) + 
   scale_color_viridis_c(direction = -1) + 
   theme(legend.position = "bottom")
 ```
@@ -253,3 +258,15 @@ p <- girafe_options(x = p,
 
 p
 ```
+
+### Customizing `autoplot()`
+
+We can also customize the ggraph object by passing arguments to the autoplot methods, e.g. by 
+
+* not including the profile pictures (`add_profile_pics = FALSE`)
+* or using another [layout](https://ggraph.data-imaginist.com/articles/Layouts.html) (`layout = "stress"`)
+
+```{r, eval=TRUE, message=FALSE}
+autoplot(l, add_profile_pics = FALSE, layout = "stress")
+```
+
