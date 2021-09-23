@@ -86,7 +86,7 @@
 <a href="#rtweettree" class="anchor"></a>rtweettree</h1></div>
 <!-- badges: start -->
 
-<p>The goal of rtweettree is to recursively scrape a twitter tweet and all replies, quotes, retweets and likes (that the API provides) and visualize them in a network graph. The functionalities to scrape twitter data are heavily based on the excellent <a href="https://github.com/ropensci/rtweet"><strong>rtweet</strong></a> package. The graph network manipulation functionalities rely on the amazing <a href="https://github.com/thomasp85/tidygraph"><strong>tidygraph</strong></a> package and are visualized with <a href="https://github.com/thomasp85/ggraph"><strong>ggraph</strong></a>.</p>
+<p>The goal of rtweettree is to recursively scrape a twitter tweet and all replies, quotes, retweets and likes (that the API provides, see <a href="https://community.rstudio.com/t/rtweet-package-extract-specific-tweets-from-specific-user/45206/2">here</a>) and visualize them in a network graph. The functionalities to scrape twitter data are heavily based on the excellent <a href="https://github.com/ropensci/rtweet"><strong>rtweet</strong></a> package. The graph network manipulation functionalities rely on the amazing <a href="https://github.com/thomasp85/tidygraph"><strong>tidygraph</strong></a> package and are visualized with <a href="https://github.com/thomasp85/ggraph"><strong>ggraph</strong></a>.</p>
 <div id="responsible-use" class="section level2">
 <h2 class="hasAnchor">
 <a href="#responsible-use" class="anchor"></a>Responsible use</h2>
@@ -207,15 +207,15 @@
 <span class="co">#&gt; #</span>
 <span class="co">#&gt; # A directed acyclic multigraph with 1 component</span>
 <span class="co">#&gt; #</span>
-<span class="co">#&gt; # Node Data: 9 × 7 (active)</span>
-<span class="co">#&gt;   name                type  screen_name url      text     label   dist_to_center</span>
-<span class="co">#&gt;   &lt;chr&gt;               &lt;chr&gt; &lt;chr&gt;       &lt;glue&gt;   &lt;chr&gt;    &lt;chr&gt;            &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 1438476950746636291 user  rtweetbird1 https:/… &lt;NA&gt;     rtweet…              1</span>
-<span class="co">#&gt; 2 1438480252003569671 user  rtweetbird3 https:/… &lt;NA&gt;     rtweet…              2</span>
-<span class="co">#&gt; 3 1438479415550390275 user  rtweetbird2 https:/… &lt;NA&gt;     rtweet…              1</span>
-<span class="co">#&gt; 4 1438481824922181635 tweet rtweetbird1 https:/… this is… this i…              0</span>
-<span class="co">#&gt; 5 1438483457697591297 tweet rtweetbird3 https:/… @rtweet… @rtwee…              1</span>
-<span class="co">#&gt; 6 1438482432030818307 tweet rtweetbird2 https:/… @rtweet… @rtwee…              1</span>
+<span class="co">#&gt; # Node Data: 9 × 6 (active)</span>
+<span class="co">#&gt;   name                type  screen_name url           text          label       </span>
+<span class="co">#&gt;   &lt;chr&gt;               &lt;chr&gt; &lt;chr&gt;       &lt;glue&gt;        &lt;chr&gt;         &lt;chr&gt;       </span>
+<span class="co">#&gt; 1 1438476950746636291 user  rtweetbird1 https://twit… &lt;NA&gt;          rtweetbird1 </span>
+<span class="co">#&gt; 2 1438480252003569671 user  rtweetbird3 https://twit… &lt;NA&gt;          rtweetbird3 </span>
+<span class="co">#&gt; 3 1438479415550390275 user  rtweetbird2 https://twit… &lt;NA&gt;          rtweetbird2 </span>
+<span class="co">#&gt; 4 1438481824922181635 tweet rtweetbird1 https://twit… this is a te… this is a t…</span>
+<span class="co">#&gt; 5 1438483457697591297 tweet rtweetbird3 https://twit… @rtweetbird1… @rtweetbird…</span>
+<span class="co">#&gt; 6 1438482432030818307 tweet rtweetbird2 https://twit… @rtweetbird1… @rtweetbird…</span>
 <span class="co">#&gt; # … with 3 more rows</span>
 <span class="co">#&gt; #</span>
 <span class="co">#&gt; # Edge Data: 19 × 5</span>
@@ -226,7 +226,7 @@
 <span class="co">#&gt; 3     4     7 1438479415550390275 rtweetbird2 reply</span>
 <span class="co">#&gt; # … with 16 more rows</span></code></pre></div>
 <p>which is then visualized with ggraph.</p>
-<p>A more in-depth example how to create the subtweet network graph from a tweet status_id is shown in the <a href="articles/visualize_tree.html">vignette for tree visualization</a>.</p>
+<p>A more in-depth example how to create the subtweet network graph from a tweet <code>status_id</code> is shown in the <a href="articles/visualize_tree.html">vignette for tree visualization</a>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span><span class="op">(</span><span class="st">"visualize_tree"</span>, package <span class="op">=</span> <span class="st">"rtweettree"</span><span class="op">)</span></code></pre></div>
 </div>
