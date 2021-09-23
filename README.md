@@ -13,9 +13,10 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 <!-- badges: end -->
 
 The goal of rtweettree is to recursively scrape a twitter tweet and all
-replies, quotes, retweets and likes (that the API provides) and
-visualize them in a network graph. The functionalities to scrape twitter
-data are heavily based on the excellent
+replies, quotes, retweets and likes (that the API provides, see
+[here](https://community.rstudio.com/t/rtweet-package-extract-specific-tweets-from-specific-user/45206/2))
+and visualize them in a network graph. The functionalities to scrape
+twitter data are heavily based on the excellent
 [**rtweet**](https://github.com/ropensci/rtweet) package. The graph
 network manipulation functionalities rely on the amazing
 [**tidygraph**](https://github.com/thomasp85/tidygraph) package and are
