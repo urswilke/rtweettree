@@ -13,6 +13,6 @@ An empty tibble with columns of the type that, e.g. rtweet::lookup_statuses() pr
 Create an empty rtweet tibble
 }
 \examples{
-df <- create_empty_rtweet_tbl()
+df <- rtweettree:::create_empty_rtweet_tbl()
 df
 }

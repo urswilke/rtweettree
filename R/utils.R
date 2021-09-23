@@ -4,7 +4,7 @@
 #' @return An empty tibble with columns of the type that, e.g. rtweet::lookup_statuses() produces
 #'
 #' @examples
-#' df <- create_empty_rtweet_tbl()
+#' df <- rtweettree:::create_empty_rtweet_tbl()
 #' df
 create_empty_rtweet_tbl <- function() {
   tibble::tibble(
