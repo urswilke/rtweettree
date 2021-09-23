@@ -157,7 +157,11 @@ scrape_timelines <- function(tree_ids, main_status_id) {
     spliced_list %>%
     purrr::imap(~load_slowly(.x, .y))
 
-  l_tls %>% dplyr::bind_rows()
+  df_favs <- l_tls %>% dplyr::bind_rows()
+  if (nrow(df_favs) == 0) {
+    df_favs <- create_empty_rtweet_tbl()
+  }
+  df_favs
 }
 
 
