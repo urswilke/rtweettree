@@ -186,12 +186,7 @@ g
 which is then visualized with ggraph.
 
 A more in-depth example how to create the subtweet network graph from a
-tweet `status_id` is shown in the [vignette for tree
-visualization](articles/visualize_tree.html).
-
-``` r
-vignette("visualize_tree", package = "rtweettree")
-```
+tweet `status_id` is shown in the `vignette("visualize_tree")`.
 
 ## TODOs:
 
