@@ -37,10 +37,6 @@ To get the current development version from Github (with the [remotes](https://g
 remotes::install_github("UrsWilke/rtweettree")
 ```
 
-## load rtweettree package
-```{r load}
-library(rtweettree)
-```
 
 ## Usage
 
@@ -51,11 +47,19 @@ advice to first feel comfortable with
 
 ## Quick dive-in
 
+First we'll load the package.
+
+```{r load}
+library(rtweettree)
+```
+
 To give you a quick understanding of the functionalities of this package, it can
 be used to scrape data related to a twitter status id `main_status_id` and all
 the replies (to replies), quotes, retweets and likes the API provides using
 `rtweet` functions under the hood. The status id is the last number in the url
 of every tweet on twitter.
+
+
 
 ```{r rtweettree_data, message=FALSE, eval=FALSE}
 main_status_id <- "1438481824922181635"

@@ -39,12 +39,6 @@ To get the current development version from Github (with the
 remotes::install_github("UrsWilke/rtweettree")
 ```
 
-## load rtweettree package
-
-``` r
-library(rtweettree)
-```
-
 ## Usage
 
 In order to use **rtweettree** please refer to [the according section of
@@ -53,6 +47,12 @@ good advice to first feel comfortable with
 [**rtweet**](https://github.com/ropensci/rtweet).
 
 ## Quick dive-in
+
+First we’ll load the package.
+
+``` r
+library(rtweettree)
+```
 
 To give you a quick understanding of the functionalities of this
 package, it can be used to scrape data related to a twitter status id
