@@ -12,7 +12,9 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
-# rtweettree
+
+<!-- The logo was created in the repo https://github.com/urswilke/rtweettree_hex -->
+# rtweettree  <img src="man/figures/hex_sticker.png" width="160px" align="right" />
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/urswilke/rtweettree/workflows/R-CMD-check/badge.svg)](https://github.com/urswilke/rtweettree/actions)

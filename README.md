@@ -1,7 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- The logo was created in the repo https://github.com/urswilke/rtweettree_hex -->
 
-# rtweettree
+# rtweettree <img src="man/figures/hex_sticker.png" width="160px" align="right" />
 
 <!-- badges: start -->
 
