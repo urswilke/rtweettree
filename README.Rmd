@@ -94,6 +94,5 @@ A more in-depth example how to create the subtweet network graph from a tweet
 
 ## TODOs:
 
-* also capture the likes of the original tweet at the root of the tree 
 * clean up code and refactor
 * make plotting functions more customizable

@@ -190,6 +190,5 @@ tweet `status_id` is shown in the `vignette("visualize_tree")`.
 
 ## TODOs:
 
--   also capture the likes of the original tweet at the root of the tree
 -   clean up code and refactor
 -   make plotting functions more customizable
