@@ -192,3 +192,8 @@ tweet `status_id` is shown in the `vignette("visualize_tree")`.
 
 -   clean up code and refactor
 -   make plotting functions more customizable
+
+## Getting help
+
+If you encounter a bug, please file an issue with a minimal reproducible
+example on [GitHub](https://github.com/urswilke/rtweettree/issues).
