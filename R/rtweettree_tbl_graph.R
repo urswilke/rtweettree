@@ -5,6 +5,9 @@
 #' tweet and all replies, quotes and likes that could be scraped using rtweet.
 #'
 #' @param x rtweet status_id or rtweettree_data object
+#' @param add_profile_pics logical whether to scrape the profile pictures of the
+#'   twitter users and add them to the nodes tibble (if available); defaults to
+#'   TRUE.
 #' @param ... for the moment not used
 #'
 #' @return A tidygraph tbl_graph object representing the tree structure of all scraped subtweets of the tweet.
@@ -35,12 +38,12 @@
 #' g <- rtweettree_tbl_graph(l)
 #' g %>% ggraph::ggraph() + ggraph::geom_node_point() + ggraph::geom_edge_link()
 #' }
-rtweettree_tbl_graph <- function(x, ...) {
+rtweettree_tbl_graph <- function(x, add_profile_pics = TRUE, ...) {
   UseMethod("rtweettree_tbl_graph")
 }
 
 #' @describeIn rtweettree_tbl_graph Construct rtweettree_tbl_graph object from rtweettree_data.
-rtweettree_tbl_graph.rtweettree_data <- function(x, ...) {
+rtweettree_tbl_graph.rtweettree_data <- function(x, add_profile_pics = TRUE, ...) {
   suppressMessages(df <- x %>% purrr::reduce(dplyr::full_join) %>% dplyr::distinct(.data$status_id, .keep_all = TRUE))
   df_root <-
     x$df_main_status %>%
@@ -129,27 +132,45 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, ...) {
   # oo <- edges %>% dplyr::filter(.data$from %in% ww | .data$to %in% ww)
   # edges <- edges %>%
   #   dplyr::anti_join(oo)
+
+  if (add_profile_pics) {
+    df_profile_pics <- scrape_profile_pics(nodes)
+    nodes <- nodes %>% dplyr::left_join(df_profile_pics)
+  }
+
   g <- tidygraph::tbl_graph(nodes, edges)
   class(g) <- c("rtweettree_tbl_graph", "tbl_graph", "igraph")
   g
 }
 
-
+scrape_profile_pics <- function(nodes_df) {
+  nodes_df %>%
+    dplyr::transmute(
+      .data$screen_name,
+      profile_image_url = purrr::map_chr(.data$data, "profile_image_url")
+    ) %>%
+    dplyr::distinct(.data$profile_image_url, .keep_all = TRUE) %>%
+    dplyr::filter(!stringr::str_detect(.data$profile_image_url, "default_profile_normal\\.png")) %>%
+    dplyr::mutate(
+      profile_pic = .data$profile_image_url %>%
+        purrr::map(magick::image_read)
+    ) %>%
+    dplyr::select(-.data$profile_image_url)
+}
 
 
 
 #' @export
 #' @describeIn rtweettree_tbl_graph return rtweettree_tbl_graph object as is.
-rtweettree_tbl_graph.rtweettree_tbl_graph <- function(x, ...) {
+rtweettree_tbl_graph.rtweettree_tbl_graph <- function(x, add_profile_pics = TRUE, ...) {
   x
 }
 
 #' @export
 #' @describeIn rtweettree_tbl_graph First run rtweettree_data on the status id `x` and then transform to rtweettree tbl_graph.
-rtweettree_tbl_graph.character <- function(x, ...) {
-  l <- rtweettree_data(x)
-  g <-
-    rtweettree_tbl_graph.rtweettree_data(l)
+rtweettree_tbl_graph.character <- function(x, add_profile_pics = TRUE, ...) {
+  l <- rtweettree_data(x, ...)
+  rtweettree_tbl_graph.rtweettree_data(l, add_profile_pics, ..)
 }
 
 #' @export
@@ -157,7 +178,7 @@ rtweettree_tbl_graph.character <- function(x, ...) {
 rtweettree_tbl_graph.list <- rtweettree_tbl_graph.character
 
 #' @export
-rtweettree_tbl_graph.default <- function(x, ...) {
+rtweettree_tbl_graph.default <- function(x, add_profile_pics = TRUE, ...) {
   stop("rtweettree_tbl_graph() not defined for object of class ", class(x))
 }
 

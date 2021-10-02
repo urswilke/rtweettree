@@ -174,40 +174,9 @@ g %>%
   geom_edge_link()
 ```
 
-We can generate a ggraph object and add profile pictures to the user nodes with the following function: 
-
-```{r ggraph, fig.width=8, fig.height=6}
-df_profile_pic <- rtweettree:::get_profile_pic_df(bind_rows(df_tls, df_favs, df_main_status))
-```
-```{r, eval=TRUE, include=FALSE}
-df_profile_pic$profile_image_url <- 1:3 %>% purrr::map_chr(~system.file("profile_pics", paste0(.x, ".png"), package = "rtweettree"))
-df_profile_pic <- df_profile_pic <- df_profile_pic %>%
-  dplyr::mutate(
-    img = profile_image_url %>%
-      purrr::map(magick::image_read)
-  )
-
-```
-
-```{r df_profile_pic_save, include=FALSE}
-df_profile_pic <- df_profile_pic %>%
-    dplyr::mutate(
-      img = profile_image_url %>%
-        purrr::map(magick::image_read)
-    )
-usethis::use_data(df_profile_pic, overwrite = TRUE)
-```
-
 ```{r ggraph2, eval=TRUE, fig.width=8, fig.height=6}
-g1 <- add_profile_pics_to_tree_ggraph(
-  ggraph(g),
-  df_profile_pic
-)
-# without profile picture, it would be:
-# g1 <- g %>% ggraph()
-# 
-# # Hack to put all user nodes on the bottom line of the graph:
-# g1$data$y[g1$data$type == "user"] <- min(g1$data$y)
+
+g1 <- ggraph(g)
 
 g1 +
   geom_edge_diagonal(aes(color= type)) +
@@ -228,6 +197,10 @@ With ggiraph we can generate an interactive tree graph:
 
 
 ```{r ggiraph, eval=TRUE, results='asis'}
+# Hack to put all user nodes on the bottom line of the graph:
+g1$data$y[g1$data$type == "user"] <- min(g1$data$y)
+
+
 # Add on click information to the graph nodes:
 g1$data$onclick  <- glue::glue('window.open("{g1$data$url}")')
 

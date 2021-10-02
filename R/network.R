@@ -55,7 +55,6 @@ get_profile_pic_df <- function(df) {
       img = .data$profile_image_url %>%
         purrr::map(magick::image_read)
     )
-
 }
 
 #' Create ggraph object with profile pictures added
@@ -68,23 +67,29 @@ get_profile_pic_df <- function(df) {
 #'
 #' @examples
 #' \dontrun{
-#' g1 <- add_profile_pics_to_tree_ggraph(g, get_profile_pic_df(bind_rows(df_tls, df_main_status)))
-#' g1 + ggraph::geom_edge_diagonal(aes(color= type)) + geom_node_point(shape = type))
+#' l <- rtweettree_data("1438481824922181635")
+#' g <- rtweettree_tbl_graph(l)
+#' g1 <- ggraph(g)
+#' g1 <- add_profile_pics_to_tree_ggraph(g1, rtweettree:::scrape_profile_pics(tidygraph::as_tibble(g)))
+#' g1 + ggraph::geom_edge_diagonal(aes(color= type)) + geom_node_point(aes(shape = type))
 #' }
 add_profile_pics_to_tree_ggraph <- function(g1, df_profile_pic) {
 
   # Hack to put all user nodes on the bottom line of the graph:
   g1$data$y[g1$data$type == "user"] <- min(g1$data$y)
 
-  user_coords <- g1$data %>% dplyr::select(.data$screen_name, .data$x, .data$y) %>% dplyr::filter(.data$y == 1)
+  user_coords <- g1$data %>%
+    dplyr::filter(.data$type == "user") %>%
+    dplyr::select(.data$screen_name, .data$x, .data$y)
 
   df_profile_pic <- df_profile_pic %>% dplyr::inner_join(user_coords, by = "screen_name")
   user_coords <- df_profile_pic %>% dplyr::select(.data$screen_name, .data$x, .data$y)
-  add_img <- function(g, user_images, user_coords) {
-    g  + ggplot2::annotation_raster(user_images, xmin = user_coords$x[1] - 0.4, ymin = user_coords$y[1] + 0.2, xmax = user_coords$x[1] + 0.4, ymax = user_coords$y[1] + 0.6)
+  add_img <- function(g1, user_images, user_coords) {
+    # TODO: allow to choose the width & height parameters from function:
+    g1  + ggplot2::annotation_raster(user_images, xmin = user_coords$x[1] - 0.4, ymin = user_coords$y[1] + 0.2, xmax = user_coords$x[1] + 0.4, ymax = user_coords$y[1] + 0.6)
   }
   purrr::reduce2(
-    df_profile_pic$img,
+    df_profile_pic$profile_pic,
     user_coords %>% dplyr::rowwise() %>% dplyr::group_split(),
     add_img,
     .init = g1

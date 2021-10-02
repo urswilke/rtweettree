@@ -21,15 +21,18 @@
 #' @importFrom ggplot2 autoplot
 #'
 autoplot.character <- function(x, add_profile_pics = TRUE, ...) {
-  l <- rtweettree_data(x)
+  l <- rtweettree_data(x, ...)
 
 
-  g <- rtweettree_tbl_graph(l)
+  g <- rtweettree_tbl_graph(l, add_profile_pics, ...)
 
   g1 <- g %>% ggraph::ggraph(...)
 
   if (add_profile_pics) {
-    df_profile_pic <- get_profile_pic_df(dplyr::bind_rows(l[c("df_tls", "df_favs", "df_main_status")]))
+    df_profile_pic <- g %>%
+      as_tibble() %>%
+      filter(map_lgl(profile_pic, ~!is.null(.x))) %>%
+      select(screen_name, profile_pic)
 
     g1 <- add_profile_pics_to_tree_ggraph(
       g1,
