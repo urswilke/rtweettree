@@ -54,7 +54,6 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, add_profile_pics = TRUE, ...
     find_connections_rec(dplyr::bind_rows(x$df_tree, x$df_tls, x$df_favs), df_root)
   user_tweet_edges <-
     tweet_edges %>%
-    dplyr::bind_rows(df_root %>% dplyr::mutate(from = .data$user_id)) %>%
     dplyr::transmute(.data$user_id,
                      .data$screen_name,
                      from = .data$to,

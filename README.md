@@ -159,28 +159,28 @@ Under the hood, the scraped data is first transformed into a
 ``` r
 g <- rtweettree_tbl_graph(l)
 g
-#> # A tbl_graph: 9 nodes and 19 edges
+#> # A tbl_graph: 9 nodes and 18 edges
 #> #
-#> # A directed acyclic multigraph with 1 component
+#> # A directed acyclic simple graph with 1 component
 #> #
-#> # Node Data: 9 × 6 (active)
-#>   name                type  screen_name url           text          label       
-#>   <chr>               <chr> <chr>       <glue>        <chr>         <chr>       
-#> 1 1438476950746636291 user  rtweetbird1 https://twit… <NA>          rtweetbird1 
-#> 2 1438480252003569671 user  rtweetbird3 https://twit… <NA>          rtweetbird3 
-#> 3 1438479415550390275 user  rtweetbird2 https://twit… <NA>          rtweetbird2 
-#> 4 1438481824922181635 tweet rtweetbird1 https://twit… this is a te… this is a t…
-#> 5 1438483457697591297 tweet rtweetbird3 https://twit… @rtweetbird1… @rtweetbird…
-#> 6 1438482432030818307 tweet rtweetbird2 https://twit… @rtweetbird1… @rtweetbird…
+#> # Node Data: 9 × 7 (active)
+#>   name                type  screen_name url         data   text       label     
+#>   <chr>               <chr> <chr>       <glue>      <list> <chr>      <chr>     
+#> 1 1438476950746636291 user  rtweetbird1 https://tw… <tibb… <NA>       rtweetbir…
+#> 2 1438480252003569671 user  rtweetbird3 https://tw… <tibb… <NA>       rtweetbir…
+#> 3 1438479415550390275 user  rtweetbird2 https://tw… <tibb… <NA>       rtweetbir…
+#> 4 1438481824922181635 tweet <NA>        https://tw… <tibb… this is a… this is a…
+#> 5 1438483457697591297 tweet <NA>        https://tw… <tibb… @rtweetbi… @rtweetbi…
+#> 6 1438482432030818307 tweet <NA>        https://tw… <tibb… @rtweetbi… @rtweetbi…
 #> # … with 3 more rows
 #> #
-#> # Edge Data: 19 × 5
+#> # Edge Data: 18 × 5
 #>    from    to user_id             screen_name type 
 #>   <int> <int> <chr>               <chr>       <chr>
 #> 1     4     5 1438480252003569671 rtweetbird3 reply
 #> 2     4     6 1438479415550390275 rtweetbird2 reply
 #> 3     4     7 1438479415550390275 rtweetbird2 reply
-#> # … with 16 more rows
+#> # … with 15 more rows
 ```
 
 which is then visualized with ggraph.

@@ -21,7 +21,7 @@
     Code
       g %E>% as_tibble()
     Output
-      # A tibble: 19 x 5
+      # A tibble: 18 x 5
           from    to user_id             screen_name type   
          <int> <int> <chr>               <chr>       <chr>  
        1     4     5 1438480252003569671 rtweetbird3 reply  
@@ -41,6 +41,5 @@
       15     7     3 1438479415550390275 rtweetbird2 by     
       16     8     2 1438480252003569671 rtweetbird3 by     
       17     9     2 1438480252003569671 rtweetbird3 by     
-      18     4     1 1438476950746636291 rtweetbird1 by     
-      19     4     3 1438479415550390275 rtweetbird2 retweet
+      18     4     3 1438479415550390275 rtweetbird2 retweet
 
