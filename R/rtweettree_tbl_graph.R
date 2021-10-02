@@ -46,13 +46,12 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, ...) {
     x$df_main_status %>%
     # df_tree %>%
     # filter(status_id == main_status_id) %>%
-    dplyr::select(to = .data$status_id, .data$user_id, .data$screen_name) %>%
-    dplyr::mutate(from = "root", type = "root")
+    dplyr::select(to = .data$status_id, .data$user_id, .data$screen_name)
   tweet_edges <-
     find_connections_rec(dplyr::bind_rows(x$df_tree, x$df_tls, x$df_favs), df_root)
   user_tweet_edges <-
     tweet_edges %>%
-    dplyr::bind_rows(df_root %>% dplyr::mutate(from = .data$screen_name)) %>%
+    dplyr::bind_rows(df_root %>% dplyr::mutate(from = .data$user_id)) %>%
     dplyr::transmute(.data$user_id,
                      .data$screen_name,
                      from = .data$to,
@@ -64,7 +63,6 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, ...) {
     x$df_favs %>%
     dplyr::filter(.data$status_id %in% tweet_edges$to) %>%
     dplyr::transmute(from = .data$status_id, to = .data$favorited_by, user_id = .data$favorited_by, .data$screen_name) %>%
-    # dplyr::add_count(.data$to, name = "n_likes") %>%
     dplyr::mutate(type = "like")
 
 
@@ -80,25 +78,36 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, ...) {
       user_tweet_edges,
       retweet_edges
     ) %>%
-    dplyr::filter(.data$from != "root")
+    dplyr::filter(.data$from != "root") %>%
+    dplyr::relocate(.data$from, .data$to)
 
-  user_nodes <-
-    tibble::tibble(name =
-                     c(df_root$user_id,
-                       user_tweet_edges$user_id) %>%
-                     unique(),
-                   type = "user") %>%
-    dplyr::left_join(df %>% dplyr::select(name = .data$user_id, .data$screen_name) %>% dplyr::distinct()) %>%
-    dplyr::mutate(url = glue::glue("https://twitter.com/{screen_name}/"))
 
-  tweet_nodes <-
-    tibble::tibble(name =
-                     c(tweet_edges$to,
-                       tweet_edges$from) %>%
-                     unique(),
-                   type = "tweet") %>%
-    dplyr::left_join(df %>% dplyr::select(name = .data$status_id, .data$screen_name, .data$text) %>% dplyr::distinct()) %>%
-    dplyr::mutate(url = glue::glue("https://twitter.com/fake_screen_name/status/{name}"))
+
+  user_nodes <- tibble::tibble(
+      user_id = c(df_root$user_id, user_tweet_edges$user_id) %>% unique(),
+      type = "user"
+    ) %>%
+    dplyr::left_join(df %>% dplyr::distinct(user_id, .keep_all = TRUE) %>% rtweet::users_data()) %>%
+    dplyr::mutate(name = user_id) %>%
+    dplyr::mutate(url = glue::glue("https://twitter.com/{screen_name}/"))  %>%
+    dplyr::group_by(.data$name, .data$type, .data$screen_name, .data$url) %>%
+    tidyr::nest() %>%
+    dplyr::ungroup()
+
+
+  tweet_nodes <- tibble::tibble(
+    name = c(tweet_edges$to, tweet_edges$from) %>% unique(),
+    type = "tweet") %>%
+    dplyr::left_join(
+      df %>%
+        dplyr::distinct(status_id, .keep_all = TRUE) %>%
+        dplyr::group_by(name = .data$status_id, text = .data$text) %>%
+        tidyr::nest() %>%
+        dplyr::ungroup()
+
+    ) %>%
+    dplyr::mutate(url = glue::glue("https://twitter.com/fake_screen_name/status/{name}")) %>%
+    dplyr::filter(name != "root")
   # the correct url would be:
   # dplyr::mutate(url = glue::glue("https://twitter.com/{screen_name}/status/{name}"))
   # however, this probably wouldn't be completely inline with the twitter terms of use...
@@ -106,25 +115,22 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, ...) {
   nodes <-
     dplyr::full_join(user_nodes,
                      tweet_nodes) %>%
-    dplyr::mutate(label = dplyr::coalesce(.data$text, .data$screen_name))
+    dplyr::mutate(label = dplyr::coalesce(.data$text, .data$screen_name)) %>%
+    dplyr::relocate(.data$name)
 
-  # dirty hack to prevent error:
-  #"
-  # Error in (function (edges, n = max(edges), directed = TRUE)  :
-  #             At type_indexededgelist.c:116 : cannot create empty graph with negative number of vertices, Invalid value
-  #"
-  xxx <- unique(nodes$name)
-  yyy <- unique(c(edges$from, edges$to))
-  ww <- dplyr::setdiff(yyy, xxx)
-  oo <- edges %>% dplyr::filter(.data$from %in% ww | .data$to %in% ww)
-  edges <- edges %>%
-    dplyr::anti_join(oo)
-  g <- tidygraph::tbl_graph(
-    nodes %>%
-      # TODO: remove row with root
-      tidyr::drop_na(.data$screen_name),
-    edges
-  )
+  # # TODO: check why this is needed
+  # # dirty hack to prevent error:
+  # #"
+  # # Error in (function (edges, n = max(edges), directed = TRUE)  :
+  # #             At type_indexededgelist.c:116 : cannot create empty graph with negative number of vertices, Invalid value
+  # #"
+  # xxx <- unique(nodes$name)
+  # yyy <- unique(c(edges$from, edges$to))
+  # ww <- dplyr::setdiff(yyy, xxx)
+  # oo <- edges %>% dplyr::filter(.data$from %in% ww | .data$to %in% ww)
+  # edges <- edges %>%
+  #   dplyr::anti_join(oo)
+  g <- tidygraph::tbl_graph(nodes, edges)
   class(g) <- c("rtweettree_tbl_graph", "tbl_graph", "igraph")
   g
 }
