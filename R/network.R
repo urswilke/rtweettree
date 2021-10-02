@@ -23,12 +23,12 @@ find_connections_rec <- function(df_tree, df0) {
   df_quote1 <-
     df_tree %>%
     dplyr::filter(.data$quoted_status_id %in% df0$to) %>%
-    dplyr::select(to = .data$status_id, from = .data$quoted_status_id, .data$user_id, .data$screen_name) %>%
+    dplyr::mutate(to = .data$status_id, from = .data$quoted_status_id) %>%
     dplyr::mutate(type = "quote")
   df_reply1 <-
     df_tree %>%
     dplyr::filter(.data$reply_to_status_id %in% df0$to) %>%
-    dplyr::select(to = .data$status_id, from = .data$reply_to_status_id, .data$user_id, .data$screen_name) %>%
+    dplyr::mutate(to = .data$status_id, from = .data$reply_to_status_id) %>%
     dplyr::mutate(type = "reply")
   res <- list(df0, df_reply1, df_quote1) %>%
     purrr::reduce(dplyr::full_join) %>%
