@@ -3,6 +3,7 @@
 S3method(autoplot,character)
 S3method(autoplot,list)
 S3method(autoplot,rtweettree_data)
+S3method(autoplot,rtweettree_tbl_graph)
 S3method(rtweettree_data,character)
 S3method(rtweettree_data,list)
 S3method(rtweettree_data,rtweettree_data)

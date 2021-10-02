@@ -21,10 +21,7 @@
 #' @importFrom ggplot2 autoplot
 #'
 autoplot.character <- function(x, add_profile_pics = TRUE, ...) {
-  l <- rtweettree_data(x, ...)
-
-
-  g <- rtweettree_tbl_graph(l, add_profile_pics, ...)
+  g <- rtweettree_tbl_graph(x, add_profile_pics, ...)
 
   g1 <- g %>% ggraph::ggraph(...)
 
@@ -52,4 +49,6 @@ autoplot.character <- function(x, add_profile_pics = TRUE, ...) {
 autoplot.rtweettree_data <- autoplot.character
 #' @export
 autoplot.list <- autoplot.character
+#' @export
+autoplot.rtweettree_tbl_graph <- autoplot.character
 
