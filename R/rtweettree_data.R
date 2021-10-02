@@ -19,6 +19,10 @@ rtweettree_data <- function(x, ...) {
 #'   the timelines of users in the tree; defaults to TRUE.
 #' @describeIn rtweettree_data Scrape the rtweettree data from a Twitter status id.
 rtweettree_data.character <- function(x, new_tls = TRUE, ...) {
+  if (length(x) != 1) {
+    stop("Only defined for character strings of length one.")
+  }
+
   if (suppressWarnings(is.na(as.numeric(x)))) {
     stop("The status_id has to be a character that can be transformed to a numeric.")
   }
