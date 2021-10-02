@@ -3,18 +3,18 @@
     Code
       g %>% as_tibble()
     Output
-      # A tibble: 9 x 7
-        name                type  screen_name url         data   text       label     
-        <chr>               <chr> <chr>       <glue>      <list> <chr>      <chr>     
-      1 1438476950746636291 user  rtweetbird1 https://tw~ <tibb~ <NA>       rtweetbir~
-      2 1438480252003569671 user  rtweetbird3 https://tw~ <tibb~ <NA>       rtweetbir~
-      3 1438479415550390275 user  rtweetbird2 https://tw~ <tibb~ <NA>       rtweetbir~
-      4 1438481824922181635 tweet <NA>        https://tw~ <tibb~ this is a~ this is a~
-      5 1438483457697591297 tweet <NA>        https://tw~ <tibb~ @rtweetbi~ @rtweetbi~
-      6 1438482432030818307 tweet <NA>        https://tw~ <tibb~ @rtweetbi~ @rtweetbi~
-      7 1438482309490040835 tweet <NA>        https://tw~ <tibb~ @rtweetbi~ @rtweetbi~
-      8 1438484289616859145 tweet <NA>        https://tw~ <tibb~ this is m~ this is m~
-      9 1438483563314360322 tweet <NA>        https://tw~ <tibb~ @rtweetbi~ @rtweetbi~
+      # A tibble: 9 x 8
+        name                type  screen_name url     data   text   label  profile_pic
+        <chr>               <chr> <chr>       <glue>  <list> <chr>  <chr>  <list>     
+      1 1438476950746636291 user  rtweetbird1 https:~ <tibb~ <NA>   rtwee~ <magck-mg> 
+      2 1438480252003569671 user  rtweetbird3 https:~ <tibb~ <NA>   rtwee~ <magck-mg> 
+      3 1438479415550390275 user  rtweetbird2 https:~ <tibb~ <NA>   rtwee~ <magck-mg> 
+      4 1438481824922181635 tweet <NA>        https:~ <tibb~ this ~ this ~ <NULL>     
+      5 1438483457697591297 tweet <NA>        https:~ <tibb~ @rtwe~ @rtwe~ <NULL>     
+      6 1438482432030818307 tweet <NA>        https:~ <tibb~ @rtwe~ @rtwe~ <NULL>     
+      7 1438482309490040835 tweet <NA>        https:~ <tibb~ @rtwe~ @rtwe~ <NULL>     
+      8 1438484289616859145 tweet <NA>        https:~ <tibb~ this ~ this ~ <NULL>     
+      9 1438483563314360322 tweet <NA>        https:~ <tibb~ @rtwe~ @rtwe~ <NULL>     
 
 ---
 

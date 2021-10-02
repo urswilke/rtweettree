@@ -8,18 +8,22 @@
 \alias{rtweettree_tbl_graph.list}
 \title{Create a tidygraph tbl_graph object}
 \usage{
-rtweettree_tbl_graph(x, ...)
+rtweettree_tbl_graph(x, add_profile_pics = TRUE, ...)
 
-\method{rtweettree_tbl_graph}{rtweettree_data}(x, ...)
+\method{rtweettree_tbl_graph}{rtweettree_data}(x, add_profile_pics = TRUE, ...)
 
-\method{rtweettree_tbl_graph}{rtweettree_tbl_graph}(x, ...)
+\method{rtweettree_tbl_graph}{rtweettree_tbl_graph}(x, add_profile_pics = TRUE, ...)
 
-\method{rtweettree_tbl_graph}{character}(x, ...)
+\method{rtweettree_tbl_graph}{character}(x, add_profile_pics = TRUE, ...)
 
-\method{rtweettree_tbl_graph}{list}(x, ...)
+\method{rtweettree_tbl_graph}{list}(x, add_profile_pics = TRUE, ...)
 }
 \arguments{
 \item{x}{rtweet status_id or rtweettree_data object}
+
+\item{add_profile_pics}{logical whether to scrape the profile pictures of the
+twitter users and add them to the nodes tibble (if available); defaults to
+TRUE.}
 
 \item{...}{for the moment not used}
 }
