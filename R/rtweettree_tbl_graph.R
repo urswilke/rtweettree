@@ -108,6 +108,7 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, ...) {
                      tweet_nodes) %>%
     dplyr::mutate(label = dplyr::coalesce(.data$text, .data$screen_name))
 
+  # TODO: check why this is needed
   # dirty hack to prevent error:
   #"
   # Error in (function (edges, n = max(edges), directed = TRUE)  :
