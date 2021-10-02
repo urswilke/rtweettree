@@ -163,15 +163,15 @@ g
 #> #
 #> # A directed acyclic simple graph with 1 component
 #> #
-#> # Node Data: 9 × 7 (active)
-#>   name                type  screen_name url         data   text       label     
-#>   <chr>               <chr> <chr>       <glue>      <list> <chr>      <chr>     
-#> 1 1438476950746636291 user  rtweetbird1 https://tw… <tibb… <NA>       rtweetbir…
-#> 2 1438480252003569671 user  rtweetbird3 https://tw… <tibb… <NA>       rtweetbir…
-#> 3 1438479415550390275 user  rtweetbird2 https://tw… <tibb… <NA>       rtweetbir…
-#> 4 1438481824922181635 tweet <NA>        https://tw… <tibb… this is a… this is a…
-#> 5 1438483457697591297 tweet <NA>        https://tw… <tibb… @rtweetbi… @rtweetbi…
-#> 6 1438482432030818307 tweet <NA>        https://tw… <tibb… @rtweetbi… @rtweetbi…
+#> # Node Data: 9 × 8 (active)
+#>   name                type  screen_name url     data   text   label  profile_pic
+#>   <chr>               <chr> <chr>       <glue>  <list> <chr>  <chr>  <list>     
+#> 1 1438476950746636291 user  rtweetbird1 https:… <tibb… <NA>   rtwee… <magck-mg> 
+#> 2 1438480252003569671 user  rtweetbird3 https:… <tibb… <NA>   rtwee… <magck-mg> 
+#> 3 1438479415550390275 user  rtweetbird2 https:… <tibb… <NA>   rtwee… <magck-mg> 
+#> 4 1438481824922181635 tweet <NA>        https:… <tibb… this … this … <NULL>     
+#> 5 1438483457697591297 tweet <NA>        https:… <tibb… @rtwe… @rtwe… <NULL>     
+#> 6 1438482432030818307 tweet <NA>        https:… <tibb… @rtwe… @rtwe… <NULL>     
 #> # … with 3 more rows
 #> #
 #> # Edge Data: 18 × 5
@@ -192,7 +192,6 @@ tweet `status_id` is shown in the `vignette("visualize_tree")`.
 
 -   clean up code and refactor
 -   make plotting functions more customizable
--   find a cleaner way to print the profile pictures in the graph
 
 ## Getting help
 
