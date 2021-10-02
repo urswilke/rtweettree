@@ -2,9 +2,18 @@
 % Please edit documentation in R/rtweettree_plot.R
 \name{autoplot.character}
 \alias{autoplot.character}
+\alias{autoplot.rtweettree_data}
+\alias{autoplot.list}
+\alias{autoplot.rtweettree_tbl_graph}
 \title{Plot rtweettree}
 \usage{
 \method{autoplot}{character}(x, add_profile_pics = TRUE, ...)
+
+\method{autoplot}{rtweettree_data}(x, add_profile_pics = TRUE, ...)
+
+\method{autoplot}{list}(x, add_profile_pics = TRUE, ...)
+
+\method{autoplot}{rtweettree_tbl_graph}(x, add_profile_pics = TRUE, ...)
 }
 \arguments{
 \item{x}{rtweet status_id or rtweettree_data object}
@@ -20,6 +29,15 @@ rtweettree
 \description{
 Plot rtweettree
 }
+\section{Functions}{
+\itemize{
+\item \code{autoplot.rtweettree_data}: The rtweettree_data object is transformed to a rtweettree_tbl_graph which is then plotted with ggraph.
+
+\item \code{autoplot.list}: The list is transformed to a rtweettree_tbl_graph which is then plotted with ggraph.
+
+\item \code{autoplot.rtweettree_tbl_graph}: The rtweettree_tbl_graph is plotted with ggraph.
+}}
+
 \examples{
 main_status_id <- "1438481824922181635"
 \dontrun{

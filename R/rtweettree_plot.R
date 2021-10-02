@@ -46,9 +46,12 @@ autoplot.character <- function(x, add_profile_pics = TRUE, ...) {
 
 }
 #' @export
+#' @describeIn autoplot.character The rtweettree_data object is transformed to a rtweettree_tbl_graph which is then plotted with ggraph.
 autoplot.rtweettree_data <- autoplot.character
 #' @export
+#' @describeIn autoplot.character The list is transformed to a rtweettree_tbl_graph which is then plotted with ggraph.
 autoplot.list <- autoplot.character
 #' @export
+#' @describeIn autoplot.character The rtweettree_tbl_graph is plotted with ggraph.
 autoplot.rtweettree_tbl_graph <- autoplot.character
 
