@@ -30,9 +30,9 @@ autoplot.character <- function(x, add_profile_pics = TRUE, ...) {
 
   if (add_profile_pics) {
     df_profile_pic <- g %>%
-      as_tibble() %>%
-      filter(map_lgl(profile_pic, ~!is.null(.x))) %>%
-      select(screen_name, profile_pic)
+      dplyr::as_tibble() %>%
+      dplyr::filter(purrr::map_lgl(.data$profile_pic, ~!is.null(.x))) %>%
+      dplyr::select(.data$screen_name, .data$profile_pic)
 
     g1 <- add_profile_pics_to_tree_ggraph(
       g1,
