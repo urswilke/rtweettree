@@ -90,7 +90,7 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, add_profile_pics = TRUE, ...
       type = "user"
     ) %>%
     dplyr::left_join(df %>% dplyr::distinct(.data$user_id, .keep_all = TRUE) %>% rtweet::users_data()) %>%
-    dplyr::mutate(name = user_id) %>%
+    dplyr::mutate(name = .data$user_id) %>%
     dplyr::mutate(url = glue::glue("https://twitter.com/{screen_name}/"))  %>%
     dplyr::group_by(.data$name, .data$type, .data$screen_name, .data$url) %>%
     tidyr::nest() %>%
