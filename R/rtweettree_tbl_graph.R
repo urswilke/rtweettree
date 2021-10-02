@@ -46,36 +46,29 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, ...) {
     x$df_main_status %>%
     # df_tree %>%
     # filter(status_id == main_status_id) %>%
-    dplyr::group_by(to = .data$status_id, .data$user_id, .data$screen_name) %>%
-    tidyr::nest() %>%
-    dplyr::ungroup() %>%
-    dplyr::mutate(from = "root", type = "root")
+    dplyr::select(to = .data$status_id, .data$user_id, .data$screen_name)
   tweet_edges <-
-    find_connections_rec(dplyr::bind_rows(x$df_tree, x$df_tls, x$df_favs), df_root) %>%
-    dplyr::group_by(.data$from, .data$to, .data$user_id, .data$screen_name, .data$type) %>%
-    tidyr::nest() %>%
-    dplyr::ungroup()
+    find_connections_rec(dplyr::bind_rows(x$df_tree, x$df_tls, x$df_favs), df_root)
   user_tweet_edges <-
     tweet_edges %>%
-    dplyr::bind_rows(df_root %>% dplyr::mutate(from = .data$screen_name)) %>%
-    dplyr::mutate(type = "by")
+    dplyr::bind_rows(df_root %>% dplyr::mutate(from = .data$user_id)) %>%
+    dplyr::transmute(.data$user_id,
+                     .data$screen_name,
+                     from = .data$to,
+                     to = .data$user_id,
+                     type = "by")
 
 
   fav_edges <-
     x$df_favs %>%
     dplyr::filter(.data$status_id %in% tweet_edges$to) %>%
-    dplyr::group_by(from = .data$status_id, to = .data$favorited_by, user_id = .data$favorited_by, .data$screen_name) %>%
-    tidyr::nest() %>%
-    dplyr::ungroup() %>%
-    # dplyr::add_count(.data$to, name = "n_likes") %>%
+    dplyr::transmute(from = .data$status_id, to = .data$favorited_by, user_id = .data$favorited_by, .data$screen_name) %>%
     dplyr::mutate(type = "like")
 
 
   retweet_edges <- x$df_retweets %>%
     dplyr::filter(.data$is_retweet) %>%
-    dplyr::group_by(from = .data$retweet_status_id, to = .data$user_id, .data$user_id, .data$screen_name) %>%
-    tidyr::nest() %>%
-    dplyr::ungroup() %>%
+    dplyr::transmute(from = .data$retweet_status_id, to = .data$user_id, .data$user_id, .data$screen_name) %>%
     dplyr::mutate(type = "retweet")
 
   edges <-
@@ -85,22 +78,11 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, ...) {
       user_tweet_edges,
       retweet_edges
     ) %>%
-    dplyr::filter(.data$from != "root")
+    dplyr::filter(.data$from != "root") %>%
+    dplyr::relocate(.data$from, .data$to)
 
 
 
-  # user_nodes <-
-  #   user_tweet_edges %>% #dplyr::bind_rows(df_root, user_tweet_edges) %>%
-  #   dplyr::distinct(user_id, .keep_all = TRUE) %>%
-  #   dplyr::select(-.data$to, -.data$from) %>%
-  #   # rtweet::users_data() %>%
-  #   dplyr::mutate(url = glue::glue("https://twitter.com/{screen_name}/")) %>%
-  #   dplyr::mutate(type = "user") %>%
-  #   dplyr::mutate(name = .data$user_id)
-  # %>%
-  #   dplyr::group_by(.data$name, .data$type, .data$screen_name, .data$url, .data$text, .data$label) %>%
-  #   tidyr::nest() %>%
-  #   dplyr::ungroup()
   user_nodes <- tibble::tibble(
       user_id = c(df_root$user_id, user_tweet_edges$user_id) %>% unique(),
       type = "user"
@@ -113,22 +95,9 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, ...) {
     dplyr::ungroup()
 
 
-  tweet_nodes <-
-    # tweet_edges %>%
-    # dplyr::distinct(.data$to, .keep_all = TRUE) %>%
-    # dplyr::mutate(type = "user") %>%
-    # dplyr::mutate(name = .data$status_id) %>%
-    # dplyr::mutate(url = glue::glue("https://twitter.com/fake_screen_name/status/{name}")) %>%
-    # dplyr::group_by(.data$name, .data$type, .data$screen_name, .data$url, .data$text, .data$label) %>%
-    # tidyr::nest() %>%
-    # dplyr::ungroup()
-
-    tibble::tibble(name =
-                     c(tweet_edges$to,
-                       tweet_edges$from) %>%
-                     unique(),
-                   type = "tweet") %>%
-    # TODO: adapt to new nested structure:
+  tweet_nodes <- tibble::tibble(
+    name = c(tweet_edges$to, tweet_edges$from) %>% unique(),
+    type = "tweet") %>%
     dplyr::left_join(
       df %>%
         dplyr::distinct(status_id, .keep_all = TRUE) %>%
@@ -137,7 +106,6 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, ...) {
         dplyr::ungroup()
 
     ) %>%
-    # dplyr::left_join(df %>% dplyr::select(name = .data$status_id, .data$screen_name, .data$text) %>% dplyr::distinct()) %>%
     dplyr::mutate(url = glue::glue("https://twitter.com/fake_screen_name/status/{name}")) %>%
     dplyr::filter(name != "root")
   # the correct url would be:
@@ -147,26 +115,22 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, ...) {
   nodes <-
     dplyr::full_join(user_nodes,
                      tweet_nodes) %>%
-    dplyr::mutate(label = dplyr::coalesce(.data$text, .data$screen_name))
+    dplyr::mutate(label = dplyr::coalesce(.data$text, .data$screen_name)) %>%
+    dplyr::relocate(.data$name)
 
-  # TODO: check why this is needed
-  # dirty hack to prevent error:
-  #"
-  # Error in (function (edges, n = max(edges), directed = TRUE)  :
-  #             At type_indexededgelist.c:116 : cannot create empty graph with negative number of vertices, Invalid value
-  #"
-  xxx <- unique(nodes$name)
-  yyy <- unique(c(edges$from, edges$to))
-  ww <- dplyr::setdiff(yyy, xxx)
-  oo <- edges %>% dplyr::filter(.data$from %in% ww | .data$to %in% ww)
-  edges <- edges %>%
-    dplyr::anti_join(oo)
-  g <- tidygraph::tbl_graph(
-    nodes %>%
-      # TODO: remove row with root
-      tidyr::drop_na(.data$screen_name),
-    edges
-  )
+  # # TODO: check why this is needed
+  # # dirty hack to prevent error:
+  # #"
+  # # Error in (function (edges, n = max(edges), directed = TRUE)  :
+  # #             At type_indexededgelist.c:116 : cannot create empty graph with negative number of vertices, Invalid value
+  # #"
+  # xxx <- unique(nodes$name)
+  # yyy <- unique(c(edges$from, edges$to))
+  # ww <- dplyr::setdiff(yyy, xxx)
+  # oo <- edges %>% dplyr::filter(.data$from %in% ww | .data$to %in% ww)
+  # edges <- edges %>%
+  #   dplyr::anti_join(oo)
+  g <- tidygraph::tbl_graph(nodes, edges)
   class(g) <- c("rtweettree_tbl_graph", "tbl_graph", "igraph")
   g
 }
