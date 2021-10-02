@@ -1,11 +1,21 @@
+# https://stackoverflow.com/a/49894698 :
+
 #' Plot rtweettree
 #'
-#' @param x rtweet status_id or rtweettree_data object
+#' Plot a tree graph of the data resulting of the `status_id` of a tweet.
+#'
+#'
+#' The following functions are imported and then re-exported
+#' from the ggplot2 package to avoid loading them.
+#'
+#' rtweettree exported operators and S3 methods
+#'
+#' @param x rtweet status_id (character string), rtweettree_data or rtweettree_tbl_graph object
 #' @param add_profile_pics logical whether to add the profile pictures of the
 #' users to the graph; defaults to TRUE; (should be set to FALSE for large graphs)
-#' @param ... for the moment not used
+#' @param ... arguments passed to methods
 #'
-#' @return rtweettree
+#' @return rtweettree graph
 #' @export
 #'
 #' @examples
@@ -20,6 +30,12 @@
 #'
 #' @importFrom ggplot2 autoplot
 #'
+#' @name autoplot
+#' @export
+NULL
+
+#' @export
+#' @describeIn autoplot The `status_id` charcter string is transformed to a rtweettree_tbl_graph which is then plotted with ggraph.
 autoplot.character <- function(x, add_profile_pics = TRUE, ...) {
   g <- rtweettree_tbl_graph(x, add_profile_pics, ...)
 
@@ -46,12 +62,13 @@ autoplot.character <- function(x, add_profile_pics = TRUE, ...) {
 
 }
 #' @export
-#' @describeIn autoplot.character The rtweettree_data object is transformed to a rtweettree_tbl_graph which is then plotted with ggraph.
+#' @describeIn autoplot The rtweettree_data object is transformed to a rtweettree_tbl_graph which is then plotted with ggraph.
 autoplot.rtweettree_data <- autoplot.character
 #' @export
-#' @describeIn autoplot.character The list is transformed to a rtweettree_tbl_graph which is then plotted with ggraph.
+#' @describeIn autoplot The list is transformed to a rtweettree_tbl_graph which is then plotted with ggraph.
 autoplot.list <- autoplot.character
 #' @export
-#' @describeIn autoplot.character The rtweettree_tbl_graph is plotted with ggraph.
+#' @describeIn autoplot The rtweettree_tbl_graph is plotted with ggraph.
 autoplot.rtweettree_tbl_graph <- autoplot.character
+
 
