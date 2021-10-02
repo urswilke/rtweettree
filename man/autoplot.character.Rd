@@ -10,7 +10,7 @@
 \item{x}{rtweet status_id or rtweettree_data object}
 
 \item{add_profile_pics}{logical whether to add the profile pictures of the
-users to the graph; defaults to TRUE}
+users to the graph; defaults to TRUE; (should be set to FALSE for large graphs)}
 
 \item{...}{for the moment not used}
 }
