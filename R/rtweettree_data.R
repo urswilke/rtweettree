@@ -35,6 +35,9 @@ rtweettree_data.character <- function(x, new_tls = TRUE, ...) {
     main_user_name <- paste0("@", df_main_status$screen_name)
     # df_tls <- scrape_timelines(tree_ids)
     df_tls <- rtweet::search_tweets(main_user_name, n = 10000)
+    if (nrow(df_tls) == 0) {
+      df_tls <- create_empty_rtweet_tbl()
+    }
   } else {
     df_tls <- rtweet::get_timelines(tree_ids)
   }
