@@ -192,6 +192,7 @@ tweet `status_id` is shown in the `vignette("visualize_tree")`.
 
 -   clean up code and refactor
 -   make plotting functions more customizable
+-   find a cleaner way to print the profile pictures in the graph
 
 ## Getting help
 
