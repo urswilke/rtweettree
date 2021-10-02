@@ -11,6 +11,7 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+
 ```
 
 <!-- The logo was created in the repo https://github.com/urswilke/rtweettree_hex -->
