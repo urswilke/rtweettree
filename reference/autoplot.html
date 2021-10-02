@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • rtweettree</title>
+<title>Plot rtweettree — autoplot • rtweettree</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Plot rtweettree — autoplot" />
+<meta property="og:description" content="Plot a tree graph of the data resulting of the `status_id` of a tweet." />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -120,90 +121,77 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Plot rtweettree</h1>
+    <small class="dont-index">Source: <a href='https://github.com/urswilke/rtweettree/blob/master/R/rtweettree_plot.R'><code>R/rtweettree_plot.R</code></a></small>
+    <div class="hidden name"><code>autoplot.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Plot a tree graph of the data resulting of the `status_id` of a tweet.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='co'># S3 method for character</span>
+<span class='fu'>autoplot</span><span class='op'>(</span><span class='va'>x</span>, add_profile_pics <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="add_profile_pics_to_tree_ggraph.html">add_profile_pics_to_tree_ggraph()</a></code> </p>
-        </td>
-        <td><p>Create ggraph object with profile pictures added</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="autoplot.html">autoplot(<i>&lt;character&gt;</i>)</a></code> <code><a href="autoplot.html">autoplot(<i>&lt;rtweettree_data&gt;</i>)</a></code> <code><a href="autoplot.html">autoplot(<i>&lt;list&gt;</i>)</a></code> <code><a href="autoplot.html">autoplot(<i>&lt;rtweettree_tbl_graph&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Plot rtweettree</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="find_connections_rec.html">find_connections_rec()</a></code> </p>
-        </td>
-        <td><p>Recursively return all status ids of a tweet and its replies</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="incl_data.html">df_main_status</a></code> <code><a href="incl_data.html">df_tree</a></code> <code><a href="incl_data.html">df_tls</a></code> <code><a href="incl_data.html">df_favs</a></code> <code><a href="incl_data.html">df_retweets</a></code> </p>
-        </td>
-        <td><p>Included datasets</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rtweettree_data.html">rtweettree_data()</a></code> </p>
-        </td>
-        <td><p>Scrape rtweettree dataframes from rtweet status_id</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rtweettree_tbl_graph.html">rtweettree_tbl_graph()</a></code> </p>
-        </td>
-        <td><p>Create a tidygraph tbl_graph object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="scrape_favs2.html">scrape_favs2()</a></code> </p>
-        </td>
-        <td><p>Scrape all likes of given users id</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="scrape_timelines.html">scrape_timelines()</a></code> </p>
-        </td>
-        <td><p>Scrape the timelines of user ids</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="search_tree.html">search_tree()</a></code> </p>
-        </td>
-        <td><p>Scrape tree</p></td>
-      </tr>
-    </tbody>
+<span class='co'># S3 method for rtweettree_data</span>
+<span class='fu'>autoplot</span><span class='op'>(</span><span class='va'>x</span>, add_profile_pics <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for list</span>
+<span class='fu'>autoplot</span><span class='op'>(</span><span class='va'>x</span>, add_profile_pics <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for rtweettree_tbl_graph</span>
+<span class='fu'>autoplot</span><span class='op'>(</span><span class='va'>x</span>, add_profile_pics <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>rtweet status_id (character string), rtweettree_data or rtweettree_tbl_graph object</p></td>
+    </tr>
+    <tr>
+      <th>add_profile_pics</th>
+      <td><p>logical whether to add the profile pictures of the
+users to the graph; defaults to TRUE; (should be set to FALSE for large graphs)</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>arguments passed to methods</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>rtweettree graph</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The following functions are imported and then re-exported
+from the ggplot2 package to avoid loading them.</p>
+<p>rtweettree exported operators and S3 methods</p>
+    <h2 class="hasAnchor" id="methods-by-class-"><a class="anchor" href="#methods-by-class-"></a>Methods (by class)</h2>
+
+    
+<ul>
+<li><p><code>character</code>: The `status_id` charcter string is transformed to a rtweettree_tbl_graph which is then plotted with ggraph.</p></li>
+<li><p><code>rtweettree_data</code>: The rtweettree_data object is transformed to a rtweettree_tbl_graph which is then plotted with ggraph.</p></li>
+<li><p><code>list</code>: The list is transformed to a rtweettree_tbl_graph which is then plotted with ggraph.</p></li>
+<li><p><code>rtweettree_tbl_graph</code>: The rtweettree_tbl_graph is plotted with ggraph.</p></li>
+</ul>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>main_status_id</span> <span class='op'>&lt;-</span> <span class='st'>"1438481824922181635"</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>l</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rtweettree_data.html'>rtweettree_data</a></span><span class='op'>(</span><span class='va'>main_status_id</span><span class='op'>)</span>
+<span class='fu'>autoplot</span><span class='op'>(</span><span class='va'>l</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='co'># when you're not interested to store the scraped data in an R object,</span>
+<span class='co'># you can also directly plot it with:</span>
+<span class='co'># autoplot(main_status_id)</span>
+
+</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
