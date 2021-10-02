@@ -133,6 +133,15 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for character</span>
+<span class='fu'>autoplot</span><span class='op'>(</span><span class='va'>x</span>, add_profile_pics <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for rtweettree_data</span>
+<span class='fu'>autoplot</span><span class='op'>(</span><span class='va'>x</span>, add_profile_pics <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for list</span>
+<span class='fu'>autoplot</span><span class='op'>(</span><span class='va'>x</span>, add_profile_pics <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for rtweettree_tbl_graph</span>
 <span class='fu'>autoplot</span><span class='op'>(</span><span class='va'>x</span>, add_profile_pics <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -145,7 +154,7 @@
     <tr>
       <th>add_profile_pics</th>
       <td><p>logical whether to add the profile pictures of the
-users to the graph; defaults to TRUE</p></td>
+users to the graph; defaults to TRUE; (should be set to FALSE for large graphs)</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -156,6 +165,14 @@ users to the graph; defaults to TRUE</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>rtweettree</p>
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
+
+    
+<ul>
+<li><p><code>autoplot.rtweettree_data</code>: The rtweettree_data object is transformed to a rtweettree_tbl_graph which is then plotted with ggraph.</p></li>
+<li><p><code>autoplot.list</code>: The list is transformed to a rtweettree_tbl_graph which is then plotted with ggraph.</p></li>
+<li><p><code>autoplot.rtweettree_tbl_graph</code>: The rtweettree_tbl_graph is plotted with ggraph.</p></li>
+</ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>main_status_id</span> <span class='op'>&lt;-</span> <span class='st'>"1438481824922181635"</span>
