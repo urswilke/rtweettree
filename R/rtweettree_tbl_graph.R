@@ -170,7 +170,7 @@ rtweettree_tbl_graph.rtweettree_tbl_graph <- function(x, add_profile_pics = TRUE
 #' @describeIn rtweettree_tbl_graph First run rtweettree_data on the status id `x` and then transform to rtweettree tbl_graph.
 rtweettree_tbl_graph.character <- function(x, add_profile_pics = TRUE, ...) {
   l <- rtweettree_data(x, ...)
-  rtweettree_tbl_graph.rtweettree_data(l, add_profile_pics, ..)
+  rtweettree_tbl_graph.rtweettree_data(l, add_profile_pics, ...)
 }
 
 #' @export
