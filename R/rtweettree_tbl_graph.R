@@ -89,7 +89,7 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, add_profile_pics = TRUE, ...
       user_id = c(df_root$user_id, user_tweet_edges$user_id) %>% unique(),
       type = "user"
     ) %>%
-    dplyr::left_join(df %>% dplyr::distinct(user_id, .keep_all = TRUE) %>% rtweet::users_data()) %>%
+    dplyr::left_join(df %>% dplyr::distinct(.data$user_id, .keep_all = TRUE) %>% rtweet::users_data()) %>%
     dplyr::mutate(name = user_id) %>%
     dplyr::mutate(url = glue::glue("https://twitter.com/{screen_name}/"))  %>%
     dplyr::group_by(.data$name, .data$type, .data$screen_name, .data$url) %>%
@@ -102,14 +102,14 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, add_profile_pics = TRUE, ...
     type = "tweet") %>%
     dplyr::left_join(
       df %>%
-        dplyr::distinct(status_id, .keep_all = TRUE) %>%
+        dplyr::distinct(.data$status_id, .keep_all = TRUE) %>%
         dplyr::group_by(name = .data$status_id, text = .data$text) %>%
         tidyr::nest() %>%
         dplyr::ungroup()
 
     ) %>%
     dplyr::mutate(url = glue::glue("https://twitter.com/fake_screen_name/status/{name}")) %>%
-    dplyr::filter(name != "root")
+    dplyr::filter(.data$name != "root")
   # the correct url would be:
   # dplyr::mutate(url = glue::glue("https://twitter.com/{screen_name}/status/{name}"))
   # however, this probably wouldn't be completely inline with the twitter terms of use...
