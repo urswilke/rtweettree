@@ -9,12 +9,12 @@
       1 1438476950746636291 user  rtweetbird1 https:~ <tibb~ <NA>   rtwee~ <magck-mg> 
       2 1438480252003569671 user  rtweetbird3 https:~ <tibb~ <NA>   rtwee~ <magck-mg> 
       3 1438479415550390275 user  rtweetbird2 https:~ <tibb~ <NA>   rtwee~ <magck-mg> 
-      4 1438481824922181635 tweet <NA>        https:~ <tibb~ this ~ this ~ <NULL>     
-      5 1438483457697591297 tweet <NA>        https:~ <tibb~ @rtwe~ @rtwe~ <NULL>     
-      6 1438482432030818307 tweet <NA>        https:~ <tibb~ @rtwe~ @rtwe~ <NULL>     
-      7 1438482309490040835 tweet <NA>        https:~ <tibb~ @rtwe~ @rtwe~ <NULL>     
-      8 1438484289616859145 tweet <NA>        https:~ <tibb~ this ~ this ~ <NULL>     
-      9 1438483563314360322 tweet <NA>        https:~ <tibb~ @rtwe~ @rtwe~ <NULL>     
+      4 1438481824922181635 tweet rtweetbird1 https:~ <tibb~ this ~ this ~ <magck-mg> 
+      5 1438483457697591297 tweet rtweetbird3 https:~ <tibb~ @rtwe~ @rtwe~ <magck-mg> 
+      6 1438482432030818307 tweet rtweetbird2 https:~ <tibb~ @rtwe~ @rtwe~ <magck-mg> 
+      7 1438482309490040835 tweet rtweetbird2 https:~ <tibb~ @rtwe~ @rtwe~ <magck-mg> 
+      8 1438484289616859145 tweet rtweetbird3 https:~ <tibb~ this ~ this ~ <magck-mg> 
+      9 1438483563314360322 tweet rtweetbird3 https:~ <tibb~ @rtwe~ @rtwe~ <magck-mg> 
 
 ---
 

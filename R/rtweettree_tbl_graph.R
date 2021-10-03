@@ -112,7 +112,10 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, add_profile_pics = TRUE, ...
     dplyr::left_join(
       df %>%
         dplyr::distinct(.data$status_id, .keep_all = TRUE) %>%
-        dplyr::group_by(name = .data$status_id, text = .data$text) %>%
+        dplyr::group_by(
+          name = .data$status_id,
+          screen_name = .data$screen_name,
+          text = .data$text) %>%
         tidyr::nest() %>%
         dplyr::ungroup()
 
