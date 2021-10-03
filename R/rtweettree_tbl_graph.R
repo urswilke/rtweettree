@@ -42,6 +42,7 @@ rtweettree_tbl_graph <- function(x, add_profile_pics = TRUE, ...) {
   UseMethod("rtweettree_tbl_graph")
 }
 
+#' @export
 #' @describeIn rtweettree_tbl_graph Construct rtweettree_tbl_graph object from rtweettree_data.
 rtweettree_tbl_graph.rtweettree_data <- function(x, add_profile_pics = TRUE, ...) {
   suppressMessages(df <- x %>% purrr::reduce(dplyr::full_join) %>% dplyr::distinct(.data$status_id, .keep_all = TRUE))
