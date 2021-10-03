@@ -69,86 +69,34 @@ This results in a named list of rtweet dataframes:
 
 ``` r
 l
-#> $df_main_status
-#> # A tibble: 1 × 90
-#>   user_id             status_id  created_at          screen_name text     source
-#>   <chr>               <chr>      <dttm>              <chr>       <chr>    <chr> 
-#> 1 1438476950746636291 143848182… 2021-09-16 12:36:07 rtweetbird1 this is… Twitt…
-#> # … with 84 more variables: display_text_width <dbl>, reply_to_status_id <lgl>,
-#> #   reply_to_user_id <lgl>, reply_to_screen_name <lgl>, is_quote <lgl>,
-#> #   is_retweet <lgl>, favorite_count <int>, retweet_count <int>,
-#> #   quote_count <int>, reply_count <int>, hashtags <list>, symbols <list>,
-#> #   urls_url <list>, urls_t.co <list>, urls_expanded_url <list>,
-#> #   media_url <list>, media_t.co <list>, media_expanded_url <list>,
-#> #   media_type <list>, ext_media_url <list>, ext_media_t.co <list>, …
-#> 
-#> $df_tree
-#> # A tibble: 1 × 91
-#>   user_id             status_id  created_at          screen_name text     source
-#>   <chr>               <chr>      <dttm>              <chr>       <chr>    <chr> 
-#> 1 1438480252003569671 143848428… 2021-09-16 12:45:55 rtweetbird3 this is… Twitt…
-#> # … with 85 more variables: display_text_width <dbl>, reply_to_status_id <chr>,
+#> # A tibble: 12 × 93
+#>    type        user_id  status_id  created_at          screen_name text   source
+#>  * <chr>       <chr>    <chr>      <dttm>              <chr>       <chr>  <chr> 
+#>  1 main_status 1438476… 143848182… 2021-09-16 12:36:07 rtweetbird1 this … Twitt…
+#>  2 tree        1438480… 143848428… 2021-09-16 12:45:55 rtweetbird3 this … Twitt…
+#>  3 tls         1438480… 143848428… 2021-09-16 12:45:55 rtweetbird3 this … Twitt…
+#>  4 tls         1438480… 143848356… 2021-09-16 12:43:01 rtweetbird3 @rtwe… Twitt…
+#>  5 tls         1438480… 143848345… 2021-09-16 12:42:36 rtweetbird3 @rtwe… Twitt…
+#>  6 like        1438480… 143848428… 2021-09-16 12:45:55 rtweetbird3 this … Twitt…
+#>  7 like        1438480… 143848356… 2021-09-16 12:43:01 rtweetbird3 @rtwe… Twitt…
+#>  8 like        1438480… 143848345… 2021-09-16 12:42:36 rtweetbird3 @rtwe… Twitt…
+#>  9 like        1438479… 143848243… 2021-09-16 12:38:32 rtweetbird2 @rtwe… Twitt…
+#> 10 like        1438479… 143848230… 2021-09-16 12:38:02 rtweetbird2 @rtwe… Twitt…
+#> 11 like        1438479… 143848243… 2021-09-16 12:38:32 rtweetbird2 @rtwe… Twitt…
+#> 12 retweet     1438479… 143848258… 2021-09-16 12:39:09 rtweetbird2 this … Twitt…
+#> # … with 86 more variables: display_text_width <dbl>, reply_to_status_id <chr>,
 #> #   reply_to_user_id <chr>, reply_to_screen_name <chr>, is_quote <lgl>,
 #> #   is_retweet <lgl>, favorite_count <int>, retweet_count <int>,
 #> #   quote_count <int>, reply_count <int>, hashtags <list>, symbols <list>,
 #> #   urls_url <list>, urls_t.co <list>, urls_expanded_url <list>,
 #> #   media_url <list>, media_t.co <list>, media_expanded_url <list>,
 #> #   media_type <list>, ext_media_url <list>, ext_media_t.co <list>, …
-#> 
-#> $df_tls
-#> # A tibble: 3 × 90
-#>   user_id             status_id  created_at          screen_name text     source
-#>   <chr>               <chr>      <dttm>              <chr>       <chr>    <chr> 
-#> 1 1438480252003569671 143848428… 2021-09-16 12:45:55 rtweetbird3 this is… Twitt…
-#> 2 1438480252003569671 143848356… 2021-09-16 12:43:01 rtweetbird3 @rtweet… Twitt…
-#> 3 1438480252003569671 143848345… 2021-09-16 12:42:36 rtweetbird3 @rtweet… Twitt…
-#> # … with 84 more variables: display_text_width <dbl>, reply_to_status_id <chr>,
-#> #   reply_to_user_id <chr>, reply_to_screen_name <chr>, is_quote <lgl>,
-#> #   is_retweet <lgl>, favorite_count <int>, retweet_count <int>,
-#> #   quote_count <int>, reply_count <int>, hashtags <list>, symbols <list>,
-#> #   urls_url <list>, urls_t.co <list>, urls_expanded_url <list>,
-#> #   media_url <list>, media_t.co <list>, media_expanded_url <list>,
-#> #   media_type <list>, ext_media_url <list>, ext_media_t.co <list>, …
-#> 
-#> $df_favs
-#> # A tibble: 6 × 91
-#>   user_id             status_id  created_at          screen_name text     source
-#> * <chr>               <chr>      <dttm>              <chr>       <chr>    <chr> 
-#> 1 1438480252003569671 143848428… 2021-09-16 12:45:55 rtweetbird3 this is… Twitt…
-#> 2 1438480252003569671 143848356… 2021-09-16 12:43:01 rtweetbird3 @rtweet… Twitt…
-#> 3 1438480252003569671 143848345… 2021-09-16 12:42:36 rtweetbird3 @rtweet… Twitt…
-#> 4 1438479415550390275 143848243… 2021-09-16 12:38:32 rtweetbird2 @rtweet… Twitt…
-#> 5 1438479415550390275 143848230… 2021-09-16 12:38:02 rtweetbird2 @rtweet… Twitt…
-#> 6 1438479415550390275 143848243… 2021-09-16 12:38:32 rtweetbird2 @rtweet… Twitt…
-#> # … with 85 more variables: display_text_width <dbl>, reply_to_status_id <chr>,
-#> #   reply_to_user_id <chr>, reply_to_screen_name <chr>, is_quote <lgl>,
-#> #   is_retweet <lgl>, favorite_count <int>, retweet_count <int>,
-#> #   quote_count <int>, reply_count <int>, hashtags <list>, symbols <list>,
-#> #   urls_url <list>, urls_t.co <list>, urls_expanded_url <list>,
-#> #   media_url <list>, media_t.co <list>, media_expanded_url <list>,
-#> #   media_type <list>, ext_media_url <list>, ext_media_t.co <list>, …
-#> 
-#> $df_retweets
-#> # A tibble: 1 × 90
-#>   user_id             status_id  created_at          screen_name text     source
-#>   <chr>               <chr>      <dttm>              <chr>       <chr>    <chr> 
-#> 1 1438479415550390275 143848258… 2021-09-16 12:39:09 rtweetbird2 this is… Twitt…
-#> # … with 84 more variables: display_text_width <int>, reply_to_status_id <lgl>,
-#> #   reply_to_user_id <lgl>, reply_to_screen_name <lgl>, is_quote <lgl>,
-#> #   is_retweet <lgl>, favorite_count <int>, retweet_count <int>,
-#> #   quote_count <int>, reply_count <int>, hashtags <list>, symbols <list>,
-#> #   urls_url <list>, urls_t.co <list>, urls_expanded_url <list>,
-#> #   media_url <list>, media_t.co <list>, media_expanded_url <list>,
-#> #   media_type <list>, ext_media_url <list>, ext_media_t.co <list>, …
-#> 
-#> attr(,"class")
-#> [1] "rtweettree_data" "list"
 ```
 
 You can then visualize this data with:
 
 ``` r
-ggplot2::autoplot(l)
+autoplot(l)
 ```
 
 <img src="man/figures/README-autoplot-1.png" width="100%" />

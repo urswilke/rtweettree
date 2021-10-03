@@ -70,7 +70,12 @@ l <- rtweettree_data(main_status_id)
 
 ```{r rtweettree_data_offline, include=FALSE, eval=TRUE}
 # in order to make it available offline:
-l <- rtweettree_data(tibble::lst(df_main_status, df_tree, df_tls, df_favs, df_retweets))
+# TODO: adapt to new structure
+l <- list(df_main_status, df_tree, df_tls, df_favs, df_retweets) %>% 
+  purrr::set_names(c("main_status", "tree", "tls", "like", "retweet")) %>% 
+  dplyr::bind_rows(.id = "type")
+class(l) <- c("rtweettree_data", class(l))
+
 ```
 
 This results in a named list of rtweet dataframes:
@@ -81,7 +86,7 @@ l
 You can then visualize this data with: 
 
 ```{r autoplot, eval=TRUE, message=FALSE}
-ggplot2::autoplot(l)
+autoplot(l)
 ```
 
 Under the hood, the scraped data is first transformed into a `tidygraph::tbl_graph()`

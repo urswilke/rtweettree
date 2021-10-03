@@ -121,8 +121,12 @@ usethis::use_data(df_retweets, overwrite = TRUE)
 The relevant twitter information of these tweets is translated into a tidygraph network object: 
 
 ```{r tbl_graph, eval=TRUE, message=FALSE}
-l <- tibble::lst(df_main_status, df_tree, df_tls, df_favs, df_retweets)
-class(l) <- c("rtweettree_data", "list")
+# TODO: adapt to new structure
+l <- list(df_main_status, df_tree, df_tls, df_favs, df_retweets) %>% 
+  purrr::set_names(c("main_status", "tree", "tls", "like", "retweet")) %>% 
+  dplyr::bind_rows(.id = "type")
+
+class(l) <- c("rtweettree_data", class(l))
 g <- rtweettree_tbl_graph(l)
 ```
 

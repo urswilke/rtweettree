@@ -47,15 +47,15 @@ rtweettree_tbl_graph <- function(x, add_profile_pics = TRUE, ...) {
 rtweettree_tbl_graph.rtweettree_data <- function(x, add_profile_pics = TRUE, ...) {
   # suppressMessages(df <- x %>% purrr::reduce(dplyr::full_join) %>% dplyr::distinct(.data$status_id, .keep_all = TRUE))
   df <- x
-  types <- c("df_main_status", "df_tree", "df_tls", "df_favs", "df_retweets") %>% purrr::set_names()
+  types <- c("main_status", "tree", "tls", "like", "retweet") %>% purrr::set_names()
   l <- types %>%
     purrr::imap(~ x %>% dplyr::filter(type == .x))
 
   df_root <-
-    l$df_main_status %>%
+    l$main_status %>%
     dplyr::select(to = .data$status_id, .data$user_id, .data$screen_name)
   tweet_edges <-
-    find_connections_rec(dplyr::bind_rows(l$df_tree, l$df_tls, l$df_favs), df_root)
+    find_connections_rec(dplyr::bind_rows(l$tree, l$tls, l$like), df_root)
   user_tweet_edges <-
     tweet_edges %>%
     dplyr::transmute(.data$user_id,
@@ -66,7 +66,7 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, add_profile_pics = TRUE, ...
 
 
   fav_edges <-
-    l$df_favs %>%
+    l$like %>%
     dplyr::filter(.data$status_id %in% tweet_edges$to) %>%
     dplyr::transmute(from = .data$status_id, to = .data$favorited_by, user_id = .data$favorited_by, .data$screen_name) %>%
     dplyr::mutate(type = "like")
@@ -75,8 +75,8 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, add_profile_pics = TRUE, ...
   retweet_edges <-
     df %>%
     dplyr::filter(.data$is_retweet & .data$retweet_status_id %in% tweet_edges$from) %>%
-    dplyr::select(-.data$type, -.data$query) %>%
-    dplyr::distinct() %>%
+    # dplyr::select(-.data$type, -.data$query) %>%
+    dplyr::distinct(.data$status_id, .keep_all = TRUE) %>%
     # l$df_retweets %>%
     # dplyr::filter(.data$is_retweet) %>%
     dplyr::transmute(from = .data$retweet_status_id, to = .data$user_id, .data$user_id, .data$screen_name) %>%

@@ -2,7 +2,9 @@ suppressMessages(library(tidygraph))
 suppressMessages(library(ggraph))
 suppressMessages(library(dplyr))
 suppressMessages(library(purrr))
-suppressMessages(l <- rtweettree_data(tibble::lst(df_main_status, df_tree, df_tls, df_favs, df_retweets)))
+suppressMessages(l <- list(df_main_status, df_tree, df_tls, df_favs, df_retweets) %>% set_names(c("main_status", "tree", "tls", "like", "retweet")) %>% bind_rows(.id = "type"))
+class(l) <- c("rtweettree_data", class(l))
+
 suppressMessages(g <- rtweettree_tbl_graph(l))
 
 
