@@ -34,8 +34,8 @@
 #'   unique()
 #' df_retweets <- tweet_ids %>% purrr::map_dfr(~rtweet::get_retweets(.x))
 #'
-#' l <- tibble::lst(df_main_status, df_tree, df_tls, df_favs, df_retweets)
-#' g <- rtweettree_tbl_graph(l)
+#' rtweettree_data_scraped <- tibble::lst(df_main_status, df_tree, df_tls, df_favs, df_retweets)
+#' g <- rtweettree_tbl_graph(rtweettree_data_scraped)
 #' g %>% ggraph::ggraph() + ggraph::geom_node_point() + ggraph::geom_edge_link()
 #' }
 rtweettree_tbl_graph <- function(x, add_profile_pics = TRUE, ...) {
@@ -179,8 +179,8 @@ rtweettree_tbl_graph.rtweettree_tbl_graph <- function(x, add_profile_pics = TRUE
 #' @export
 #' @describeIn rtweettree_tbl_graph First run rtweettree_data on the status id `x` and then transform to rtweettree tbl_graph.
 rtweettree_tbl_graph.character <- function(x, add_profile_pics = TRUE, ...) {
-  l <- rtweettree_data(x, ...)
-  rtweettree_tbl_graph.rtweettree_data(l, add_profile_pics, ...)
+  rtweettree_data_scraped <- rtweettree_data(x, ...)
+  rtweettree_tbl_graph.rtweettree_data(rtweettree_data_scraped, add_profile_pics, ...)
 }
 
 #' @export

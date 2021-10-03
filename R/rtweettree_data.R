@@ -8,8 +8,8 @@
 #'
 #' @examples
 #' \dontrun{
-#' l <- rtweettree_data("1438481824922181635")
-#' l
+#' rtweettree_data_scraped <- rtweettree_data("1438481824922181635")
+#' rtweettree_data_scraped
 #' }
 rtweettree_data <- function(x, ...) {
   UseMethod("rtweettree_data")
@@ -54,10 +54,10 @@ rtweettree_data.character <- function(x, new_tls = TRUE, ...) {
   l <- list(df_main_status, df_tree, df_tls, df_favs, df_retweets) %>%
     purrr::set_names(c("main_status", "tree", "tls", "like", "retweet"))
 
-  df_rtweettree_data <- l[purrr::map_lgl(l, ~ nrow(.x) > 0)] %>% dplyr::bind_rows(.id = "type") %>% tibble::as_tibble()
+  rtweettree_data_scraped <- l[purrr::map_lgl(l, ~ nrow(.x) > 0)] %>% dplyr::bind_rows(.id = "type") %>% tibble::as_tibble()
 
-  class(df_rtweettree_data) <- c("rtweettree_data", class(df_rtweettree_data))
-  df_rtweettree_data
+  class(rtweettree_data_scraped) <- c("rtweettree_data", class(rtweettree_data_scraped))
+  rtweettree_data_scraped
 }
 
 #' @export

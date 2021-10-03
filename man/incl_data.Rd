@@ -3,44 +3,24 @@
 \docType{data}
 \name{incl_data}
 \alias{incl_data}
-\alias{df_main_status}
-\alias{df_tree}
-\alias{df_tls}
-\alias{df_favs}
-\alias{df_retweets}
-\title{Included datasets}
+\alias{rtweettree_data_example}
+\title{Included example dataset}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 1 rows and 90 columns.
-
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 1 rows and 91 columns.
-
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 3 rows and 90 columns.
-
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 6 rows and 91 columns.
-
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 1 rows and 90 columns.
+An object of class \code{rtweettree_data} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 12 rows and 93 columns.
 }
 \usage{
-df_main_status
-
-df_tree
-
-df_tls
-
-df_favs
-
-df_retweets
+rtweettree_data_example
 }
 \description{
-The package includes several datasets resulting of rtweet queries (to make
-them available for documentation purposes and offline use). All these
-datasets are included in the result of running `rtweettree_data()` (see
-examples).
+The package includes a dataset resulting of rtweet queries when calling
+`rtweettree_data()` (to make them available for documentation purposes and
+offline use).
 }
 \examples{
 \dontrun{
 main_status_id <- "1438481824922181635"
 rtweettree_data(main_status_id)
 }
+rtweettree_data_example
 }
 \keyword{datasets}

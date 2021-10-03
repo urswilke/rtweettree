@@ -51,83 +51,30 @@ Tweets on twitter are uniquely classified via the status id:
 main_status_id <- "1438481824922181635"
 ```
 
-The corresponding information on twitter is acquired via `rtweet::lookup_statuses`:
-
 ```{r scrape}
-df_main_status <- rtweet::lookup_statuses(main_status_id)
+rtweettree_data_scraped <- rtweettree_data(main_status_id)
 ```
 
-The function `search_tree()` calls the recursive function `add_tree_level()` for the status ids of all resulting subtweets until all available information was scraped from twitter:
-
-```{r scrape_tree}
-# Scrape available subtweets:
-df_tree <- search_tree(main_status_id)
-```
-
-### Scrape timelines
-
-The timelines of all users involved are scraped:
-
-```{r scrape_timelines}
-tree_ids <- df_tree$user_id %>% unique()
-# Scrape the timelines of the users scraped:
+```{r save_example_data, include=FALSE}
+rtweettree_data_example <- rtweettree_data_scraped
+usethis::use_data(rtweettree_data_example, overwrite = TRUE)
 ```
 
 
-```{r scrape_timelines2, include=FALSE}
-# TODO: repair!
-# df_tls <- scrape_timelines(tree_ids)
+To allow to test the package in offline use (and without setting up an account
+for the twitter api), you can also load this dataset which is already included in the package:
+```{r load_example_data, eval=TRUE}
+rtweettree_data_scraped <- rtweettree_data_example
 ```
 
 
-```{r scrape_timelines3}
-df_tls <- rtweet::get_timelines(tree_ids)
-```
-
-### Scrape likes
-
-The favorites of all users involved are scraped:
-
-```{r scrape_favs}
-df0 <- df_main_status %>%
-  dplyr::filter(status_id == main_status_id) %>%
-  dplyr::select(to = status_id, user_id) %>%
-  dplyr::mutate(from = "root", type = "root")
-tweet_edges <-
-  find_connections_rec(dplyr::bind_rows(df_tree, df_tls), df0)
-ids <- tweet_edges$user_id %>% unique()
-# Scrape the likes of the users scraped:
-df_favs <- scrape_favs2(ids, main_status_id)
-```
-
-### Retweets
-```{r}
-tweet_ids <- list(df_tls, df_favs, df_main_status) %>% dplyr::bind_rows() %>% pull(status_id) %>% unique()
-df_retweets <- tweet_ids %>% map_dfr(~rtweet::get_retweets(.x)) %>% tibble::as_tibble()
-```
-
-
-
-```{r scrape_favs_save, include=FALSE}
-usethis::use_data(df_main_status, overwrite = TRUE)
-usethis::use_data(df_tls, overwrite = TRUE)
-usethis::use_data(df_tree, overwrite = TRUE)
-usethis::use_data(df_favs, overwrite = TRUE)
-usethis::use_data(df_retweets, overwrite = TRUE)
-```
 
 ## Create tbl_graph object
 
 The relevant twitter information of these tweets is translated into a tidygraph network object: 
 
 ```{r tbl_graph, eval=TRUE, message=FALSE}
-# TODO: adapt to new structure
-l <- list(df_main_status, df_tree, df_tls, df_favs, df_retweets) %>% 
-  purrr::set_names(c("main_status", "tree", "tls", "like", "retweet")) %>% 
-  dplyr::bind_rows(.id = "type")
-
-class(l) <- c("rtweettree_data", class(l))
-g <- rtweettree_tbl_graph(l)
+g <- rtweettree_tbl_graph(rtweettree_data_scraped)
 ```
 
 
@@ -147,9 +94,6 @@ g
 
 
 
-```{r tbl_graph_save, include=FALSE}
-usethis::use_data(g, overwrite = TRUE, internal = TRUE)
-```
 
 
 
@@ -242,9 +186,9 @@ p
 We can also customize the ggraph object by passing arguments to the autoplot methods, e.g. by 
 
 * not including the profile pictures (`add_profile_pics = FALSE`)
-* or using another [layout](https://ggraph.data-imaginist.com/articles/Layouts.html) (`layout = "stress"`)
+* or using another [layout](https://ggraph.data-imaginist.com/articles/Layouts.html) 
 
 ```{r, eval=TRUE, message=FALSE}
-autoplot(l, add_profile_pics = FALSE, layout = "stress")
+autoplot(rtweettree_data_scraped, add_profile_pics = FALSE, layout = "stress")
 ```
 

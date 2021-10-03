@@ -35,7 +35,7 @@ Scrape rtweettree dataframes from rtweet status_id
 
 \examples{
 \dontrun{
-l <- rtweettree_data("1438481824922181635")
-l
+rtweettree_data_scraped <- rtweettree_data("1438481824922181635")
+rtweettree_data_scraped
 }
 }

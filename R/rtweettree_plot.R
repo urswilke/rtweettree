@@ -23,8 +23,8 @@
 #' @examples
 #' main_status_id <- "1438481824922181635"
 #' \dontrun{
-#' l <- rtweettree_data(main_status_id)
-#' autoplot(l)
+#' rtweettree_data_scraped <- rtweettree_data(main_status_id)
+#' autoplot(rtweettree_data_scraped)
 #' }
 #' # when you're not interested to store the scraped data in an R object,
 #' # you can also directly plot it with:

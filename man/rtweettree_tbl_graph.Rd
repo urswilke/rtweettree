@@ -61,8 +61,8 @@ tweet_ids <- list(df_tls, df_favs, df_main_status) \%>\%
   unique()
 df_retweets <- tweet_ids \%>\% purrr::map_dfr(~rtweet::get_retweets(.x))
 
-l <- tibble::lst(df_main_status, df_tree, df_tls, df_favs, df_retweets)
-g <- rtweettree_tbl_graph(l)
+rtweettree_data_scraped <- tibble::lst(df_main_status, df_tree, df_tls, df_favs, df_retweets)
+g <- rtweettree_tbl_graph(rtweettree_data_scraped)
 g \%>\% ggraph::ggraph() + ggraph::geom_node_point() + ggraph::geom_edge_link()
 }
 }
