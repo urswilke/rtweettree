@@ -64,35 +64,30 @@ of every tweet on twitter.
 
 ```{r rtweettree_data, message=FALSE, eval=FALSE}
 main_status_id <- "1438481824922181635"
-l <- rtweettree_data(main_status_id)
+rtweettree_data_scraped <- rtweettree_data(main_status_id)
 ```
 
 
 ```{r rtweettree_data_offline, include=FALSE, eval=TRUE}
 # in order to make it available offline:
-# TODO: adapt to new structure
-l <- list(df_main_status, df_tree, df_tls, df_favs, df_retweets) %>% 
-  purrr::set_names(c("main_status", "tree", "tls", "like", "retweet")) %>% 
-  dplyr::bind_rows(.id = "type")
-class(l) <- c("rtweettree_data", class(l))
-
+rtweettree_data_scraped <- rtweettree_data_example
 ```
 
 This results in a named list of rtweet dataframes:
 ```{r l}
-l
+rtweettree_data_scraped
 ```
 
 You can then visualize this data with: 
 
 ```{r autoplot, eval=TRUE, message=FALSE}
-autoplot(l)
+autoplot(rtweettree_data_scraped)
 ```
 
 Under the hood, the scraped data is first transformed into a `tidygraph::tbl_graph()`
 
 ```{r tbl_graph, message=FALSE}
-g <- rtweettree_tbl_graph(l)
+g <- rtweettree_tbl_graph(rtweettree_data_scraped)
 g
 ```
 

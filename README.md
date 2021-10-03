@@ -62,13 +62,13 @@ status id is the last number in the url of every tweet on twitter.
 
 ``` r
 main_status_id <- "1438481824922181635"
-l <- rtweettree_data(main_status_id)
+rtweettree_data_scraped <- rtweettree_data(main_status_id)
 ```
 
 This results in a named list of rtweet dataframes:
 
 ``` r
-l
+rtweettree_data_scraped
 #> # A tibble: 12 × 93
 #>    type        user_id  status_id  created_at          screen_name text   source
 #>  * <chr>       <chr>    <chr>      <dttm>              <chr>       <chr>  <chr> 
@@ -96,7 +96,7 @@ l
 You can then visualize this data with:
 
 ``` r
-autoplot(l)
+autoplot(rtweettree_data_scraped)
 ```
 
 <img src="man/figures/README-autoplot-1.png" width="100%" />
@@ -105,7 +105,7 @@ Under the hood, the scraped data is first transformed into a
 `tidygraph::tbl_graph()`
 
 ``` r
-g <- rtweettree_tbl_graph(l)
+g <- rtweettree_tbl_graph(rtweettree_data_scraped)
 g
 #> # A tbl_graph: 9 nodes and 18 edges
 #> #
@@ -117,9 +117,9 @@ g
 #> 1 1438476950746636291 user  rtweetbird1 https:… <tibb… <NA>   rtwee… <magck-mg> 
 #> 2 1438480252003569671 user  rtweetbird3 https:… <tibb… <NA>   rtwee… <magck-mg> 
 #> 3 1438479415550390275 user  rtweetbird2 https:… <tibb… <NA>   rtwee… <magck-mg> 
-#> 4 1438481824922181635 tweet <NA>        https:… <tibb… this … this … <NULL>     
-#> 5 1438483457697591297 tweet <NA>        https:… <tibb… @rtwe… @rtwe… <NULL>     
-#> 6 1438482432030818307 tweet <NA>        https:… <tibb… @rtwe… @rtwe… <NULL>     
+#> 4 1438481824922181635 tweet rtweetbird1 https:… <tibb… this … this … <magck-mg> 
+#> 5 1438483457697591297 tweet rtweetbird3 https:… <tibb… @rtwe… @rtwe… <magck-mg> 
+#> 6 1438482432030818307 tweet rtweetbird2 https:… <tibb… @rtwe… @rtwe… <magck-mg> 
 #> # … with 3 more rows
 #> #
 #> # Edge Data: 18 × 5
