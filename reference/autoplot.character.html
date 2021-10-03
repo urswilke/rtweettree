@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="Plot rtweettree — autoplot.character" />
-<meta property="og:description" content="Plot rtweettree" />
+<meta property="og:description" content="Plot a tree graph of the data resulting of the `status_id` of a tweet." />
 
 
 
@@ -95,7 +95,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/visualize_tree.html">Getting started</a>
+      <a href="../articles/get_started.html">Getting started</a>
     </li>
   </ul>
 </li>
@@ -129,19 +129,10 @@
     </div>
 
     <div class="ref-description">
-    <p>Plot rtweettree</p>
+    <p>Plot a tree graph of the data resulting of the `status_id` of a tweet.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for character</span>
-<span class='fu'>autoplot</span><span class='op'>(</span><span class='va'>x</span>, add_profile_pics <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for rtweettree_data</span>
-<span class='fu'>autoplot</span><span class='op'>(</span><span class='va'>x</span>, add_profile_pics <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for list</span>
-<span class='fu'>autoplot</span><span class='op'>(</span><span class='va'>x</span>, add_profile_pics <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for rtweettree_tbl_graph</span>
 <span class='fu'>autoplot</span><span class='op'>(</span><span class='va'>x</span>, add_profile_pics <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -149,7 +140,9 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>rtweet status_id or rtweettree_data object</p></td>
+      <td><p>rtweet status_id (character string), rtweettree_data or
+rtweettree_tbl_graph object. The object is first transformed to a
+rtweettree_tbl_graph which is then plotted with ggraph.</p></td>
     </tr>
     <tr>
       <th>add_profile_pics</th>
@@ -158,32 +151,31 @@ users to the graph; defaults to TRUE; (should be set to FALSE for large graphs)<
     </tr>
     <tr>
       <th>...</th>
-      <td><p>for the moment not used</p></td>
+      <td><p>arguments passed to methods</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>rtweettree</p>
-    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
+    <p>An rtweettree ggraph plot.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    
-<ul>
-<li><p><code>autoplot.rtweettree_data</code>: The rtweettree_data object is transformed to a rtweettree_tbl_graph which is then plotted with ggraph.</p></li>
-<li><p><code>autoplot.list</code>: The list is transformed to a rtweettree_tbl_graph which is then plotted with ggraph.</p></li>
-<li><p><code>autoplot.rtweettree_tbl_graph</code>: The rtweettree_tbl_graph is plotted with ggraph.</p></li>
-</ul>
+    <p>The following functions are imported and then re-exported
+from the ggplot2 package to avoid loading them.</p>
+<p>rtweettree exported operators and S3 methods</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>main_status_id</span> <span class='op'>&lt;-</span> <span class='st'>"1438481824922181635"</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>l</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rtweettree_data.html'>rtweettree_data</a></span><span class='op'>(</span><span class='va'>main_status_id</span><span class='op'>)</span>
-<span class='fu'>autoplot</span><span class='op'>(</span><span class='va'>l</span><span class='op'>)</span>
-<span class='op'>}</span>
+<span class='va'>rtweettree_data_scraped</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rtweettree_data.html'>rtweettree_data</a></span><span class='op'>(</span><span class='va'>main_status_id</span><span class='op'>)</span>
+<span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span><span class='va'>rtweettree_data_scraped</span><span class='op'>)</span>
 <span class='co'># when you're not interested to store the scraped data in an R object,</span>
 <span class='co'># you can also directly plot it with:</span>
 <span class='co'># autoplot(main_status_id)</span>
-
+<span class='op'>}</span>
+<span class='co'># With package example dataset included:</span>
+<span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span><span class='op'>(</span><span class='va'>rtweettree_data_example</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("to", "user_id", "screen_name")</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = c("to", "user_id", "screen_name", "from", "type")</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = c("to", "user_id", "screen_name", "from", "type")</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = c("to", "user_id", "screen_name", "from", "type")</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = c("to", "user_id", "screen_name", "from", "type")</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = c("to", "user_id", "screen_name", "from", "type")</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = "user_id"</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = "name"</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = c("type", "screen_name", "name", "url", "data")</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = "screen_name"</span></div><div class='output co'>#&gt; <span class='message'>Using `sugiyama` as default layout</span></div><div class='img'><img src='autoplot.character-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Included datasets — incl_data • rtweettree</title>
+<title>Included example dataset — incl_data • rtweettree</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,10 @@
 
 
 
-<meta property="og:title" content="Included datasets — incl_data" />
-<meta property="og:description" content="The package includes several datasets resulting of rtweet queries (to make
-them available for documentation purposes and offline use). All these
-datasets are included in the result of running `rtweettree_data()` (see
-examples)." />
+<meta property="og:title" content="Included example dataset — incl_data" />
+<meta property="og:description" content="The package includes a dataset resulting of rtweet queries when calling
+`rtweettree_data()` (to make them available for documentation purposes and
+offline use)." />
 
 
 
@@ -98,7 +97,7 @@ examples)." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/visualize_tree.html">Getting started</a>
+      <a href="../articles/get_started.html">Getting started</a>
     </li>
   </ul>
 </li>
@@ -126,43 +125,52 @@ examples)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Included datasets</h1>
+    <h1>Included example dataset</h1>
     <small class="dont-index">Source: <a href='https://github.com/urswilke/rtweettree/blob/master/R/data.R'><code>R/data.R</code></a></small>
     <div class="hidden name"><code>incl_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The package includes several datasets resulting of rtweet queries (to make
-them available for documentation purposes and offline use). All these
-datasets are included in the result of running `rtweettree_data()` (see
-examples).</p>
+    <p>The package includes a dataset resulting of rtweet queries when calling
+`rtweettree_data()` (to make them available for documentation purposes and
+offline use).</p>
     </div>
 
-    <pre class="usage"><span class='va'>df_main_status</span>
-
-<span class='va'>df_tree</span>
-
-<span class='va'>df_tls</span>
-
-<span class='va'>df_favs</span>
-
-<span class='va'>df_retweets</span></pre>
+    <pre class="usage"><span class='va'>rtweettree_data_example</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>An object of class <code>tbl_df</code> (inherits from <code>tbl</code>, <code>data.frame</code>) with 1 rows and 90 columns.</p>
-<p>An object of class <code>tbl_df</code> (inherits from <code>tbl</code>, <code>data.frame</code>) with 1 rows and 91 columns.</p>
-<p>An object of class <code>tbl_df</code> (inherits from <code>tbl</code>, <code>data.frame</code>) with 3 rows and 90 columns.</p>
-<p>An object of class <code>tbl_df</code> (inherits from <code>tbl</code>, <code>data.frame</code>) with 6 rows and 91 columns.</p>
-<p>An object of class <code>tbl_df</code> (inherits from <code>tbl</code>, <code>data.frame</code>) with 1 rows and 90 columns.</p>
+    <p>An object of class <code>rtweettree_data</code> (inherits from <code>tbl_df</code>, <code>tbl</code>, <code>data.frame</code>) with 12 rows and 93 columns.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='va'>main_status_id</span> <span class='op'>&lt;-</span> <span class='st'>"1438481824922181635"</span>
 <span class='fu'><a href='rtweettree_data.html'>rtweettree_data</a></span><span class='op'>(</span><span class='va'>main_status_id</span><span class='op'>)</span>
 <span class='op'>}</span>
-</div></pre>
+<span class='va'>rtweettree_data_example</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 12 × 93</span>
+#&gt;    type        user_id  status_id  created_at          screen_name text   source
+#&gt;  <span style='color: #BCBCBC;'>*</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;dttm&gt;</span>              <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> 
+#&gt; <span style='color: #BCBCBC;'> 1</span> main_status 1438476… 143848182… 2021-09-16 <span style='color: #949494;'>12:36:07</span> rtweetbird1 this … Twitt…
+#&gt; <span style='color: #BCBCBC;'> 2</span> tree        1438480… 143848428… 2021-09-16 <span style='color: #949494;'>12:45:55</span> rtweetbird3 this … Twitt…
+#&gt; <span style='color: #BCBCBC;'> 3</span> tls         1438480… 143848428… 2021-09-16 <span style='color: #949494;'>12:45:55</span> rtweetbird3 this … Twitt…
+#&gt; <span style='color: #BCBCBC;'> 4</span> tls         1438480… 143848356… 2021-09-16 <span style='color: #949494;'>12:43:01</span> rtweetbird3 @rtwe… Twitt…
+#&gt; <span style='color: #BCBCBC;'> 5</span> tls         1438480… 143848345… 2021-09-16 <span style='color: #949494;'>12:42:36</span> rtweetbird3 @rtwe… Twitt…
+#&gt; <span style='color: #BCBCBC;'> 6</span> like        1438480… 143848428… 2021-09-16 <span style='color: #949494;'>12:45:55</span> rtweetbird3 this … Twitt…
+#&gt; <span style='color: #BCBCBC;'> 7</span> like        1438480… 143848356… 2021-09-16 <span style='color: #949494;'>12:43:01</span> rtweetbird3 @rtwe… Twitt…
+#&gt; <span style='color: #BCBCBC;'> 8</span> like        1438480… 143848345… 2021-09-16 <span style='color: #949494;'>12:42:36</span> rtweetbird3 @rtwe… Twitt…
+#&gt; <span style='color: #BCBCBC;'> 9</span> like        1438479… 143848243… 2021-09-16 <span style='color: #949494;'>12:38:32</span> rtweetbird2 @rtwe… Twitt…
+#&gt; <span style='color: #BCBCBC;'>10</span> like        1438479… 143848230… 2021-09-16 <span style='color: #949494;'>12:38:02</span> rtweetbird2 @rtwe… Twitt…
+#&gt; <span style='color: #BCBCBC;'>11</span> like        1438479… 143848243… 2021-09-16 <span style='color: #949494;'>12:38:32</span> rtweetbird2 @rtwe… Twitt…
+#&gt; <span style='color: #BCBCBC;'>12</span> retweet     1438479… 143848258… 2021-09-16 <span style='color: #949494;'>12:39:09</span> rtweetbird2 this … Twitt…
+#&gt; <span style='color: #949494;'># … with 86 more variables: display_text_width &lt;dbl&gt;, reply_to_status_id &lt;chr&gt;,</span>
+#&gt; <span style='color: #949494;'>#   reply_to_user_id &lt;chr&gt;, reply_to_screen_name &lt;chr&gt;, is_quote &lt;lgl&gt;,</span>
+#&gt; <span style='color: #949494;'>#   is_retweet &lt;lgl&gt;, favorite_count &lt;int&gt;, retweet_count &lt;int&gt;,</span>
+#&gt; <span style='color: #949494;'>#   quote_count &lt;int&gt;, reply_count &lt;int&gt;, hashtags &lt;list&gt;, symbols &lt;list&gt;,</span>
+#&gt; <span style='color: #949494;'>#   urls_url &lt;list&gt;, urls_t.co &lt;list&gt;, urls_expanded_url &lt;list&gt;,</span>
+#&gt; <span style='color: #949494;'>#   media_url &lt;list&gt;, media_t.co &lt;list&gt;, media_expanded_url &lt;list&gt;,</span>
+#&gt; <span style='color: #949494;'>#   media_type &lt;list&gt;, ext_media_url &lt;list&gt;, ext_media_t.co &lt;list&gt;, …</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -54,7 +54,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/visualize_tree.html">Getting started</a>
+      <a href="articles/get_started.html">Getting started</a>
     </li>
   </ul>
 </li>
@@ -115,91 +115,39 @@
 <p>To give you a quick understanding of the functionalities of this package, it can be used to scrape data related to a twitter status id <code>main_status_id</code> and all the replies (to replies), quotes, retweets and likes the API provides using <code>rtweet</code> functions under the hood. The status id is the last number in the url of every tweet on twitter.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">main_status_id</span> <span class="op">&lt;-</span> <span class="st">"1438481824922181635"</span>
-<span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rtweettree_data.html">rtweettree_data</a></span><span class="op">(</span><span class="va">main_status_id</span><span class="op">)</span></code></pre></div>
+<span class="va">rtweettree_data_scraped</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rtweettree_data.html">rtweettree_data</a></span><span class="op">(</span><span class="va">main_status_id</span><span class="op">)</span></code></pre></div>
 <p>This results in a named list of rtweet dataframes:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">l</span>
-<span class="co">#&gt; $df_main_status</span>
-<span class="co">#&gt; # A tibble: 1 × 90</span>
-<span class="co">#&gt;   user_id             status_id  created_at          screen_name text     source</span>
-<span class="co">#&gt;   &lt;chr&gt;               &lt;chr&gt;      &lt;dttm&gt;              &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt; </span>
-<span class="co">#&gt; 1 1438476950746636291 143848182… 2021-09-16 12:36:07 rtweetbird1 this is… Twitt…</span>
-<span class="co">#&gt; # … with 84 more variables: display_text_width &lt;dbl&gt;, reply_to_status_id &lt;lgl&gt;,</span>
-<span class="co">#&gt; #   reply_to_user_id &lt;lgl&gt;, reply_to_screen_name &lt;lgl&gt;, is_quote &lt;lgl&gt;,</span>
-<span class="co">#&gt; #   is_retweet &lt;lgl&gt;, favorite_count &lt;int&gt;, retweet_count &lt;int&gt;,</span>
-<span class="co">#&gt; #   quote_count &lt;int&gt;, reply_count &lt;int&gt;, hashtags &lt;list&gt;, symbols &lt;list&gt;,</span>
-<span class="co">#&gt; #   urls_url &lt;list&gt;, urls_t.co &lt;list&gt;, urls_expanded_url &lt;list&gt;,</span>
-<span class="co">#&gt; #   media_url &lt;list&gt;, media_t.co &lt;list&gt;, media_expanded_url &lt;list&gt;,</span>
-<span class="co">#&gt; #   media_type &lt;list&gt;, ext_media_url &lt;list&gt;, ext_media_t.co &lt;list&gt;, …</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $df_tree</span>
-<span class="co">#&gt; # A tibble: 1 × 91</span>
-<span class="co">#&gt;   user_id             status_id  created_at          screen_name text     source</span>
-<span class="co">#&gt;   &lt;chr&gt;               &lt;chr&gt;      &lt;dttm&gt;              &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt; </span>
-<span class="co">#&gt; 1 1438480252003569671 143848428… 2021-09-16 12:45:55 rtweetbird3 this is… Twitt…</span>
-<span class="co">#&gt; # … with 85 more variables: display_text_width &lt;dbl&gt;, reply_to_status_id &lt;chr&gt;,</span>
+<code class="sourceCode R"><span class="va">rtweettree_data_scraped</span>
+<span class="co">#&gt; # A tibble: 12 × 93</span>
+<span class="co">#&gt;    type        user_id  status_id  created_at          screen_name text   source</span>
+<span class="co">#&gt;  * &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;      &lt;dttm&gt;              &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt; </span>
+<span class="co">#&gt;  1 main_status 1438476… 143848182… 2021-09-16 12:36:07 rtweetbird1 this … Twitt…</span>
+<span class="co">#&gt;  2 tree        1438480… 143848428… 2021-09-16 12:45:55 rtweetbird3 this … Twitt…</span>
+<span class="co">#&gt;  3 tls         1438480… 143848428… 2021-09-16 12:45:55 rtweetbird3 this … Twitt…</span>
+<span class="co">#&gt;  4 tls         1438480… 143848356… 2021-09-16 12:43:01 rtweetbird3 @rtwe… Twitt…</span>
+<span class="co">#&gt;  5 tls         1438480… 143848345… 2021-09-16 12:42:36 rtweetbird3 @rtwe… Twitt…</span>
+<span class="co">#&gt;  6 like        1438480… 143848428… 2021-09-16 12:45:55 rtweetbird3 this … Twitt…</span>
+<span class="co">#&gt;  7 like        1438480… 143848356… 2021-09-16 12:43:01 rtweetbird3 @rtwe… Twitt…</span>
+<span class="co">#&gt;  8 like        1438480… 143848345… 2021-09-16 12:42:36 rtweetbird3 @rtwe… Twitt…</span>
+<span class="co">#&gt;  9 like        1438479… 143848243… 2021-09-16 12:38:32 rtweetbird2 @rtwe… Twitt…</span>
+<span class="co">#&gt; 10 like        1438479… 143848230… 2021-09-16 12:38:02 rtweetbird2 @rtwe… Twitt…</span>
+<span class="co">#&gt; 11 like        1438479… 143848243… 2021-09-16 12:38:32 rtweetbird2 @rtwe… Twitt…</span>
+<span class="co">#&gt; 12 retweet     1438479… 143848258… 2021-09-16 12:39:09 rtweetbird2 this … Twitt…</span>
+<span class="co">#&gt; # … with 86 more variables: display_text_width &lt;dbl&gt;, reply_to_status_id &lt;chr&gt;,</span>
 <span class="co">#&gt; #   reply_to_user_id &lt;chr&gt;, reply_to_screen_name &lt;chr&gt;, is_quote &lt;lgl&gt;,</span>
 <span class="co">#&gt; #   is_retweet &lt;lgl&gt;, favorite_count &lt;int&gt;, retweet_count &lt;int&gt;,</span>
 <span class="co">#&gt; #   quote_count &lt;int&gt;, reply_count &lt;int&gt;, hashtags &lt;list&gt;, symbols &lt;list&gt;,</span>
 <span class="co">#&gt; #   urls_url &lt;list&gt;, urls_t.co &lt;list&gt;, urls_expanded_url &lt;list&gt;,</span>
 <span class="co">#&gt; #   media_url &lt;list&gt;, media_t.co &lt;list&gt;, media_expanded_url &lt;list&gt;,</span>
-<span class="co">#&gt; #   media_type &lt;list&gt;, ext_media_url &lt;list&gt;, ext_media_t.co &lt;list&gt;, …</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $df_tls</span>
-<span class="co">#&gt; # A tibble: 3 × 90</span>
-<span class="co">#&gt;   user_id             status_id  created_at          screen_name text     source</span>
-<span class="co">#&gt;   &lt;chr&gt;               &lt;chr&gt;      &lt;dttm&gt;              &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt; </span>
-<span class="co">#&gt; 1 1438480252003569671 143848428… 2021-09-16 12:45:55 rtweetbird3 this is… Twitt…</span>
-<span class="co">#&gt; 2 1438480252003569671 143848356… 2021-09-16 12:43:01 rtweetbird3 @rtweet… Twitt…</span>
-<span class="co">#&gt; 3 1438480252003569671 143848345… 2021-09-16 12:42:36 rtweetbird3 @rtweet… Twitt…</span>
-<span class="co">#&gt; # … with 84 more variables: display_text_width &lt;dbl&gt;, reply_to_status_id &lt;chr&gt;,</span>
-<span class="co">#&gt; #   reply_to_user_id &lt;chr&gt;, reply_to_screen_name &lt;chr&gt;, is_quote &lt;lgl&gt;,</span>
-<span class="co">#&gt; #   is_retweet &lt;lgl&gt;, favorite_count &lt;int&gt;, retweet_count &lt;int&gt;,</span>
-<span class="co">#&gt; #   quote_count &lt;int&gt;, reply_count &lt;int&gt;, hashtags &lt;list&gt;, symbols &lt;list&gt;,</span>
-<span class="co">#&gt; #   urls_url &lt;list&gt;, urls_t.co &lt;list&gt;, urls_expanded_url &lt;list&gt;,</span>
-<span class="co">#&gt; #   media_url &lt;list&gt;, media_t.co &lt;list&gt;, media_expanded_url &lt;list&gt;,</span>
-<span class="co">#&gt; #   media_type &lt;list&gt;, ext_media_url &lt;list&gt;, ext_media_t.co &lt;list&gt;, …</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $df_favs</span>
-<span class="co">#&gt; # A tibble: 6 × 91</span>
-<span class="co">#&gt;   user_id             status_id  created_at          screen_name text     source</span>
-<span class="co">#&gt; * &lt;chr&gt;               &lt;chr&gt;      &lt;dttm&gt;              &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt; </span>
-<span class="co">#&gt; 1 1438480252003569671 143848428… 2021-09-16 12:45:55 rtweetbird3 this is… Twitt…</span>
-<span class="co">#&gt; 2 1438480252003569671 143848356… 2021-09-16 12:43:01 rtweetbird3 @rtweet… Twitt…</span>
-<span class="co">#&gt; 3 1438480252003569671 143848345… 2021-09-16 12:42:36 rtweetbird3 @rtweet… Twitt…</span>
-<span class="co">#&gt; 4 1438479415550390275 143848243… 2021-09-16 12:38:32 rtweetbird2 @rtweet… Twitt…</span>
-<span class="co">#&gt; 5 1438479415550390275 143848230… 2021-09-16 12:38:02 rtweetbird2 @rtweet… Twitt…</span>
-<span class="co">#&gt; 6 1438479415550390275 143848243… 2021-09-16 12:38:32 rtweetbird2 @rtweet… Twitt…</span>
-<span class="co">#&gt; # … with 85 more variables: display_text_width &lt;dbl&gt;, reply_to_status_id &lt;chr&gt;,</span>
-<span class="co">#&gt; #   reply_to_user_id &lt;chr&gt;, reply_to_screen_name &lt;chr&gt;, is_quote &lt;lgl&gt;,</span>
-<span class="co">#&gt; #   is_retweet &lt;lgl&gt;, favorite_count &lt;int&gt;, retweet_count &lt;int&gt;,</span>
-<span class="co">#&gt; #   quote_count &lt;int&gt;, reply_count &lt;int&gt;, hashtags &lt;list&gt;, symbols &lt;list&gt;,</span>
-<span class="co">#&gt; #   urls_url &lt;list&gt;, urls_t.co &lt;list&gt;, urls_expanded_url &lt;list&gt;,</span>
-<span class="co">#&gt; #   media_url &lt;list&gt;, media_t.co &lt;list&gt;, media_expanded_url &lt;list&gt;,</span>
-<span class="co">#&gt; #   media_type &lt;list&gt;, ext_media_url &lt;list&gt;, ext_media_t.co &lt;list&gt;, …</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $df_retweets</span>
-<span class="co">#&gt; # A tibble: 1 × 90</span>
-<span class="co">#&gt;   user_id             status_id  created_at          screen_name text     source</span>
-<span class="co">#&gt;   &lt;chr&gt;               &lt;chr&gt;      &lt;dttm&gt;              &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt; </span>
-<span class="co">#&gt; 1 1438479415550390275 143848258… 2021-09-16 12:39:09 rtweetbird2 this is… Twitt…</span>
-<span class="co">#&gt; # … with 84 more variables: display_text_width &lt;int&gt;, reply_to_status_id &lt;lgl&gt;,</span>
-<span class="co">#&gt; #   reply_to_user_id &lt;lgl&gt;, reply_to_screen_name &lt;lgl&gt;, is_quote &lt;lgl&gt;,</span>
-<span class="co">#&gt; #   is_retweet &lt;lgl&gt;, favorite_count &lt;int&gt;, retweet_count &lt;int&gt;,</span>
-<span class="co">#&gt; #   quote_count &lt;int&gt;, reply_count &lt;int&gt;, hashtags &lt;list&gt;, symbols &lt;list&gt;,</span>
-<span class="co">#&gt; #   urls_url &lt;list&gt;, urls_t.co &lt;list&gt;, urls_expanded_url &lt;list&gt;,</span>
-<span class="co">#&gt; #   media_url &lt;list&gt;, media_t.co &lt;list&gt;, media_expanded_url &lt;list&gt;,</span>
-<span class="co">#&gt; #   media_type &lt;list&gt;, ext_media_url &lt;list&gt;, ext_media_t.co &lt;list&gt;, …</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; attr(,"class")</span>
-<span class="co">#&gt; [1] "rtweettree_data" "list"</span></code></pre></div>
+<span class="co">#&gt; #   media_type &lt;list&gt;, ext_media_url &lt;list&gt;, ext_media_t.co &lt;list&gt;, …</span></code></pre></div>
 <p>You can then visualize this data with:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">rtweettree_data_scraped</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-autoplot-1.png" width="100%"></p>
 <p>Under the hood, the scraped data is first transformed into a <code><a href="https://tidygraph.data-imaginist.com/reference/tbl_graph.html">tidygraph::tbl_graph()</a></code></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rtweettree_tbl_graph.html">rtweettree_tbl_graph</a></span><span class="op">(</span><span class="va">l</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/rtweettree_tbl_graph.html">rtweettree_tbl_graph</a></span><span class="op">(</span><span class="va">rtweettree_data_scraped</span><span class="op">)</span>
 <span class="va">g</span>
 <span class="co">#&gt; # A tbl_graph: 9 nodes and 18 edges</span>
 <span class="co">#&gt; #</span>
@@ -211,9 +159,9 @@
 <span class="co">#&gt; 1 1438476950746636291 user  rtweetbird1 https:… &lt;tibb… &lt;NA&gt;   rtwee… &lt;magck-mg&gt; </span>
 <span class="co">#&gt; 2 1438480252003569671 user  rtweetbird3 https:… &lt;tibb… &lt;NA&gt;   rtwee… &lt;magck-mg&gt; </span>
 <span class="co">#&gt; 3 1438479415550390275 user  rtweetbird2 https:… &lt;tibb… &lt;NA&gt;   rtwee… &lt;magck-mg&gt; </span>
-<span class="co">#&gt; 4 1438481824922181635 tweet &lt;NA&gt;        https:… &lt;tibb… this … this … &lt;NULL&gt;     </span>
-<span class="co">#&gt; 5 1438483457697591297 tweet &lt;NA&gt;        https:… &lt;tibb… @rtwe… @rtwe… &lt;NULL&gt;     </span>
-<span class="co">#&gt; 6 1438482432030818307 tweet &lt;NA&gt;        https:… &lt;tibb… @rtwe… @rtwe… &lt;NULL&gt;     </span>
+<span class="co">#&gt; 4 1438481824922181635 tweet rtweetbird1 https:… &lt;tibb… this … this … &lt;magck-mg&gt; </span>
+<span class="co">#&gt; 5 1438483457697591297 tweet rtweetbird3 https:… &lt;tibb… @rtwe… @rtwe… &lt;magck-mg&gt; </span>
+<span class="co">#&gt; 6 1438482432030818307 tweet rtweetbird2 https:… &lt;tibb… @rtwe… @rtwe… &lt;magck-mg&gt; </span>
 <span class="co">#&gt; # … with 3 more rows</span>
 <span class="co">#&gt; #</span>
 <span class="co">#&gt; # Edge Data: 18 × 5</span>
@@ -224,7 +172,7 @@
 <span class="co">#&gt; 3     4     7 1438479415550390275 rtweetbird2 reply</span>
 <span class="co">#&gt; # … with 15 more rows</span></code></pre></div>
 <p>which is then visualized with ggraph.</p>
-<p>A more in-depth example how to create the subtweet network graph from a tweet <code>status_id</code> is shown in the <code><a href="articles/visualize_tree.html">vignette("visualize_tree")</a></code>.</p>
+<p>A more in-depth example how to create the subtweet network graph from a tweet <code>status_id</code> is shown in the <code><a href="articles/get_started.html">vignette("get_started")</a></code>.</p>
 </div>
 <div id="todos" class="section level2">
 <h2 class="hasAnchor">

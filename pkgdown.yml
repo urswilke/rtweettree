@@ -2,6 +2,6 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
-  visualize_tree: visualize_tree.html
-last_built: 2021-10-02T22:56Z
+  get_started: get_started.html
+last_built: 2021-10-03T14:46Z
 

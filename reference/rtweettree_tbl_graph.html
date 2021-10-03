@@ -96,7 +96,7 @@ tweet and all replies, quotes and likes that could be scraped using rtweet." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/visualize_tree.html">Getting started</a>
+      <a href="../articles/get_started.html">Getting started</a>
     </li>
   </ul>
 </li>
@@ -143,9 +143,6 @@ tweet and all replies, quotes and likes that could be scraped using rtweet.</p>
 <span class='fu'>rtweettree_tbl_graph</span><span class='op'>(</span><span class='va'>x</span>, add_profile_pics <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for character</span>
-<span class='fu'>rtweettree_tbl_graph</span><span class='op'>(</span><span class='va'>x</span>, add_profile_pics <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for list</span>
 <span class='fu'>rtweettree_tbl_graph</span><span class='op'>(</span><span class='va'>x</span>, add_profile_pics <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -177,7 +174,6 @@ TRUE.</p></td>
 <li><p><code>rtweettree_data</code>: Construct rtweettree_tbl_graph object from rtweettree_data.</p></li>
 <li><p><code>rtweettree_tbl_graph</code>: return rtweettree_tbl_graph object as is.</p></li>
 <li><p><code>character</code>: First run rtweettree_data on the status id `x` and then transform to rtweettree tbl_graph.</p></li>
-<li><p><code>list</code>: First run rtweettree_data on the named list `x` and then transform to rtweettree tbl_graph.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -201,11 +197,34 @@ TRUE.</p></td>
   <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='va'>df_retweets</span> <span class='op'>&lt;-</span> <span class='va'>tweet_ids</span> <span class='op'>%&gt;%</span> <span class='fu'>purrr</span><span class='fu'>::</span><span class='fu'><a href='https://purrr.tidyverse.org/reference/map.html'>map_dfr</a></span><span class='op'>(</span><span class='op'>~</span><span class='fu'>rtweet</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rtweet/man/get_retweets.html'>get_retweets</a></span><span class='op'>(</span><span class='va'>.x</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='va'>l</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/lst.html'>lst</a></span><span class='op'>(</span><span class='va'>df_main_status</span>, <span class='va'>df_tree</span>, <span class='va'>df_tls</span>, <span class='va'>df_favs</span>, <span class='va'>df_retweets</span><span class='op'>)</span>
-<span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'>rtweettree_tbl_graph</span><span class='op'>(</span><span class='va'>l</span><span class='op'>)</span>
+<span class='va'>rtweettree_data_scraped</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/lst.html'>lst</a></span><span class='op'>(</span><span class='va'>df_main_status</span>, <span class='va'>df_tree</span>, <span class='va'>df_tls</span>, <span class='va'>df_favs</span>, <span class='va'>df_retweets</span><span class='op'>)</span>
+<span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'>rtweettree_tbl_graph</span><span class='op'>(</span><span class='va'>rtweettree_data_scraped</span><span class='op'>)</span>
 <span class='va'>g</span> <span class='op'>%&gt;%</span> <span class='fu'>ggraph</span><span class='fu'>::</span><span class='fu'><a href='https://ggraph.data-imaginist.com/reference/ggraph.html'>ggraph</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>ggraph</span><span class='fu'>::</span><span class='fu'><a href='https://ggraph.data-imaginist.com/reference/geom_node_point.html'>geom_node_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>ggraph</span><span class='fu'>::</span><span class='fu'><a href='https://ggraph.data-imaginist.com/reference/geom_edge_link.html'>geom_edge_link</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>}</span>
-</div></pre>
+<span class='co'># With package example dataset included:</span>
+<span class='fu'>rtweettree_tbl_graph</span><span class='op'>(</span><span class='va'>rtweettree_data_example</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("to", "user_id", "screen_name")</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = c("to", "user_id", "screen_name", "from", "type")</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = c("to", "user_id", "screen_name", "from", "type")</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = c("to", "user_id", "screen_name", "from", "type")</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = c("to", "user_id", "screen_name", "from", "type")</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = c("to", "user_id", "screen_name", "from", "type")</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = "user_id"</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = "name"</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = c("type", "screen_name", "name", "url", "data")</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = "screen_name"</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tbl_graph: 9 nodes and 18 edges
+#&gt; #
+#&gt; # A directed acyclic simple graph with 1 component
+#&gt; #
+#&gt; # Node Data: 9 × 8 (active)</span>
+#&gt;   name                type  screen_name url     data   text   label  profile_pic
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>               <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;glue&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'>1</span> 1438476950746636291 user  rtweetbird1 https:… <span style='color: #949494;'>&lt;tibb</span>… <span style='color: #BB0000;'>NA</span>     rtwee… <span style='color: #949494;'>&lt;magck-mg&gt;</span> 
+#&gt; <span style='color: #BCBCBC;'>2</span> 1438480252003569671 user  rtweetbird3 https:… <span style='color: #949494;'>&lt;tibb</span>… <span style='color: #BB0000;'>NA</span>     rtwee… <span style='color: #949494;'>&lt;magck-mg&gt;</span> 
+#&gt; <span style='color: #BCBCBC;'>3</span> 1438479415550390275 user  rtweetbird2 https:… <span style='color: #949494;'>&lt;tibb</span>… <span style='color: #BB0000;'>NA</span>     rtwee… <span style='color: #949494;'>&lt;magck-mg&gt;</span> 
+#&gt; <span style='color: #BCBCBC;'>4</span> 1438481824922181635 tweet rtweetbird1 https:… <span style='color: #949494;'>&lt;tibb</span>… this … this … <span style='color: #949494;'>&lt;magck-mg&gt;</span> 
+#&gt; <span style='color: #BCBCBC;'>5</span> 1438483457697591297 tweet rtweetbird3 https:… <span style='color: #949494;'>&lt;tibb</span>… @rtwe… @rtwe… <span style='color: #949494;'>&lt;magck-mg&gt;</span> 
+#&gt; <span style='color: #BCBCBC;'>6</span> 1438482432030818307 tweet rtweetbird2 https:… <span style='color: #949494;'>&lt;tibb</span>… @rtwe… @rtwe… <span style='color: #949494;'>&lt;magck-mg&gt;</span> 
+#&gt; <span style='color: #949494;'># … with 3 more rows</span>
+#&gt; <span style='color: #949494;'>#
+#&gt; # Edge Data: 18 × 5</span>
+#&gt;    from    to user_id             screen_name type 
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>               <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>     4     5 1438480252003569671 rtweetbird3 reply
+#&gt; <span style='color: #BCBCBC;'>2</span>     4     6 1438479415550390275 rtweetbird2 reply
+#&gt; <span style='color: #BCBCBC;'>3</span>     4     7 1438479415550390275 rtweetbird2 reply
+#&gt; <span style='color: #949494;'># … with 15 more rows</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
