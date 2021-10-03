@@ -96,7 +96,7 @@ rtweettree_data_scraped
 You can then visualize this data with:
 
 ``` r
-autoplot(rtweettree_data_scraped)
+ggplot2::autoplot(rtweettree_data_scraped)
 ```
 
 <img src="man/figures/README-autoplot-1.png" width="100%" />

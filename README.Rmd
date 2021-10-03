@@ -81,7 +81,7 @@ rtweettree_data_scraped
 You can then visualize this data with: 
 
 ```{r autoplot, eval=TRUE, message=FALSE}
-autoplot(rtweettree_data_scraped)
+ggplot2::autoplot(rtweettree_data_scraped)
 ```
 
 Under the hood, the scraped data is first transformed into a `tidygraph::tbl_graph()`

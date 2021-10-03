@@ -134,7 +134,7 @@ This yields something similar to the autoplot() method of the package:
 ```{r ggraph2, eval=TRUE, fig.width=6, fig.height=5}
 # (In order to include the profile pictures in the graph you need an internet
 # connection)
-g1 <- autoplot(g, add_profile_pics = TRUE)
+g1 <- ggplot2::autoplot(g, add_profile_pics = TRUE)
 g1
 ```
 
@@ -191,6 +191,6 @@ We can also customize the ggraph object by passing arguments to the autoplot met
 * or using another [layout](https://ggraph.data-imaginist.com/articles/Layouts.html) 
 
 ```{r, eval=TRUE, message=FALSE}
-autoplot(rtweettree_data_scraped, add_profile_pics = FALSE, layout = "stress")
+ggplot2::autoplot(rtweettree_data_scraped, add_profile_pics = FALSE, layout = "stress")
 ```
 
