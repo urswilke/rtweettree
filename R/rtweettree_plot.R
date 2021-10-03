@@ -60,5 +60,6 @@ autoplot.character <- function(x, add_profile_pics = TRUE, ...) {
 autoplot.rtweettree_data <- autoplot.character
 #' @export
 autoplot.rtweettree_tbl_graph <- autoplot.character
-
+#' @export
+ggplot2::autoplot
 
