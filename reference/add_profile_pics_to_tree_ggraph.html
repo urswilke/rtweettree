@@ -124,7 +124,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create ggraph object with profile pictures added</h1>
-    <small class="dont-index">Source: <a href='https://github.com/urswilke/rtweettree/blob/master/R/network.R'><code>R/network.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/urswilke/rtweettree/blob/master/R/rtweettree_plot.R'><code>R/rtweettree_plot.R</code></a></small>
     <div class="hidden name"><code>add_profile_pics_to_tree_ggraph.Rd</code></div>
     </div>
 
@@ -157,7 +157,7 @@
 <span class='va'>g</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rtweettree_tbl_graph.html'>rtweettree_tbl_graph</a></span><span class='op'>(</span><span class='va'>rtweettree_data_scraped</span><span class='op'>)</span>
 <span class='va'>g1</span> <span class='op'>&lt;-</span> <span class='fu'>ggraph</span><span class='op'>(</span><span class='va'>g</span><span class='op'>)</span>
 <span class='va'>g1</span> <span class='op'>&lt;-</span> <span class='fu'>add_profile_pics_to_tree_ggraph</span><span class='op'>(</span><span class='va'>g1</span>, <span class='fu'>rtweettree</span><span class='fu'>:::</span><span class='fu'>scrape_profile_pics</span><span class='op'>(</span><span class='fu'>tidygraph</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/as_tibble.html'>as_tibble</a></span><span class='op'>(</span><span class='va'>g</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>g1</span> <span class='op'>+</span> <span class='fu'>ggraph</span><span class='fu'>::</span><span class='fu'><a href='https://ggraph.data-imaginist.com/reference/geom_edge_diagonal.html'>geom_edge_diagonal</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>color<span class='op'>=</span> <span class='va'>type</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>geom_node_point</span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>shape <span class='op'>=</span> <span class='va'>type</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>g1</span> <span class='op'>+</span> <span class='fu'>ggraph</span><span class='fu'>::</span><span class='fu'><a href='https://ggraph.data-imaginist.com/reference/geom_edge_diagonal.html'>geom_edge_diagonal</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>color <span class='op'>=</span> <span class='va'>type</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>ggraph</span><span class='fu'>::</span><span class='fu'><a href='https://ggraph.data-imaginist.com/reference/geom_node_point.html'>geom_node_point</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>shape <span class='op'>=</span> <span class='va'>type</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>
