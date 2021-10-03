@@ -23,6 +23,6 @@ rtweettree_data_scraped <- rtweettree_data("1438481824922181635")
 g <- rtweettree_tbl_graph(rtweettree_data_scraped)
 g1 <- ggraph(g)
 g1 <- add_profile_pics_to_tree_ggraph(g1, rtweettree:::scrape_profile_pics(tidygraph::as_tibble(g)))
-g1 + ggraph::geom_edge_diagonal(aes(color= type)) + geom_node_point(aes(shape = type))
+g1 + ggraph::geom_edge_diagonal(aes(color= type)) + ggraph::geom_node_point(aes(shape = type))
 }
 }
