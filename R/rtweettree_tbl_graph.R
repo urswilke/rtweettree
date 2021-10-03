@@ -193,5 +193,48 @@ rtweettree_tbl_graph.default <- function(x, add_profile_pics = TRUE, ...) {
 
 
 
+#' Recursively return all status ids of a tweet and its replies
+#'
+#' @param df_tree data frame returned by `rtweet::search_tweets2()`.
+#' @param df0 data frame returned by `rtweet::lookup_statuses()`.
+#'
+#' @return Edges data frame that can be plotted by tidygraph & ggraph
+#'
+#' @examples
+#' main_status_id <- "1438481824922181635"
+#'\dontrun{
+#' df_main_status <- rtweet::lookup_statuses(main_status_id)
+#' df_tree <- search_tree(main_status_id)
+#' tree_ids <- df_tree$user_id %>% unique()
+#' df_tls <- scrape_timelines(tree_ids)
+#'df0 <- df_main_status %>%
+#'                        dplyr::filter(status_id == main_status_id) %>%
+#'                        dplyr::select(to = status_id, user_id) %>%
+#'                        dplyr::mutate(from = "root", type = "root")
+#' tweet_edges <-
+#' find_connections_rec(dplyr::bind_rows(df_tree, df_tls), df0)
+#' }
+find_connections_rec <- function(df_tree, df0) {
+  df_quote1 <-
+    df_tree %>%
+    dplyr::filter(.data$quoted_status_id %in% df0$to) %>%
+    dplyr::select(to = .data$status_id, from = .data$quoted_status_id, .data$user_id, .data$screen_name) %>%
+    dplyr::mutate(type = "quote")
+  df_reply1 <-
+    df_tree %>%
+    dplyr::filter(.data$reply_to_status_id %in% df0$to) %>%
+    dplyr::select(to = .data$status_id, from = .data$reply_to_status_id, .data$user_id, .data$screen_name) %>%
+    dplyr::mutate(type = "reply")
+  res <- list(df0, df_reply1, df_quote1) %>%
+    purrr::reduce(dplyr::full_join) %>%
+    dplyr::distinct()
+  if (nrow(res) == nrow(df0)) {
+    return(res)
+  } else {
+    find_connections_rec(df_tree, res)
+  }
+}
+
+
 
 
