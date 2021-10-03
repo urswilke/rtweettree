@@ -54,13 +54,10 @@ First we'll load the package.
 library(rtweettree)
 ```
 
-To give you a quick understanding of the functionalities of this package, it can
-be used to scrape data related to a twitter status id `main_status_id` and all
-the replies (to replies), quotes, retweets and likes the API provides using
-`rtweet` functions under the hood. The status id is the last number in the url
-of every tweet on twitter.
-
-
+This package can first scrape data related to a twitter status id
+`main_status_id` (The status id is the last number in the url of every tweet on
+twitter.) and all the replies (to replies), quotes, retweets and likes the API
+provides (using `rtweet` functions under the hood).
 
 ```{r rtweettree_data, message=FALSE, eval=FALSE}
 main_status_id <- "1438481824922181635"
@@ -73,34 +70,17 @@ rtweettree_data_scraped <- rtweettree_data(main_status_id)
 rtweettree_data_scraped <- rtweettree_data_example
 ```
 
-This results in a named list of rtweet dataframes:
-```{r l}
-rtweettree_data_scraped
-```
-
-You can then visualize this data with: 
+This results in a dataframe of rtweet data, which can then be transformed to a
+`tidygraph::tbl_graph()` object and finally visualized with `ggraph`. When you 
+have loaded the rtweettree package, you can also directly use the `ggplot2::autoplot()` 
+method:
 
 ```{r autoplot, eval=TRUE, message=FALSE}
 ggplot2::autoplot(rtweettree_data_scraped)
 ```
 
-Under the hood, the scraped data is first transformed into a `tidygraph::tbl_graph()`
-
-```{r tbl_graph, message=FALSE}
-g <- rtweettree_tbl_graph(rtweettree_data_scraped)
-g
-```
-
-which is then visualized with ggraph.
-
-
 A more in-depth example how to create the subtweet network graph from a tweet
 `status_id` is shown in the `vignette("get_started")`.
-
-## TODOs:
-
-* clean up code and refactor
-* make plotting functions more customizable
 
 ## Getting help
 
