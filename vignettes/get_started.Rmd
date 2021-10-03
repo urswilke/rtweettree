@@ -122,7 +122,7 @@ These are connected by edges that can be
 
 We can generate a simple tree graph of the various tweets and users with:
 
-```{r simpleplot, eval=TRUE}
+```{r simpleplot, eval=TRUE, fig.width=6, fig.height=5}
 g %>% 
   ggraph() + 
   geom_node_point(aes(color = dist_to_root), size = 3) + 
@@ -131,7 +131,7 @@ g %>%
 
 This yields something similar to the autoplot() method of the package:
 
-```{r ggraph2, eval=TRUE, fig.width=8, fig.height=6}
+```{r ggraph2, eval=TRUE, fig.width=6, fig.height=5}
 # (In order to include the profile pictures in the graph you need an internet
 # connection)
 g1 <- autoplot(g, add_profile_pics = TRUE)
