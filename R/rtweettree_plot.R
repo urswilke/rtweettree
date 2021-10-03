@@ -30,12 +30,7 @@
 #'
 #' @importFrom ggplot2 autoplot
 #'
-#' @name autoplot
 #' @export
-NULL
-
-#' @export
-#' @describeIn autoplot The `status_id` charcter string is transformed to a rtweettree_tbl_graph which is then plotted with ggraph.
 autoplot.character <- function(x, add_profile_pics = TRUE, ...) {
   g <- rtweettree_tbl_graph(x, add_profile_pics, ...)
 
@@ -62,11 +57,8 @@ autoplot.character <- function(x, add_profile_pics = TRUE, ...) {
 
 }
 #' @export
-#' @describeIn autoplot The rtweettree_data object is transformed to a rtweettree_tbl_graph which is then plotted with ggraph.
 autoplot.rtweettree_data <- autoplot.character
 #' @export
-#' @export
-#' @describeIn autoplot The rtweettree_tbl_graph is plotted with ggraph.
 autoplot.rtweettree_tbl_graph <- autoplot.character
 
 
