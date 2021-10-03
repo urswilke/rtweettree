@@ -6,7 +6,6 @@
 #'
 #' @return data frame like `rtweet::search_tweets2()`, but all subtweets of the
 #'   tree added (if available)
-#' @export
 #'
 #' @examples
 #'\dontrun{
@@ -14,6 +13,7 @@
 #' df_main_status <- rtweet::lookup_statuses(main_status_id)
 #' df_tree <- search_tree(main_status_id)
 #'}
+#' @noRd
 search_tree <- function(main_status_id,
                           df_main_status = rtweet::lookup_statuses(main_status_id),
                           n = 1e6) {
@@ -44,7 +44,7 @@ search_tree <- function(main_status_id,
 #' @importFrom rlang .data
 #' @return data frame like `rtweet::search_tweets2()`, but also all direct answers
 #'   to the tweet (one level lower; if available).
-
+#' @noRd
 add_tree_level <- function(df0, df1, n) {
   new_ids <-
     setdiff(df1[["status_id"]], df0[["status_id"]])
@@ -79,7 +79,6 @@ add_tree_level <- function(df0, df1, n) {
 #' @param main_status_id status id of the root tweet.
 #'
 #' @return Dataframe of all timelines of all `tree_ids`.
-#' @export
 #'
 #' @examples
 #'\dontrun{
@@ -89,7 +88,7 @@ add_tree_level <- function(df0, df1, n) {
 #' tree_ids <- df_tree$user_id %>% unique()
 #' df_tls <- scrape_timelines(tree_ids, main_status_id)
 #' }
-
+#' @noRd
 scrape_timelines <- function(tree_ids, main_status_id) {
   if (length(tree_ids) == 0) {
     return(create_empty_rtweet_tbl())
@@ -148,7 +147,6 @@ scrape_timelines <- function(tree_ids, main_status_id) {
 #' @param main_status_id status id of the root tweet.
 #'
 #' @return Dataframe of all timelines of all `tree_ids`.
-#' @export
 #'
 #' @examples
 #'\dontrun{
@@ -166,7 +164,7 @@ scrape_timelines <- function(tree_ids, main_status_id) {
 #' ids <- tweet_edges$user_id %>% unique()
 #' df_favs <- scrape_favs2(ids, main_status_id)
 #' }
-
+#' @noRd
 scrape_favs2 <- function(ids, main_status_id) {
   if (length(ids) == 0) {
     return(create_empty_rtweet_tbl() %>% dplyr::mutate(favorited_by = NA_character_))

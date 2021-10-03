@@ -214,6 +214,7 @@ rtweettree_tbl_graph.default <- function(x, add_profile_pics = TRUE, ...) {
 #' tweet_edges <-
 #' find_connections_rec(dplyr::bind_rows(df_tree, df_tls), df0)
 #' }
+#' @noRd
 find_connections_rec <- function(df_tree, df0) {
   df_quote1 <-
     df_tree %>%
