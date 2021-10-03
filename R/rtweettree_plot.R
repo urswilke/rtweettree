@@ -24,11 +24,13 @@
 #' main_status_id <- "1438481824922181635"
 #' \dontrun{
 #' rtweettree_data_scraped <- rtweettree_data(main_status_id)
-#' autoplot(rtweettree_data_scraped)
-#' }
+#' ggplot2::autoplot(rtweettree_data_scraped)
 #' # when you're not interested to store the scraped data in an R object,
 #' # you can also directly plot it with:
 #' # autoplot(main_status_id)
+#' }
+#' # With package example dataset included:
+#' ggplot2::autoplot(rtweettree_data_example)
 #'
 #' @importFrom ggplot2 autoplot
 #'
@@ -62,6 +64,4 @@ autoplot.character <- function(x, add_profile_pics = TRUE, ...) {
 autoplot.rtweettree_data <- autoplot.character
 #' @export
 autoplot.rtweettree_tbl_graph <- autoplot.character
-#' @export
-ggplot2::autoplot
 

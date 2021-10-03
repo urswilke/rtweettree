@@ -38,6 +38,8 @@
 #' g <- rtweettree_tbl_graph(rtweettree_data_scraped)
 #' g %>% ggraph::ggraph() + ggraph::geom_node_point() + ggraph::geom_edge_link()
 #' }
+#' # With package example dataset included:
+#' rtweettree_tbl_graph(rtweettree_data_example)
 rtweettree_tbl_graph <- function(x, add_profile_pics = TRUE, ...) {
   UseMethod("rtweettree_tbl_graph")
 }

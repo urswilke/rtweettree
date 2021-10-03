@@ -65,4 +65,6 @@ rtweettree_data_scraped <- tibble::lst(df_main_status, df_tree, df_tls, df_favs,
 g <- rtweettree_tbl_graph(rtweettree_data_scraped)
 g \%>\% ggraph::ggraph() + ggraph::geom_node_point() + ggraph::geom_edge_link()
 }
+# With package example dataset included:
+rtweettree_tbl_graph(rtweettree_data_example)
 }
