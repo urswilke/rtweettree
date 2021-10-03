@@ -21,7 +21,10 @@ knitr::opts_chunk$set(
 pic_path <- "visualize_tree_files"
 ```
 
-This vignette shows how {rtweettree} can be used to generate network graphs visualizing the reactions on a tweet (replies, quotes and favorites) as a tree. The nodes correspond to tweets and the users who interact with them with these reactions. 
+This vignette shows how {rtweettree} can be used to generate network graphs
+visualizing the reactions on a tweet (replies, quotes and favorites) as a tree.
+The nodes correspond to tweets and the users who interact with them with these
+reactions.
 
 
 ## Load packages
@@ -38,9 +41,14 @@ library(ggiraph)
 
 ## Scraping 
 
-Unfortunately, the twitter API (rtweet is based on) doesn't allow to scrape all sub tweets. 
-For small amounts of replies/quotes/likes this often results in no subtweets at all.
-On the other hand, for large amounts it can take a long time due to rate limits (please refer to [the twitter developer website on rate limits](https://developer.twitter.com/en/docs/basics/rate-limiting), or the [documentation of the rtweet functions](https://docs.ropensci.org/rtweet/reference/index.html)).
+**rtweettree** tries to scrape as much as information as possible that might be
+related to the tweet at the root of the tree. Please beware that the twitter API
+doesn't allow to scrape all sub tweets. And that for large amounts of
+interactions to a tweet it can take a long time due to rate limits (please refer
+to [the twitter developer website on rate
+limits](https://developer.twitter.com/en/docs/basics/rate-limiting), or the
+[documentation of the rtweet
+functions](https://docs.ropensci.org/rtweet/reference/index.html)).
 
 ### Scrape tweets
 
@@ -50,6 +58,8 @@ Tweets on twitter are uniquely classified via the status id:
 # Replace this number by any status_id (the last number in the twitter.com url of a tweet):
 main_status_id <- "1438481824922181635"
 ```
+
+Now let's scrape:
 
 ```{r scrape}
 rtweettree_data_scraped <- rtweettree_data(main_status_id)
@@ -82,31 +92,29 @@ g <- rtweettree_tbl_graph(rtweettree_data_scraped)
 g
 ```
 
-Now we can make use of the full power of tidygraph, e.g.,  add a column to the nodes tibble, showing how far the respective node is from the main tweet in the graph:
+Now we can make use of the full power of tidygraph, e.g.,  add a column to the
+nodes tibble, showing how far the respective node is from the main tweet in the
+graph:
 
 ```{r data_manip, eval=TRUE}
 g <- g %>%     
   # calculate the distance to the tree root with tidygraph:
   mutate(dist_to_root = node_distance_from(node_is_source()))
-g
+g %>% as_tibble()
 ```
-
-
-
-
-
 
 
 ## Visualize graphs
 
-Please make sure not to publish information from Twitter you are not allowed to and to comply in strict accordance with the [twitter developer terms](https://developer.twitter.com/en/developer-terms/more-on-restricted-use-cases)! The example rtweet data in this article only contains the tweets of three dummy accounts I created. But probably you're not allowed to publish all this information for the `main_status_id` of any other tweet.
+Please make sure not to publish information from Twitter you are not allowed to
+and to comply in strict accordance with the [twitter developer
+terms](https://developer.twitter.com/en/developer-terms/more-on-restricted-use-cases)!
+The example rtweet data in this article only contains the tweets of three dummy
+accounts I created. But probably you're not allowed to publish all this
+information for the `main_status_id` of any other tweet.
 
-```{r load_g, eval=TRUE, include=FALSE}
-# load g from internal dataset
-# g <- rtweettree:::g
-```
-
-The generated graph object consists of nodes representing tweets and users. These are connected by edges that can be 
+The generated graph object consists of nodes representing tweets and users.
+These are connected by edges that can be
 
 * replies & quotes (connecting tweets),
 * "by" connecting the author to his respective tweet, and 
@@ -116,27 +124,20 @@ The generated graph object consists of nodes representing tweets and users. Thes
 
 We can generate a simple tree graph of the various tweets and users with:
 
-```{r simpleplot}
+```{r simpleplot, eval=TRUE}
 g %>% 
   ggraph() + 
-  geom_node_label(aes(label = label, color = type), repel = TRUE) + 
-  geom_edge_link()
+  geom_node_point(aes(color = dist_to_root), size = 3) + 
+  geom_edge_diagonal(aes(color = type))
 ```
 
+This yields something similar to the autoplot() method of the package:
+
 ```{r ggraph2, eval=TRUE, fig.width=8, fig.height=6}
-
-g1 <- ggraph(g)
-
-g1 +
-  geom_edge_diagonal(aes(color= type)) +
-  scale_edge_colour_hue(name = "action") +
-  geom_node_point(aes(
-    # we color the nodes by dist_to_root that we calculated above for the tbl_graph object:
-    color = dist_to_root,
-    shape = type
-  )) + 
-  scale_color_viridis_c(direction = -1) + 
-  theme(legend.position = "bottom")
+# (In order to include the profile pictures in the graph you need an internet
+# connection)
+g1 <- autoplot(g, add_profile_pics = TRUE)
+g1
 ```
 
 
@@ -146,31 +147,34 @@ With ggiraph we can generate an interactive tree graph:
 
 
 ```{r ggiraph, eval=TRUE, results='asis'}
-# Hack to put all user nodes on the bottom line of the graph:
-g1$data$y[g1$data$type == "user"] <- min(g1$data$y)
-
-
 # Add on click information to the graph nodes:
 g1$data$onclick  <- glue::glue('window.open("{g1$data$url}")')
 
 # Reproduce the above ggraph using the according ggiraph components:
 g2 <- g1 +
   geom_edge_diagonal(aes(color= type)) +
-  ggforce::geom_mark_rect(aes(x = g1$data$x,
-                              y = g1$data$y,
-                              # filter = type == 'user',
-                              color = g1$data$type)
+  # This adds rectangles around users and tweets:
+  ggforce::geom_mark_rect(aes(
+    x = g1$data$x,
+    y = g1$data$y,
+    color = g1$data$type)
   ) +
+  # We have to replace the color scale, because this time it's discrete and not
+  # continuous:
   scale_color_discrete(name = "type") +
-  geom_point_interactive(aes(x=g1$data$x,
-                                      y = g1$data$y,
-                                      color = type,
-                                      data_id = g1$data$screen_name,
-                                      tooltip = g1$data$label,
-                                      onclick = g1$data$onclick),
-                                  size = 3) +
-  ggtitle("Hover over the nodes to see the tweets/user names.", 
-          subtitle = "Click on the nodes to open the tweets/users on twitter.com")
+  geom_point_interactive(aes(
+    x=g1$data$x,
+    y = g1$data$y,
+    color = type,
+    data_id = g1$data$screen_name,
+    tooltip = g1$data$label,
+    onclick = g1$data$onclick),
+    size = 3
+  ) +
+  ggtitle(
+    "Hover over the nodes to see the tweets/user names.", 
+    subtitle = "Click on the nodes to open the tweets/users on twitter.com"
+  )
 p <- girafe(code = print(g2), width_svg = 6, height_svg = 5)
 
 p <- girafe_options(x = p,
