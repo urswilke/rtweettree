@@ -47,8 +47,6 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, add_profile_pics = TRUE, ...
   suppressMessages(df <- x %>% purrr::reduce(dplyr::full_join) %>% dplyr::distinct(.data$status_id, .keep_all = TRUE))
   df_root <-
     x$df_main_status %>%
-    # df_tree %>%
-    # filter(status_id == main_status_id) %>%
     dplyr::select(to = .data$status_id, .data$user_id, .data$screen_name)
   tweet_edges <-
     find_connections_rec(dplyr::bind_rows(x$df_tree, x$df_tls, x$df_favs), df_root)
@@ -119,19 +117,6 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, add_profile_pics = TRUE, ...
                      tweet_nodes) %>%
     dplyr::mutate(label = dplyr::coalesce(.data$text, .data$screen_name)) %>%
     dplyr::relocate(.data$name)
-
-  # # TODO: check why this is needed
-  # # dirty hack to prevent error:
-  # #"
-  # # Error in (function (edges, n = max(edges), directed = TRUE)  :
-  # #             At type_indexededgelist.c:116 : cannot create empty graph with negative number of vertices, Invalid value
-  # #"
-  # xxx <- unique(nodes$name)
-  # yyy <- unique(c(edges$from, edges$to))
-  # ww <- dplyr::setdiff(yyy, xxx)
-  # oo <- edges %>% dplyr::filter(.data$from %in% ww | .data$to %in% ww)
-  # edges <- edges %>%
-  #   dplyr::anti_join(oo)
 
   if (add_profile_pics) {
     df_profile_pics <- scrape_profile_pics(nodes)

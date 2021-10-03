@@ -18,13 +18,11 @@ search_tree <- function(main_status_id,
                           df_main_status = rtweet::lookup_statuses(main_status_id),
                           n = 1e6) {
 
-  # tweet_text <- paste0("\"", df_main_status$text, "\"")
   df_search_tweet <-
     rtweet::search_tweets2(q = main_status_id,
                            n = n,
                            retryonratelimit = TRUE)
-  # %>%
-  #   dplyr::distinct(.data$status_id, .keep_all = TRUE)
+
   new_ids <-
     setdiff(df_search_tweet$status_id, df_main_status$status_id)
   df_replies <- rtweet::search_tweets2(new_ids,
@@ -54,7 +52,7 @@ add_tree_level <- function(df0, df1, n) {
   df1 <- rtweet::search_tweets2(new_ids,
                                 n = n,
                                 retryonratelimit = T)
-  # print(df1)
+
   if (nrow(df1) == 0) {
     df1 <- create_empty_rtweet_tbl()
   }
@@ -98,27 +96,7 @@ scrape_timelines <- function(tree_ids, main_status_id) {
   }
 
   safe_tl <- purrr::possibly(rtweet::get_timelines, otherwise = create_empty_rtweet_tbl())
-  # l <- vector("list", length(tree_ids))
-  # for (i in 1:length(l)) {
-  #   rl <- rtweet::rate_limit("get_timeline")
-  #   if (rl[["remaining"]] <= 2) {
-  #     print(paste0("Rate limit reached. Resuming at ", rl[["reset_at"]]))
-  #     Sys.sleep(as.numeric(rl[["reset"]], "secs") + 1)
-  #   }
-  #   l[[i]] <- safe_tl(tree_ids[[i]], n = 3200, since_id = main_status_id)
-  #   print(paste0("Index: ", i,
-  #                "; Scraped ", nrow(l[[i]]),
-  #                " tweets. Remaining: ", rl[["remaining"]]))
-  # }
-  # df_favs <- l %>% dplyr::bind_rows()
-  # # if (save_res == TRUE) {
-  # #   save_name <- paste0(df_main_status$screen_name,
-  # #                       "_",
-  # #                       str_sub(df_main_status$text, end = 15),
-  # #                       "_favs.rds")
-  # #   saveRDS(df_favs, save_name)
-  # # }
-  # df_favs
+
   rl <- rtweet::rate_limit()
   if (rl[rl$query == "statuses/user_timeline",][["remaining"]] != 900 |
       rl[rl$query == "favorites/list",][["remaining"]] != 75) {
@@ -130,10 +108,6 @@ scrape_timelines <- function(tree_ids, main_status_id) {
     purrr::map(~tree_ids[.x] %>%
           na.omit() %>%
           as.character())
-  # if (rl[["remaining"]] <= 2) {
-  #   print(paste0("Rate limit reached. Resuming at ", rl[["reset_at"]]))
-  #   Sys.sleep(as.numeric(rl[["reset"]], "secs") + 1)
-  # }
 
   load_slowly <- function(tree_ids, index) {
 
@@ -149,8 +123,6 @@ scrape_timelines <- function(tree_ids, main_status_id) {
       Sys.sleep(as.numeric(rl[["reset"]], "secs") + 1)
     }
 
-
-    # print(df)
     df
   }
 

@@ -34,9 +34,7 @@ find_connections_rec <- function(df_tree, df0) {
     purrr::reduce(dplyr::full_join) %>%
     dplyr::distinct()
   if (nrow(res) == nrow(df0)) {
-    return(res# %>%
-           # dplyr::filter(.data$from != "root")
-           )
+    return(res)
   } else {
     find_connections_rec(df_tree, res)
   }
@@ -71,7 +69,7 @@ add_profile_pics_to_tree_ggraph <- function(g1, df_profile_pic) {
   df_profile_pic <- df_profile_pic %>% dplyr::inner_join(user_coords, by = "screen_name")
   user_coords <- df_profile_pic %>% dplyr::select(.data$screen_name, .data$x, .data$y)
   add_img <- function(g1, user_images, user_coords) {
-    # TODO: allow to choose the width & height parameters from function:
+    # TODO: allow to choose the width & height parameters from the calling function:
     g1  + ggplot2::annotation_raster(user_images, xmin = user_coords$x[1] - 0.4, ymin = user_coords$y[1] + 0.2, xmax = user_coords$x[1] + 0.4, ymax = user_coords$y[1] + 0.6)
   }
   purrr::reduce2(
