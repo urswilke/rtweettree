@@ -2,10 +2,8 @@ suppressMessages(library(tidygraph))
 suppressMessages(library(ggraph))
 suppressMessages(library(dplyr))
 suppressMessages(library(purrr))
-suppressMessages(l <- list(df_main_status, df_tree, df_tls, df_favs, df_retweets) %>% set_names(c("main_status", "tree", "tls", "like", "retweet")) %>% bind_rows(.id = "type"))
-class(l) <- c("rtweettree_data", class(l))
 
-suppressMessages(g <- rtweettree_tbl_graph(l))
+suppressMessages(g <- rtweettree_tbl_graph(rtweettree_data_example))
 
 
 test_that("generated tbl graph object still the same", {
@@ -15,7 +13,7 @@ test_that("generated tbl graph object still the same", {
 
 test_that("generated ggraph graph object still the same", {
   skip_on_os(os = c("windows", "mac"))
-  suppressMessages(ggraph_fun <- autoplot(l))
+  suppressMessages(ggraph_fun <- autoplot(rtweettree_data_example))
   vdiffr::expect_doppelganger(
     "tweet ggraph",
     ggraph_fun
