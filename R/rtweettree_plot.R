@@ -10,12 +10,14 @@
 #'
 #' rtweettree exported operators and S3 methods
 #'
-#' @param x rtweet status_id (character string), rtweettree_data or rtweettree_tbl_graph object
+#' @param x rtweet status_id (character string), rtweettree_data or
+#'   rtweettree_tbl_graph object. The object is first transformed to a
+#'   rtweettree_tbl_graph which is then plotted with ggraph.
 #' @param add_profile_pics logical whether to add the profile pictures of the
 #' users to the graph; defaults to TRUE; (should be set to FALSE for large graphs)
 #' @param ... arguments passed to methods
 #'
-#' @return rtweettree graph
+#' @return An rtweettree ggraph plot.
 #' @export
 #'
 #' @examples
