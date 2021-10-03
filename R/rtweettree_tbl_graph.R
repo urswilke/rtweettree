@@ -174,10 +174,6 @@ rtweettree_tbl_graph.character <- function(x, add_profile_pics = TRUE, ...) {
 }
 
 #' @export
-#' @describeIn rtweettree_tbl_graph First run rtweettree_data on the named list `x` and then transform to rtweettree tbl_graph.
-rtweettree_tbl_graph.list <- rtweettree_tbl_graph.character
-
-#' @export
 rtweettree_tbl_graph.default <- function(x, add_profile_pics = TRUE, ...) {
   stop("rtweettree_tbl_graph() not defined for object of class ", class(x))
 }

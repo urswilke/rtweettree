@@ -57,14 +57,7 @@ rtweettree_data.character <- function(x, new_tls = TRUE, ...) {
   class(l) <- c("rtweettree_data", class(l))
   l
 }
-#' @export
-#' @describeIn rtweettree_data Add rtweettree_data class to list.
-rtweettree_data.list <- function(x, ...) {
-  structure(
-    x,
-    class = c("rtweettree_data", "list")
-  )
-}
+
 #' @export
 #' @describeIn rtweettree_data Return rtweettree_data object as is.
 rtweettree_data.rtweettree_data <- function(x, ...) {

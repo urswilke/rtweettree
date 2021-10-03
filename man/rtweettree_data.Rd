@@ -3,15 +3,12 @@
 \name{rtweettree_data}
 \alias{rtweettree_data}
 \alias{rtweettree_data.character}
-\alias{rtweettree_data.list}
 \alias{rtweettree_data.rtweettree_data}
 \title{Scrape rtweettree dataframes from rtweet status_id}
 \usage{
 rtweettree_data(x, ...)
 
 \method{rtweettree_data}{character}(x, new_tls = TRUE, ...)
-
-\method{rtweettree_data}{list}(x, ...)
 
 \method{rtweettree_data}{rtweettree_data}(x, ...)
 }
@@ -32,8 +29,6 @@ Scrape rtweettree dataframes from rtweet status_id
 \section{Methods (by class)}{
 \itemize{
 \item \code{character}: Scrape the rtweettree data from a Twitter status id.
-
-\item \code{list}: Add rtweettree_data class to list.
 
 \item \code{rtweettree_data}: Return rtweettree_data object as is.
 }}

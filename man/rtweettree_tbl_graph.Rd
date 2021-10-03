@@ -5,7 +5,6 @@
 \alias{rtweettree_tbl_graph.rtweettree_data}
 \alias{rtweettree_tbl_graph.rtweettree_tbl_graph}
 \alias{rtweettree_tbl_graph.character}
-\alias{rtweettree_tbl_graph.list}
 \title{Create a tidygraph tbl_graph object}
 \usage{
 rtweettree_tbl_graph(x, add_profile_pics = TRUE, ...)
@@ -15,8 +14,6 @@ rtweettree_tbl_graph(x, add_profile_pics = TRUE, ...)
 \method{rtweettree_tbl_graph}{rtweettree_tbl_graph}(x, add_profile_pics = TRUE, ...)
 
 \method{rtweettree_tbl_graph}{character}(x, add_profile_pics = TRUE, ...)
-
-\method{rtweettree_tbl_graph}{list}(x, add_profile_pics = TRUE, ...)
 }
 \arguments{
 \item{x}{rtweet status_id or rtweettree_data object}
@@ -41,8 +38,6 @@ tweet and all replies, quotes and likes that could be scraped using rtweet.
 \item \code{rtweettree_tbl_graph}: return rtweettree_tbl_graph object as is.
 
 \item \code{character}: First run rtweettree_data on the status id `x` and then transform to rtweettree tbl_graph.
-
-\item \code{list}: First run rtweettree_data on the named list `x` and then transform to rtweettree tbl_graph.
 }}
 
 \examples{
