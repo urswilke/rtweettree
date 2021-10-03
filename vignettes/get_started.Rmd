@@ -3,7 +3,7 @@ title: "Getting started"
 output: 
   rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Visualize tweet tree}
+  %\VignetteIndexEntry{Getting started}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -17,8 +17,6 @@ knitr::opts_chunk$set(
   # cache = TRUE,
   comment = "#>"
 )
-
-pic_path <- "visualize_tree_files"
 ```
 
 This vignette shows how {rtweettree} can be used to generate network graphs

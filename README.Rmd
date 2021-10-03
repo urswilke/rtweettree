@@ -100,7 +100,7 @@ which is then visualized with ggraph.
 
 
 A more in-depth example how to create the subtweet network graph from a tweet
-`status_id` is shown in the `vignette("visualize_tree")`.
+`status_id` is shown in the `vignette("get_started")`.
 
 ## TODOs:
 
