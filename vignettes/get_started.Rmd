@@ -173,7 +173,7 @@ g2 <- g1 +
     "Hover over the nodes to see the tweets/user names.", 
     subtitle = "Click on the nodes to open the tweets/users on twitter.com"
   )
-p <- girafe(code = print(g2), width_svg = 6, height_svg = 5)
+p <- girafe(code = print(g2), width_svg = 4, height_svg = 3)
 
 p <- girafe_options(x = p,
                     opts_zoom(min = 0.3, max = 5),
