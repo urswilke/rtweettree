@@ -45,12 +45,17 @@ rtweettree_tbl_graph <- function(x, add_profile_pics = TRUE, ...) {
 #' @export
 #' @describeIn rtweettree_tbl_graph Construct rtweettree_tbl_graph object from rtweettree_data.
 rtweettree_tbl_graph.rtweettree_data <- function(x, add_profile_pics = TRUE, ...) {
-  suppressMessages(df <- x %>% purrr::reduce(dplyr::full_join) %>% dplyr::distinct(.data$status_id, .keep_all = TRUE))
+  # suppressMessages(df <- x %>% purrr::reduce(dplyr::full_join) %>% dplyr::distinct(.data$status_id, .keep_all = TRUE))
+  df <- x
+  types <- c("df_main_status", "df_tree", "df_tls", "df_favs", "df_retweets") %>% purrr::set_names()
+  l <- types %>%
+    purrr::imap(~ x %>% dplyr::filter(type == .x))
+
   df_root <-
-    x$df_main_status %>%
+    l$df_main_status %>%
     dplyr::select(to = .data$status_id, .data$user_id, .data$screen_name)
   tweet_edges <-
-    find_connections_rec(dplyr::bind_rows(x$df_tree, x$df_tls, x$df_favs), df_root)
+    find_connections_rec(dplyr::bind_rows(l$df_tree, l$df_tls, l$df_favs), df_root)
   user_tweet_edges <-
     tweet_edges %>%
     dplyr::transmute(.data$user_id,
@@ -61,14 +66,19 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, add_profile_pics = TRUE, ...
 
 
   fav_edges <-
-    x$df_favs %>%
+    l$df_favs %>%
     dplyr::filter(.data$status_id %in% tweet_edges$to) %>%
     dplyr::transmute(from = .data$status_id, to = .data$favorited_by, user_id = .data$favorited_by, .data$screen_name) %>%
     dplyr::mutate(type = "like")
 
 
-  retweet_edges <- x$df_retweets %>%
-    dplyr::filter(.data$is_retweet) %>%
+  retweet_edges <-
+    df %>%
+    dplyr::filter(.data$is_retweet & .data$retweet_status_id %in% tweet_edges$from) %>%
+    dplyr::select(-.data$type, -.data$query) %>%
+    dplyr::distinct() %>%
+    # l$df_retweets %>%
+    # dplyr::filter(.data$is_retweet) %>%
     dplyr::transmute(from = .data$retweet_status_id, to = .data$user_id, .data$user_id, .data$screen_name) %>%
     dplyr::mutate(type = "retweet")
 
@@ -85,7 +95,7 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, add_profile_pics = TRUE, ...
 
 
   user_nodes <- tibble::tibble(
-      user_id = c(df_root$user_id, user_tweet_edges$user_id) %>% unique(),
+      user_id = c(df_root$user_id, user_tweet_edges$user_id, retweet_edges$user_id) %>% unique(),
       type = "user"
     ) %>%
     dplyr::left_join(df %>% dplyr::distinct(.data$user_id, .keep_all = TRUE) %>% rtweet::users_data()) %>%
@@ -123,7 +133,18 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, add_profile_pics = TRUE, ...
     df_profile_pics <- scrape_profile_pics(nodes)
     nodes <- nodes %>% dplyr::left_join(df_profile_pics)
   }
-
+  # # # TODO: check why this is needed
+  # # # dirty hack to prevent error:
+  # # #"
+  # # # Error in (function (edges, n = max(edges), directed = TRUE)  :
+  # # #             At type_indexededgelist.c:116 : cannot create empty graph with negative number of vertices, Invalid value
+  # # #"
+  # xxx <- unique(nodes$name)
+  # yyy <- unique(c(edges$from, edges$to))
+  # ww <- dplyr::setdiff(yyy, xxx)
+  # oo <- edges %>% dplyr::filter(.data$from %in% ww | .data$to %in% ww)
+  # edges <- edges %>%
+  #   dplyr::anti_join(oo)
   g <- tidygraph::tbl_graph(nodes, edges)
   class(g) <- c("rtweettree_tbl_graph", "tbl_graph", "igraph")
   g
