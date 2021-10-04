@@ -38,7 +38,7 @@
 autoplot.character <- function(x, add_profile_pics = TRUE, ...) {
   g <- rtweettree_tbl_graph(x, add_profile_pics, ...)
 
-  g1 <- g %>% ggraph::ggraph(layout = "tree", ...)
+  g1 <- g %>% ggraph::ggraph(...)
   # Hack to put all user nodes on the bottom line of the graph:
   g1$data$y[g1$data$type == "user"] <- min(g1$data$y[g1$data$type == "tweet"]) - 1
 
