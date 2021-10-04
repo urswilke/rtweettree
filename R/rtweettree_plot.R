@@ -38,7 +38,20 @@
 autoplot.character <- function(x, add_profile_pics = TRUE, ...) {
   g <- rtweettree_tbl_graph(x, add_profile_pics, ...)
 
-  g1 <- g %>% ggraph::ggraph(...)
+  g1 <- g %>% ggraph::ggraph(layout = "tree", ...)
+  # Hack to put all user nodes on the bottom line of the graph:
+  g1$data$y[g1$data$type == "user"] <- min(g1$data$y[g1$data$type == "tweet"]) - 1
+
+  user_x <- g1$data$x[g1$data$type == "user"]
+  tweets_xrange <- range(g1$data$x[g1$data$type == "tweet"])
+  user_x_eq <- seq(tweets_xrange[1], tweets_xrange[2], length.out = length(user_x))
+  df_user_eq <- tibble::tibble(user_x) %>%
+    dplyr::mutate(i = dplyr::row_number()) %>%
+    dplyr::arrange(user_x) %>%
+    dplyr::mutate(user_x_eq) %>%
+    dplyr::arrange(i)
+  g1$data$x[g1$data$type == "user"] <- df_user_eq$user_x_eq
+
 
   if (add_profile_pics) {
     df_profile_pic <- g %>%
@@ -83,10 +96,6 @@ autoplot.rtweettree_tbl_graph <- autoplot.character
 #' g1 + ggraph::geom_edge_diagonal(aes(color = type)) + ggraph::geom_node_point(aes(shape = type))
 #' }
 add_profile_pics_to_tree_ggraph <- function(g1, df_profile_pic) {
-
-  # Hack to put all user nodes on the bottom line of the graph:
-  g1$data$y[g1$data$type == "user"] <- min(g1$data$y)
-
   user_coords <- g1$data %>%
     dplyr::filter(.data$type == "user") %>%
     dplyr::select(.data$screen_name, .data$x, .data$y)
