@@ -203,19 +203,19 @@ TRUE.</p></td>
 <span class='op'>}</span>
 <span class='co'># With package example dataset included:</span>
 <span class='fu'>rtweettree_tbl_graph</span><span class='op'>(</span><span class='va'>rtweettree_data_example</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("to", "user_id", "screen_name")</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = c("to", "user_id", "screen_name", "from", "type")</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = c("to", "user_id", "screen_name", "from", "type")</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = c("to", "user_id", "screen_name", "from", "type")</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = c("to", "user_id", "screen_name", "from", "type")</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = c("to", "user_id", "screen_name", "from", "type")</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = "user_id"</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = "name"</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = c("type", "screen_name", "name", "url", "data")</span></div><div class='output co'>#&gt; <span class='message'>Joining, by = "screen_name"</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tbl_graph: 9 nodes and 18 edges
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tbl_graph: 9 nodes and 18 edges
 #&gt; #
 #&gt; # A directed acyclic simple graph with 1 component
 #&gt; #
-#&gt; # Node Data: 9 × 8 (active)</span>
-#&gt;   name                type  screen_name url     data   text   label  profile_pic
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>               <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;glue&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>     
-#&gt; <span style='color: #BCBCBC;'>1</span> 1438476950746636291 user  rtweetbird1 https:… <span style='color: #949494;'>&lt;tibb</span>… <span style='color: #BB0000;'>NA</span>     rtwee… <span style='color: #949494;'>&lt;magck-mg&gt;</span> 
-#&gt; <span style='color: #BCBCBC;'>2</span> 1438480252003569671 user  rtweetbird3 https:… <span style='color: #949494;'>&lt;tibb</span>… <span style='color: #BB0000;'>NA</span>     rtwee… <span style='color: #949494;'>&lt;magck-mg&gt;</span> 
-#&gt; <span style='color: #BCBCBC;'>3</span> 1438479415550390275 user  rtweetbird2 https:… <span style='color: #949494;'>&lt;tibb</span>… <span style='color: #BB0000;'>NA</span>     rtwee… <span style='color: #949494;'>&lt;magck-mg&gt;</span> 
-#&gt; <span style='color: #BCBCBC;'>4</span> 1438481824922181635 tweet rtweetbird1 https:… <span style='color: #949494;'>&lt;tibb</span>… this … this … <span style='color: #949494;'>&lt;magck-mg&gt;</span> 
-#&gt; <span style='color: #BCBCBC;'>5</span> 1438483457697591297 tweet rtweetbird3 https:… <span style='color: #949494;'>&lt;tibb</span>… @rtwe… @rtwe… <span style='color: #949494;'>&lt;magck-mg&gt;</span> 
-#&gt; <span style='color: #BCBCBC;'>6</span> 1438482432030818307 tweet rtweetbird2 https:… <span style='color: #949494;'>&lt;tibb</span>… @rtwe… @rtwe… <span style='color: #949494;'>&lt;magck-mg&gt;</span> 
+#&gt; # Node Data: 9 × 6 (active)</span>
+#&gt;   name                type  screen_name data              text       profile_pic
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>               <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>       <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>            <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>      <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>     
+#&gt; <span style='color: #BCBCBC;'>1</span> 1438476950746636291 user  rtweetbird1 <span style='color: #949494;'>&lt;tibble [1 × 18]&gt;</span> <span style='color: #BB0000;'>NA</span>         <span style='color: #949494;'>&lt;magck-mg&gt;</span> 
+#&gt; <span style='color: #BCBCBC;'>2</span> 1438480252003569671 user  rtweetbird3 <span style='color: #949494;'>&lt;tibble [1 × 18]&gt;</span> <span style='color: #BB0000;'>NA</span>         <span style='color: #949494;'>&lt;magck-mg&gt;</span> 
+#&gt; <span style='color: #BCBCBC;'>3</span> 1438479415550390275 user  rtweetbird2 <span style='color: #949494;'>&lt;tibble [1 × 18]&gt;</span> <span style='color: #BB0000;'>NA</span>         <span style='color: #949494;'>&lt;magck-mg&gt;</span> 
+#&gt; <span style='color: #BCBCBC;'>4</span> 1438481824922181635 tweet rtweetbird1 <span style='color: #949494;'>&lt;tibble [1 × 90]&gt;</span> this is a… <span style='color: #949494;'>&lt;magck-mg&gt;</span> 
+#&gt; <span style='color: #BCBCBC;'>5</span> 1438483457697591297 tweet rtweetbird3 <span style='color: #949494;'>&lt;tibble [1 × 90]&gt;</span> @rtweetbi… <span style='color: #949494;'>&lt;magck-mg&gt;</span> 
+#&gt; <span style='color: #BCBCBC;'>6</span> 1438482432030818307 tweet rtweetbird2 <span style='color: #949494;'>&lt;tibble [1 × 90]&gt;</span> @rtweetbi… <span style='color: #949494;'>&lt;magck-mg&gt;</span> 
 #&gt; <span style='color: #949494;'># … with 3 more rows</span>
 #&gt; <span style='color: #949494;'>#
 #&gt; # Edge Data: 18 × 5</span>
