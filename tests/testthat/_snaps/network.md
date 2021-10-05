@@ -3,18 +3,18 @@
     Code
       g %>% as_tibble()
     Output
-      # A tibble: 9 x 8
-        name                type  screen_name url     data   text   label  profile_pic
-        <chr>               <chr> <chr>       <glue>  <list> <chr>  <chr>  <list>     
-      1 1438476950746636291 user  rtweetbird1 https:~ <tibb~ <NA>   rtwee~ <magck-mg> 
-      2 1438480252003569671 user  rtweetbird3 https:~ <tibb~ <NA>   rtwee~ <magck-mg> 
-      3 1438479415550390275 user  rtweetbird2 https:~ <tibb~ <NA>   rtwee~ <magck-mg> 
-      4 1438481824922181635 tweet rtweetbird1 https:~ <tibb~ this ~ this ~ <magck-mg> 
-      5 1438483457697591297 tweet rtweetbird3 https:~ <tibb~ @rtwe~ @rtwe~ <magck-mg> 
-      6 1438482432030818307 tweet rtweetbird2 https:~ <tibb~ @rtwe~ @rtwe~ <magck-mg> 
-      7 1438482309490040835 tweet rtweetbird2 https:~ <tibb~ @rtwe~ @rtwe~ <magck-mg> 
-      8 1438484289616859145 tweet rtweetbird3 https:~ <tibb~ this ~ this ~ <magck-mg> 
-      9 1438483563314360322 tweet rtweetbird3 https:~ <tibb~ @rtwe~ @rtwe~ <magck-mg> 
+      # A tibble: 9 x 6
+        name                type  screen_name data              text       profile_pic
+        <chr>               <chr> <chr>       <list>            <chr>      <list>     
+      1 1438476950746636291 user  rtweetbird1 <tibble [1 x 18]> <NA>       <magck-mg> 
+      2 1438480252003569671 user  rtweetbird3 <tibble [1 x 18]> <NA>       <magck-mg> 
+      3 1438479415550390275 user  rtweetbird2 <tibble [1 x 18]> <NA>       <magck-mg> 
+      4 1438481824922181635 tweet rtweetbird1 <tibble [1 x 90]> this is a~ <magck-mg> 
+      5 1438483457697591297 tweet rtweetbird3 <tibble [1 x 90]> @rtweetbi~ <magck-mg> 
+      6 1438482432030818307 tweet rtweetbird2 <tibble [1 x 90]> @rtweetbi~ <magck-mg> 
+      7 1438482309490040835 tweet rtweetbird2 <tibble [1 x 90]> @rtweetbi~ <magck-mg> 
+      8 1438484289616859145 tweet rtweetbird3 <tibble [1 x 90]> this is m~ <magck-mg> 
+      9 1438483563314360322 tweet rtweetbird3 <tibble [1 x 90]> @rtweetbi~ <magck-mg> 
 
 ---
 

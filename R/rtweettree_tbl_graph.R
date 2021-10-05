@@ -102,8 +102,7 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, add_profile_pics = TRUE, ...
     ) %>%
     dplyr::left_join(df %>% dplyr::distinct(.data$user_id, .keep_all = TRUE) %>% rtweet::users_data()) %>%
     dplyr::mutate(name = .data$user_id) %>%
-    dplyr::mutate(url = glue::glue("https://twitter.com/{screen_name}/"))  %>%
-    dplyr::group_by(.data$name, .data$type, .data$screen_name, .data$url) %>%
+    dplyr::group_by(.data$name, .data$type, .data$screen_name) %>%
     tidyr::nest() %>%
     dplyr::ungroup()
 
@@ -122,16 +121,9 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, add_profile_pics = TRUE, ...
         dplyr::ungroup()
 
     ) %>%
-    dplyr::mutate(url = glue::glue("https://twitter.com/fake_screen_name/status/{name}")) %>%
     dplyr::filter(.data$name != "root")
-  # the correct url would be:
-  # dplyr::mutate(url = glue::glue("https://twitter.com/{screen_name}/status/{name}"))
-  # however, this probably wouldn't be completely inline with the twitter terms of use...
-  # (twitter will correct for the correct screen_name if the tweet is still available)
   nodes <-
-    dplyr::full_join(user_nodes,
-                     tweet_nodes) %>%
-    dplyr::mutate(label = dplyr::coalesce(.data$text, .data$screen_name)) %>%
+    dplyr::full_join(user_nodes, tweet_nodes) %>%
     dplyr::relocate(.data$name)
 
   if (add_profile_pics) {
