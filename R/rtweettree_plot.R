@@ -49,7 +49,7 @@ autoplot.character <- function(x, add_profile_pics = TRUE, ...) {
     dplyr::mutate(i = dplyr::row_number()) %>%
     dplyr::arrange(user_x) %>%
     dplyr::mutate(user_x_eq) %>%
-    dplyr::arrange(i)
+    dplyr::arrange(.data$i)
   g1$data$x[g1$data$type == "user"] <- df_user_eq$user_x_eq
 
 
