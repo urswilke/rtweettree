@@ -134,52 +134,64 @@ This yields something similar to the autoplot() method of the package:
 ```{r ggraph2, eval=TRUE, fig.width=6, fig.height=5}
 # (In order to include the profile pictures in the graph you need an internet
 # connection)
-g1 <- ggplot2::autoplot(g, add_profile_pics = TRUE)
-g1
+ggplot2::autoplot(g, add_profile_pics = TRUE)
 ```
 
 
 ### Using ggiraph
 
-With ggiraph we can generate an interactive tree graph:
+With ggiraph we can generate an interactive tree graph. Let's first add
+information to the nodes dataframe:
 
 
-```{r ggiraph, eval=TRUE, results='asis'}
-# Add on click information to the graph nodes:
-g1$data$onclick  <- glue::glue('window.open("{g1$data$url}")')
+```{r ggiraph_prep, eval=TRUE, results='asis'}
+g <- g %>% 
+  # Add on click information to the graph nodes:
+  # (twitter will correct the "fake_screen_name" if the tweet is still online):
+  mutate(url = case_when(
+      type == "user" ~ glue::glue("https://twitter.com/{screen_name}/"),
+      type == "tweet" ~ glue::glue("https://twitter.com/fake_screen_name/status/{text}")
+  )) %>%
+  mutate(onclick = glue::glue('window.open("{url}")')) %>% 
+  # add tooltip information to the nodes:
+  mutate(tooltip = case_when(
+      type == "user" ~ screen_name,
+      type == "tweet" ~ paste0(screen_name, ":\n", stringr::str_wrap(text, 30))
+  ))
+```
 
-# Reproduce the above ggraph using the according ggiraph components:
-g2 <- g1 +
+Now we can use this information with `geom_point_interactive()`:
+
+```{r ggiraph_plot, eval=TRUE, results='asis'}
+g2 <- ggraph(g) +
   geom_edge_diagonal(aes(color= type)) +
-  # This adds rectangles around users and tweets:
-  ggforce::geom_mark_rect(aes(
-    x = g1$data$x,
-    y = g1$data$y,
-    color = g1$data$type)
-  ) +
-  # We have to replace the color scale, because this time it's discrete and not
-  # continuous:
-  scale_color_discrete(name = "type") +
-  geom_point_interactive(aes(
-    x=g1$data$x,
-    y = g1$data$y,
-    color = type,
-    data_id = g1$data$screen_name,
-    tooltip = g1$data$label,
-    onclick = g1$data$onclick),
+  geom_point_interactive(
+    aes(
+      x = x,
+      y = y,
+      color = type,
+      data_id = screen_name, # this highlights all tweets of one user
+      tooltip = tooltip,     # add the tooltip
+      onclick = onclick      # opens the url created above when clicking on the nodes
+    ),
     size = 3
   ) +
   ggtitle(
-    "Hover over the nodes to see the tweets/user names.", 
-    subtitle = "Click on the nodes to open the tweets/users on twitter.com"
+    "Hover over the nodes to see\nthe tweets/user names.", 
+    subtitle = "Click on the nodes to open\nthe tweets/users on twitter.com"
   )
-p <- girafe(code = print(g2), width_svg = 5.8, height_svg = 4.8)
+p <- girafe(code = print(g2), width_svg = 4, height_svg = 4)
 
-p <- girafe_options(x = p,
-                    opts_zoom(min = 0.3, max = 5),
-                    opts_hover(girafe_css(css = "stroke:yellow;",
-                                          point = "stroke-width:6px")))
-
+p <- girafe_options(
+  x = p,
+  opts_zoom(min = 0.3, max = 5),
+  opts_sizing(width = 0.7),
+  opts_hover(
+    girafe_css(
+      css = "stroke:yellow;",
+      point = "stroke-width:6px")
+    )
+  )
 p
 ```
 
