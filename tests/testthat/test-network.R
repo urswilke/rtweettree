@@ -3,7 +3,7 @@ suppressMessages(library(ggraph))
 suppressMessages(library(dplyr))
 suppressMessages(library(purrr))
 
-suppressMessages(g <- rtweettree_tbl_graph(rtweettree_data_example))
+g <- rtweettree_tbl_graph(rtweettree_data_example)
 
 
 test_that("generated tbl graph object still the same", {
@@ -13,7 +13,7 @@ test_that("generated tbl graph object still the same", {
 
 test_that("generated ggraph graph object still the same", {
   skip_on_os(os = c("windows", "mac"))
-  suppressMessages(ggraph_fun <- autoplot(rtweettree_data_example))
+  ggraph_fun <- autoplot(rtweettree_data_example, layout = "sugiyama")
   vdiffr::expect_doppelganger(
     "tweet ggraph",
     ggraph_fun

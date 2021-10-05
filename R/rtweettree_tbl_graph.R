@@ -100,7 +100,12 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, add_profile_pics = TRUE, ...
       user_id = c(df_root$user_id, user_tweet_edges$user_id, retweet_edges$user_id) %>% unique(),
       type = "user"
     ) %>%
-    dplyr::left_join(df %>% dplyr::distinct(.data$user_id, .keep_all = TRUE) %>% rtweet::users_data()) %>%
+    dplyr::left_join(
+      df %>%
+        dplyr::distinct(.data$user_id, .keep_all = TRUE) %>%
+        rtweet::users_data(),
+      by = "user_id"
+    ) %>%
     dplyr::mutate(name = .data$user_id) %>%
     dplyr::group_by(.data$name, .data$type, .data$screen_name) %>%
     tidyr::nest() %>%
@@ -118,17 +123,17 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, add_profile_pics = TRUE, ...
           screen_name = .data$screen_name,
           text = .data$text) %>%
         tidyr::nest() %>%
-        dplyr::ungroup()
-
+        dplyr::ungroup(),
+      by = "name"
     ) %>%
     dplyr::filter(.data$name != "root")
   nodes <-
-    dplyr::full_join(user_nodes, tweet_nodes) %>%
+    dplyr::bind_rows(user_nodes, tweet_nodes) %>%
     dplyr::relocate(.data$name)
 
   if (add_profile_pics) {
     df_profile_pics <- scrape_profile_pics(nodes)
-    nodes <- nodes %>% dplyr::left_join(df_profile_pics)
+    nodes <- nodes %>% dplyr::left_join(df_profile_pics, by = "screen_name")
   }
   # # # TODO: check why this is needed
   # # # dirty hack to prevent error:
@@ -219,7 +224,7 @@ find_connections_rec <- function(df_tree, df0) {
     dplyr::select(to = .data$status_id, from = .data$reply_to_status_id, .data$user_id, .data$screen_name) %>%
     dplyr::mutate(type = "reply")
   res <- list(df0, df_reply1, df_quote1) %>%
-    purrr::reduce(dplyr::full_join) %>%
+    dplyr::bind_rows() %>%
     dplyr::distinct()
   if (nrow(res) == nrow(df0)) {
     return(res)
