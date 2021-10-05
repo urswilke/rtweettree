@@ -39,9 +39,10 @@ autoplot.character <- function(x, add_profile_pics = TRUE, ...) {
   g <- rtweettree_tbl_graph(x, add_profile_pics, ...)
 
   g1 <- g %>% ggraph::ggraph(...)
-  # Hack to put all user nodes on the bottom line of the graph:
+  # Put all user nodes on the bottom line of the graph:
   g1$data$y[g1$data$type == "user"] <- min(g1$data$y[g1$data$type == "tweet"]) - 1
 
+  # distribute user nodes equidistantly on the x-axis along the x-range of the tweets:
   user_x <- g1$data$x[g1$data$type == "user"]
   tweets_xrange <- range(g1$data$x[g1$data$type == "tweet"])
   user_x_eq <- seq(tweets_xrange[1], tweets_xrange[2], length.out = length(user_x))
