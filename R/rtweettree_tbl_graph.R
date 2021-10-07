@@ -141,12 +141,12 @@ rtweettree_tbl_graph.rtweettree_data <- function(x, add_profile_pics = TRUE, ...
   # # # Error in (function (edges, n = max(edges), directed = TRUE)  :
   # # #             At type_indexededgelist.c:116 : cannot create empty graph with negative number of vertices, Invalid value
   # # #"
-  # xxx <- unique(nodes$name)
-  # yyy <- unique(c(edges$from, edges$to))
-  # ww <- dplyr::setdiff(yyy, xxx)
-  # oo <- edges %>% dplyr::filter(.data$from %in% ww | .data$to %in% ww)
-  # edges <- edges %>%
-  #   dplyr::anti_join(oo)
+  xxx <- unique(nodes$name)
+  yyy <- unique(c(edges$from, edges$to))
+  ww <- dplyr::setdiff(yyy, xxx)
+  oo <- edges %>% dplyr::filter(.data$from %in% ww | .data$to %in% ww)
+  edges <- edges %>%
+    dplyr::anti_join(oo)
   g <- tidygraph::tbl_graph(nodes, edges)
   class(g) <- c("rtweettree_tbl_graph", "tbl_graph", "igraph")
   g
